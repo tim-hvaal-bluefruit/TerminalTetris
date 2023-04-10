@@ -3,6 +3,5 @@
 
 void print(std::string input)
 {
-    (void)input;
-    std::cout << "hello, world" << std::endl;
+    std::cout << input << std::endl;
 }
