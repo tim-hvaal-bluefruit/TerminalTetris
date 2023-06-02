@@ -1,50 +1,41 @@
 #include <iostream>
-#include <string>
-#include "print.h"
+#include "screenBuffer.h"
+#include "console.h"
+
 
 int main()
 {
-    std::string str = "hello, world";
-    print(str);
-}
+    ScreenBuffer screenBuffer;
+    screenBuffer.fillBuffer(L'Z');
+    Console console(screenBuffer);
 
-// include windows.h
-
-// make a screen buffer  *screen = w_char[80*30];
-// fill buffer with blanks
-// for (x = 0 -> 80)
-//   for (y = 0 -> 30)
-//      screen[(y*width) + x] = '0'
-
-// make an active screen buffer
-// HANDLE hConsole = CreateConsoleScreenBuffer(read, 0, null, etc) // this is 80 x 30 by default
-
-// set this as the consoles active screen buffer
-// setConsoleActiveScreenBuffer(hConsole)
-
-// fill the console with my screen buffer
-// DWORD dwBytesWritten = 0; // this gets written to
-// consoleOutputCharacter(hConsole, screen, 80*30, starts at, dwBytesWritten)
-
-#include "windows.h"
-namespace screen
-{
-
-constexpr screen_buffer;
-constexpr screen_width;
-constexpr screen_height;
-
-class Screen
-{
-    Screen()
+    int i = 0;
+    while(i < 100)
     {
-        HANDLE hConsole = CreateConsoleScreenBuffer();//
-        setConsoleActiveScreenBuffer(hConsole);
-        consoleOutputCharacter(hConsole, screen);
+        console.copyScreenToConsole();
+        i++;
     }
-
-    DWORD mDwBytesWritten = 0;
-    wchar_t mScreen[screen_width * screen_height];
 }
 
-}
+
+
+
+
+// WORKING PROTOTYPE
+// int nScreenWidth = 120;
+// int nScreenHeight = 40;
+// int main()
+// {
+//     char screen[nScreenWidth*nScreenHeight];
+//     HANDLE hConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+//     SetConsoleActiveScreenBuffer(hConsole);
+//     DWORD dwBytesWritten = 0;
+//     while(1)
+//     {
+//         for (size_t i = 0; i < (120 * 29) + 1; i++)
+//             screen[i] = '!';
+//         screen[nScreenWidth * nScreenHeight - 1] = '\0';
+//     	WriteConsoleOutputCharacter(hConsole, (LPCSTR)screen, 120 * 29 + 20, { 0,0 }, &dwBytesWritten);
+//     }
+// }
+
