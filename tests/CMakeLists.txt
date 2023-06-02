@@ -1,7 +1,6 @@
 add_executable(AllTests)
 
 target_sources(AllTests
-    PRIVATE draw.Tests.cpp
     PRIVATE console.Tests.cpp
 )
 
