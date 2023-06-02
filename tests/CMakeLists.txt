@@ -1,14 +1,22 @@
+add_subdirectory(mocks)
+
 add_executable(AllTests)
 
 target_sources(AllTests
     PRIVATE console.Tests.cpp
+    PRIVATE screenBuffer.Tests.cpp
 )
 
 target_include_directories(AllTests
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/console
+    PRIVATE ${PROJECT_SOURCE_DIR}/tests/mocks
     PRIVATE ${PROJECT_SOURCE_DIR}/src
 )
 
 target_link_libraries(AllTests
-    tetris
+    mocks
+    console
+    screenBuffer
     GTest::gtest_main
 )

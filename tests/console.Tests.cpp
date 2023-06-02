@@ -1,22 +1,24 @@
 #include <gtest/gtest.h>
 #include "console.h"
+#include "mockScreenBuffer.h"
 
+using namespace screenBuffer;
 
-TEST(consoleTests, draw_to_console__draws_buffer_to_std_out)
+TEST(consoleTests, copy_screen_to_console__copies_buffer_to_std_out)
 {
     //Given
-    Console console;
-    wchar_t screenBuffer[screenBufferSize];
-    for (size_t i = 0; i < screenBufferSize; i++)
-        screenBuffer[i] = '!';
+    MockScreenBuffer mockBuffer;
+    mockBuffer.fillBuffer('!');
+    Console console(mockBuffer);
+
     testing::internal::CaptureStdout();
 
     //When
-    console.drawToConsole(screenBuffer);
+    console.copyScreenToConsole();
 
     //Then
     std::string actual = testing::internal::GetCapturedStdout();
-    std::wstring ws(screenBuffer);
-    std::string expected(ws.begin(), ws.end());
+    std::wstring wideString(mockBuffer.buffer());
+    std::string expected(wideString.begin(), wideString.end());
     ASSERT_EQ(actual, expected);
 }

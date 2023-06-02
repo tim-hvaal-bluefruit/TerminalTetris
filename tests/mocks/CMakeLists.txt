@@ -1,0 +1,8 @@
+add_library(mocks)
+target_sources(mocks
+    PRIVATE mockScreenBuffer.cpp
+)
+
+target_include_directories(mocks
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
+)
