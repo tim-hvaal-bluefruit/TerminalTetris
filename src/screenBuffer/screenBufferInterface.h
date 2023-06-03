@@ -3,8 +3,8 @@
 
 namespace screenBuffer
 {
-    constexpr size_t screenWidth = 120;
-    constexpr size_t screenHeight = 10;
+    constexpr size_t screenWidth = 4;
+    constexpr size_t screenHeight = 4;
 
 class ScreenBufferInterface
 {

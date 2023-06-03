@@ -7,7 +7,10 @@ using namespace screenBuffer;
 class ScreenBuffer : public ScreenBufferInterface
 {
 public:
-    ScreenBuffer(){};
+    ScreenBuffer()
+    {
+        mBuffer[screenWidth * screenHeight - 1] = '\0';
+    }
     void drawField() override;
     wchar_t* buffer() override {return mBuffer;}
     void fillBuffer(const wchar_t c) override;

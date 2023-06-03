@@ -1,6 +1,7 @@
 #include <iostream>
 #include "screenBuffer.h"
 #include "console.h"
+#include "windows.h"
 
 
 int main()
@@ -10,10 +11,19 @@ int main()
     Console console(screenBuffer);
 
     int i = 0;
-    while(i < 100)
+    while(true)
     {
+        screenBuffer.fillBuffer(L'A');
         console.copyScreenToConsole();
-        i++;
+        Sleep(500);
+
+        screenBuffer.fillBuffer(L'B');
+        console.copyScreenToConsole();
+        Sleep(500);
+
+        screenBuffer.fillBuffer(L'C');
+        console.copyScreenToConsole();
+        Sleep(500);
     }
 }
 
