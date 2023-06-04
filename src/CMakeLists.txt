@@ -1,5 +1,6 @@
-add_subdirectory(screenBuffer)
+add_subdirectory(arena)
 add_subdirectory(console)
+add_subdirectory(screenBuffer)
 
 add_executable(tetris)
 

@@ -1,7 +1,7 @@
+#include "windows.h"
 #include <iostream>
 #include "screenBuffer.h"
 #include "console.h"
-#include "windows.h"
 
 
 int main()
