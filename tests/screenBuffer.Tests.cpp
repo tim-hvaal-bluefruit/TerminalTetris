@@ -62,4 +62,25 @@ TEST(ScreenBufferTests, setScreenBuffer_resets_to_given_dimensions)
     ASSERT_EQ(expectedSize, actualBuffer.size());
 }
 
+
+TEST(ScreenBufferTests, drawToBuffer_draws_an_object_to_the_screen_buffer)
+{
+    // Given
+    const int height = 4, width = 4;
+    ScreenBuffer screenBuffer(height, width);
+
+    const int objectHeight = 3, objectWidth = 3;
+    const char* object = "#.#"
+                         "#.#"
+                         "###";
+
+    // When
+    screenBuffer.drawToBuffer(object, objectHeight, objectWidth);
+
+    // Then
+    const wchar_t * expectedBuffer = L"#.#."
+                                      "#.#."
+                                      "###."
+                                      "....";
+    ASSERT_STREQ(expectedBuffer, screenBuffer.buffer());
 }
