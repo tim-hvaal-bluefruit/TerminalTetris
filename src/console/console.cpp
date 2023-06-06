@@ -1,15 +1,16 @@
 #include "console.h"
 #include "screenBuffer.h"
 
-using namespace screenBuffer;
+using namespace screen;
+using namespace console;
 
 void Console::copyScreenToConsole()
 {
     DWORD dwBytesWritten = 0;
-    wchar_t* scrBuffer = mScreenBuffer.buffer();
+    // wchar_t* screenBuffer = mScreenBuffer.buffer();
     WriteConsoleOutputCharacterW(mHConsole,
-                                scrBuffer,
-                                screenHeight * screenWidth,
+                                mScreenBuffer.buffer(),
+                                console::consoleSize,
                                 {0,0},
                                 &dwBytesWritten
     );

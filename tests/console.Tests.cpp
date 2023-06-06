@@ -2,7 +2,8 @@
 #include "console.h"
 #include "mockScreenBuffer.h"
 
-using namespace screenBuffer;
+using namespace screen;
+using namespace console;
 
 
 TEST(consoleTests, copy_screen_to_console__copies_buffer_to_std_out)

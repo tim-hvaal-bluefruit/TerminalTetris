@@ -1,20 +1,27 @@
 #pragma once
 #include "screenBufferInterface.h"
 
-using namespace screenBuffer;
+using namespace screen;
 
 class MockScreenBuffer : public ScreenBufferInterface
 {
 public:
-
     MockScreenBuffer()
     {
-        mMockBuffer[screenWidth * screenHeight - 1] = L'\0';
+        setScreenBufferSize(mScreenHeight, mScreenWidth);
+    }
+    MockScreenBuffer(const int screenHeight, const int screenWidth)
+    {
+        mScreenHeight = screenHeight;
+        mScreenWidth = screenWidth;
+        setScreenBufferSize(mScreenHeight, mScreenWidth);
     }
 
-    void drawField() override;
-    wchar_t* buffer() override {return mMockBuffer;}
+    void setScreenBufferSize(const int screenHeight, const int screenWidth);
+    wchar_t* buffer() override {return mBuffer;}
     void fillBuffer(const wchar_t c) override;
+    void drawToBuffer(const char* object, int objectHeight, int objectWidth) override;
 
-    wchar_t mMockBuffer[screenWidth * screenHeight];
+    // int mMockBufferSize;
+    // wchar_t mMockBuffer[maxScreenBufferSize];
 };

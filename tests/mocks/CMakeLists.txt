@@ -5,4 +5,5 @@ target_sources(mocks
 
 target_include_directories(mocks
     PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/console
 )

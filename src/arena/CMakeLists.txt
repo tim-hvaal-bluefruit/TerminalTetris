@@ -6,4 +6,5 @@ target_sources(arena
 
 target_include_directories(arena
     PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/console
 )

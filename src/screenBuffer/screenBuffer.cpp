@@ -1,17 +1,22 @@
 #include "screenBuffer.h"
 
-using namespace screenBuffer;
+using namespace screen;
 
-void ScreenBuffer::drawField()
+void ScreenBuffer::setScreenBufferSize(const int screenHeight, const int screenWidth)
 {
-    std::cout << "drawfield called";
+    mScreenHeight = screenHeight;
+    mScreenWidth = screenWidth;
+    mBufferSize = mScreenHeight * mScreenWidth;
+
+    for(int i = 0; i < mBufferSize; i++)
+        mBuffer[i] = '.'; // clear buffer
+
+    mBuffer[mBufferSize] = L'\0'; // null terminate at bounds
 }
 
 void ScreenBuffer::fillBuffer(const wchar_t c)
 {
-    for (int x = 0; x < screenWidth; x++)
-        for (int y = 0; y < screenHeight; y++)
-            mBuffer[(y*screenWidth) + x] = c;
-
-    mBuffer[screenWidth * screenHeight - 1] = '\0';
+    for (int i = 0; i < mBufferSize; i++)
+        mBuffer[i] = c;
 }
+
