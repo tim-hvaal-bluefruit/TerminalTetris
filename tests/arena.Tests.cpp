@@ -53,19 +53,24 @@ TEST_F(ArenaTests, createArena_can_create_8_by_5_arena)
 // TEST_F(ArenaTests, drawArena_draws_arena_to_screen_buffer)
 // {
 //     // Given
-//     const int arenaHeight = 8, arenaWidth = 5;
-//     const char* arena =    "#......#"
-//                            "#......#"
-//                            "#......#"
-//                            "#......#"
-//                            "########";
+//     const int screenHeight = 8, screenWidth = 10;
+//     mockScreenBuffer.setScreenBufferSize(screenHeight, screenWidth);
 
+//     const int arenaHeight = 8, arenaWidth = 5;
 //     arena.createArena(arenaHeight, arenaWidth);
+
+//     const char* expectedScreen = "#......#.."
+//                                  "#......#.."
+//                                  "#......#.."
+//                                  "#......#.."
+//                                  "########.."
+//                                  ".........."
+//                                  ".........."
+//                                  "..........";
 
 //     // When
 //     arena.drawArena();
 
-
-
-//     ASSERT_STREQ(actual, expected);
+//     // Then
+//     ASSERT_STREQ(actualScreen, expectedScreen);
 // }

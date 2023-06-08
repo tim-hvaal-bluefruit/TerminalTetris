@@ -70,9 +70,9 @@ TEST(ScreenBufferTests, drawToBuffer_draws_an_object_to_the_screen_buffer)
     ScreenBuffer screenBuffer(height, width);
 
     const int objectHeight = 3, objectWidth = 3;
-    const char* object = "#.#"
-                         "#.#"
-                         "###";
+    const wchar_t* object = L"#.#"
+                             "#.#"
+                             "###";
 
     // When
     screenBuffer.drawToBuffer(object, objectHeight, objectWidth);

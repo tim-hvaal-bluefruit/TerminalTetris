@@ -2,7 +2,7 @@
 
 using namespace screen;
 
-void ScreenBuffer::setScreenBufferSize(const int screenHeight, const int screenWidth)
+void ScreenBuffer::setScreenBufferSize(int screenHeight, int screenWidth)
 {
     mScreenHeight = screenHeight;
     mScreenWidth = screenWidth;
@@ -20,7 +20,7 @@ void ScreenBuffer::fillBuffer(const wchar_t c)
         mBuffer[i] = c;
 }
 
-void ScreenBuffer::drawToBuffer(const char* object, int objectHeight, int objectWidth)
+void ScreenBuffer::drawToBuffer(const wchar_t* object, int objectHeight, int objectWidth)
 {
     for (int x = 0; x < objectWidth; x++)
 		for (int y = 0; y < objectHeight; y++)

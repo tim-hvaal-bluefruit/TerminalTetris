@@ -5,8 +5,13 @@ using namespace screen;
 
 void MockScreenBuffer::setScreenBufferSize(const int screenHeight, const int screenWidth)
 {
-    mBufferSize = screenHeight * screenWidth;
-    mBuffer[mBufferSize] = L'\0';
+    std::cout << screenHeight << " " << screenWidth;
+}
+
+wchar_t* MockScreenBuffer::buffer()
+{
+    wchar_t* mockBuffer = L"mockBuffer";
+    std::cout << "get buffer() called";
 }
 
 void MockScreenBuffer::drawToBuffer(const char* object, int objectHeight, int objectWidth)
@@ -16,6 +21,5 @@ void MockScreenBuffer::drawToBuffer(const char* object, int objectHeight, int ob
 
 void MockScreenBuffer::fillBuffer(const wchar_t c)
 {
-    for (size_t i = 0; i < mBufferSize; i++)
-        mBuffer[i] = c;
+    std::cout << "fillBuffer() called with :" << c;
 }
