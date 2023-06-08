@@ -1,8 +1,6 @@
 #pragma once
 #include "Windows.h"
-#include "screenBufferInterface.h"
 
-using namespace screen;
 namespace console
 {
     // default windows console size
@@ -13,8 +11,7 @@ namespace console
 class Console
 {
 public:
-    Console(ScreenBufferInterface& screenBuffer) :
-        mScreenBuffer(screenBuffer)
+    Console()
     {
         mHConsole = CreateConsoleScreenBuffer
                     (
@@ -28,11 +25,10 @@ public:
         SetConsoleActiveScreenBuffer(mHConsole);
     }
 
-    void copyScreenToConsole();
+    void copyBufferToConsoleBuffer(const wchar_t* buffer, const int bufferSize);
 
 private:
     HANDLE mHConsole;
-    ScreenBufferInterface& mScreenBuffer;
 };
 
 } // namespace console

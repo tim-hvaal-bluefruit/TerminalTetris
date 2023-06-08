@@ -3,27 +3,16 @@
 #include "screenBuffer.h"
 #include "console.h"
 
+using namespace console;
 
 int main()
 {
+    Console console;
     ScreenBuffer screenBuffer;
-    screenBuffer.fillBuffer(L'Z');
-    Console console(screenBuffer);
 
-    int i = 0;
     while(true)
     {
-        screenBuffer.fillBuffer(L'A');
-        console.copyScreenToConsole();
-        Sleep(500);
-
-        screenBuffer.fillBuffer(L'B');
-        console.copyScreenToConsole();
-        Sleep(500);
-
-        screenBuffer.fillBuffer(L'C');
-        console.copyScreenToConsole();
-        Sleep(500);
+        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
     }
 }
 

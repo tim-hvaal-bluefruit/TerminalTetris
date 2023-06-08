@@ -6,5 +6,4 @@ target_sources(console
 
 target_include_directories(console
     PRIVATE ${PROJECT_SOURCE_DIR}/src/console
-    PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
 )

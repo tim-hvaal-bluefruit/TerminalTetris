@@ -1,28 +1,26 @@
 #include <gtest/gtest.h>
 #include "console.h"
-#include "mockScreenBuffer.h"
 
-using namespace screen;
 using namespace console;
 
 
-TEST(consoleTests, copy_screen_to_console__copies_buffer_to_std_out)
+TEST(consoleTests, copyBufferToConsoleBuffer_copies_buffer_to_std_out)
 {
     //Given
-    MockScreenBuffer mockBuffer;
-    mockBuffer.fillBuffer(L'!');
-    Console console(mockBuffer);
-
+    Console console;
+    const wchar_t* buffer = L"12345";
+    const int bufferSize = 6;
     testing::internal::CaptureStdout();
 
     //When
-    console.copyScreenToConsole();
+    console.copyBufferToConsoleBuffer(buffer, bufferSize);
 
     //Then
     std::string actual = testing::internal::GetCapturedStdout();
-    std::wstring wideString(mockBuffer.buffer());
+    std::wstring wideString(buffer);
     std::string expected(wideString.begin(), wideString.end());
-    ASSERT_EQ(actual, ""); // TODO - see below
+    // TO DO - see below
+    ASSERT_EQ(actual, "");
 }
 
 
