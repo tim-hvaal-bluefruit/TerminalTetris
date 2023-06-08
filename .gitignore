@@ -1,3 +1,5 @@
 build
 ProjectLog.txt
-tetrisprototype.cpp
+prototype/
+.vscode/settings.json
+
