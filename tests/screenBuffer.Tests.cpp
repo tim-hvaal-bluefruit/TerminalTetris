@@ -63,24 +63,50 @@ TEST(ScreenBufferTests, setScreenBuffer_resets_to_given_dimensions)
 }
 
 
-TEST(ScreenBufferTests, drawToBuffer_draws_an_object_to_the_screen_buffer)
+TEST(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer)
 {
     // Given
     const int height = 4, width = 4;
     ScreenBuffer screenBuffer(height, width);
 
-    const int objectHeight = 3, objectWidth = 3;
+    const int objectHeight = 3, objectWidth = 3, xOffset = 0, yOffset = 0;
     const wchar_t* object = L"#.#"
                              "#.#"
                              "###";
 
     // When
-    screenBuffer.drawToBuffer(object, objectHeight, objectWidth);
+    screenBuffer.drawToBuffer(object, objectHeight, objectWidth, xOffset, yOffset);
 
     // Then
     const wchar_t * expectedBuffer = L"#.#."
                                       "#.#."
                                       "###."
                                       "....";
+    ASSERT_STREQ(expectedBuffer, screenBuffer.buffer());
+}
+
+
+TEST(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer_at_offset_position)
+{
+    // Given
+    const int height = 7, width = 9;
+    ScreenBuffer screenBuffer(height, width);
+
+    const int objectHeight = 3, objectWidth = 3, xOffset = 3, yOffset = 2;
+    const wchar_t* object = L"#.#"
+                             "#.#"
+                             "###";
+
+    // When
+    screenBuffer.drawToBuffer(object, objectHeight, objectWidth, xOffset, yOffset);
+
+    // Then
+    const wchar_t * expectedBuffer = L"........."
+                                      "........."
+                                      "...#.#..."
+                                      "...#.#..."
+                                      "...###..."
+                                      "........."
+                                      ".........";
     ASSERT_STREQ(expectedBuffer, screenBuffer.buffer());
 }

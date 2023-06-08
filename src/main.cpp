@@ -10,14 +10,14 @@ int main()
     Console console;
     ScreenBuffer screenBuffer;
 
-    const int objectHeight = 3, objectWidth = 3;
+    const int objectHeight = 3, objectWidth = 3, xOffset = 10, yOffset = 15;
     const wchar_t* object = L"#.#"
                              "#.#"
                              "###";
 
     while(true)
     {
-        screenBuffer.drawToBuffer(object, objectHeight, objectWidth);
+        screenBuffer.drawToBuffer(object, objectHeight, objectWidth, xOffset, yOffset);
         console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
     }
 }

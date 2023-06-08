@@ -20,9 +20,9 @@ void ScreenBuffer::fillBuffer(const wchar_t c)
         mBuffer[i] = c;
 }
 
-void ScreenBuffer::drawToBuffer(const wchar_t* object, int objectHeight, int objectWidth)
+void ScreenBuffer::drawToBuffer(const wchar_t* object, int objectHeight, int objectWidth, int xOffset, int yOffset)
 {
     for (int x = 0; x < objectWidth; x++)
 		for (int y = 0; y < objectHeight; y++)
-				mBuffer[y * mScreenWidth + x] = object[y * objectWidth + x];
+				mBuffer[(y + yOffset) * mScreenWidth + (x + xOffset)] = object[y * objectWidth + x];
 }
