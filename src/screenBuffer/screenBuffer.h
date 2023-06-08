@@ -33,12 +33,3 @@ private:
     int mBufferSize;
     wchar_t mBuffer[maxScreenBufferSize];
 };
-
-
-// drawtobuffer(char* object, x offset, y offset, height, width)
-
-// loop through x - object width
-// loop through y - object height
-// (y + offset) * screen width = row position
-// (+ x + offset) getx the x position
-// buffer[(y + offset * screenWidth) + (x + offset)]

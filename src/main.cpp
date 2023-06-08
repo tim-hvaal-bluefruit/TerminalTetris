@@ -2,6 +2,7 @@
 #include <iostream>
 #include "screenBuffer.h"
 #include "console.h"
+#include "arena.h"
 
 using namespace console;
 
@@ -9,15 +10,26 @@ int main()
 {
     Console console;
     ScreenBuffer screenBuffer;
+    // Arena arena(screenBuffer);
 
-    const int objectHeight = 3, objectWidth = 3, xOffset = 10, yOffset = 15;
-    const wchar_t* object = L"#.#"
-                             "#.#"
-                             "###";
+    // arena.createArena(arenaHeight, arenaWidth);
+
+    const int objectHeight1 = 3, objectWidth1 = 3, xOffset1 = 1, yOffset1 = 1;
+    const wchar_t* object1 = L"#.#"
+                              "#.#"
+                              "###";
+
+    const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 10, yOffset2 = 1;
+    const wchar_t* object2 = L"SCORE";
+
+    const int objectHeight3 = 1, objectWidth3 = 3, xOffset3 = 11, yOffset3 = 2;
+    const wchar_t* object3 = L"123";
 
     while(true)
     {
-        screenBuffer.drawToBuffer(object, objectHeight, objectWidth, xOffset, yOffset);
+        screenBuffer.drawToBuffer(object1, objectHeight1, objectWidth1, xOffset1, yOffset1);
+        screenBuffer.drawToBuffer(object2, objectHeight2, objectWidth2, xOffset2, yOffset2);
+        screenBuffer.drawToBuffer(object3, objectHeight3, objectWidth3, xOffset3, yOffset3);
         console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
     }
 }

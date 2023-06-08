@@ -110,3 +110,42 @@ TEST(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer_at_offset_pos
                                       ".........";
     ASSERT_STREQ(expectedBuffer, screenBuffer.buffer());
 }
+
+
+TEST(ScreenBufferTests, drawing_multiple_objects_to_screen_buffer)
+{
+    // Given
+    const int height = 6, width = 12;
+    ScreenBuffer screenBuffer(height, width);
+
+    // When
+    int objectHeight = 3, objectWidth = 4, xOffset = 1, yOffset = 1;
+    const wchar_t object1[] = L"#..#"
+                              "#..#"
+                              "####";
+
+    screenBuffer.drawToBuffer(object1, objectHeight, objectWidth, xOffset, yOffset);
+
+    objectHeight = 1,
+    objectWidth = 5,
+    xOffset = 6,
+    yOffset = 1;
+    const wchar_t object2[] = L"SCORE";
+    screenBuffer.drawToBuffer(object2, objectHeight, objectWidth, xOffset, yOffset);
+
+    objectHeight = 1,
+    objectWidth = 3,
+    xOffset = 7,
+    yOffset = 2;
+    const wchar_t object3[] = L"123";
+    screenBuffer.drawToBuffer(object3, objectHeight, objectWidth, xOffset, yOffset);
+
+    // Then
+    const wchar_t * expectedBuffer = L"............"
+                                      ".#..#.SCORE."
+                                      ".#..#..123.."
+                                      ".####......."
+                                      "............"
+                                      "............";
+    ASSERT_STREQ(expectedBuffer, screenBuffer.buffer());
+}
