@@ -17,4 +17,5 @@ target_include_directories(tetris
 target_link_libraries(tetris
     console
     screenBuffer
+    arena
 )

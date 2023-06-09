@@ -5,29 +5,24 @@
 #include "arena.h"
 
 using namespace console;
+using namespace arena;
 
 int main()
 {
     Console console;
     ScreenBuffer screenBuffer;
-    // Arena arena(screenBuffer);
+    Arena arena(screenBuffer);
+    arena.createArena();
 
-    // arena.createArena(arenaHeight, arenaWidth);
-
-    const int objectHeight1 = 3, objectWidth1 = 3, xOffset1 = 1, yOffset1 = 1;
-    const wchar_t* object1 = L"#.#"
-                              "#.#"
-                              "###";
-
-    const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 10, yOffset2 = 1;
+    const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 20, yOffset2 = 2;
     const wchar_t* object2 = L"SCORE";
 
-    const int objectHeight3 = 1, objectWidth3 = 3, xOffset3 = 11, yOffset3 = 2;
+    const int objectHeight3 = 1, objectWidth3 = 3, xOffset3 = 21, yOffset3 = 3;
     const wchar_t* object3 = L"123";
 
     while(true)
     {
-        screenBuffer.drawToBuffer(object1, objectHeight1, objectWidth1, xOffset1, yOffset1);
+        arena.drawArena();
         screenBuffer.drawToBuffer(object2, objectHeight2, objectWidth2, xOffset2, yOffset2);
         screenBuffer.drawToBuffer(object3, objectHeight3, objectWidth3, xOffset3, yOffset3);
         console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
