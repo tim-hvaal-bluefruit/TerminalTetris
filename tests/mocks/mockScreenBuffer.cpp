@@ -10,13 +10,22 @@ void MockScreenBuffer::setScreenBufferSize(const int screenHeight, const int scr
 
 wchar_t* MockScreenBuffer::buffer()
 {
-    wchar_t mockBuffer[] = L"mockBuffer";
     std::cout << "get buffer() called";
+    return mMockBuffer;
 }
 
 void MockScreenBuffer::drawToBuffer(const wchar_t* object, int objectHeight, int objectWidth, int xOffset, int yOffset)
 {
-    std::cout << object << " " << objectHeight << " " << objectWidth;
+    int i = 0;
+    for (i = 0; i < maxScreenBufferSize; i++)
+        if (object[i] == '\0')
+            break;
+
+    mObjectSize = i;
+    mObjectHeight = objectHeight;
+    mObjectWidth = objectWidth;
+    mObjectXOffset = xOffset;
+    mObjectYOffset = yOffset;
 }
 
 void MockScreenBuffer::fillBuffer(const wchar_t c)
