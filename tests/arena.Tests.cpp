@@ -51,8 +51,8 @@ TEST_F(ArenaTests, drawArena_passes_arena_of_default_dimensions_to_screen_buffer
     ASSERT_EQ(mockScreenBuffer.mObjectSize, defaultArenaHeight * defaultArenaWidth);
     ASSERT_EQ(mockScreenBuffer.mObjectHeight, defaultArenaHeight);
     ASSERT_EQ(mockScreenBuffer.mObjectWidth, defaultArenaWidth);
-    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, defaultXOffset);
-    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, defaultYOffset);
+    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, defaultScreenOffsetX);
+    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, defaultScreenOffsetY);
 }
 
 TEST_F(ArenaTests, drawArena_passes_specific_arena)

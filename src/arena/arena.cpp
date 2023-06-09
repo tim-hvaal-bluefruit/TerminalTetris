@@ -2,33 +2,38 @@
 
 using namespace arena;
 
+
 void Arena::drawArena()
 {
-    mScreenBuffer.drawToBuffer(mArena, mArenaHeight, mArenaWidth, mXOffset, mYOffset);
+    mScreenBuffer.drawToBuffer(mArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
 }
 
-// TODO - DRY violation
+
 wchar_t* Arena::createArena()
 {
-    for(int x = 0; x < mArenaWidth; x++)
-        for (int y = 0; y < mArenaHeight; y++)
-            mArena[y * mArenaWidth + x] = (x == 0 || x == mArenaWidth - 1 || y == mArenaHeight - 1) ? '#' : '.';
-
-    mArena[mArenaHeight * mArenaWidth] = '\0';
+    generateArena();
     return mArena;
 }
+
 
 wchar_t* Arena::createArena(int arenaHeight, int arenaWidth, int xOffset, int yOffset)
 {
     mArenaHeight = arenaHeight;
     mArenaWidth = arenaWidth;
-    for(int x = 0; x < mArenaWidth; x++)
-        for (int y = 0; y < mArenaHeight; y++)
-            mArena[y * mArenaWidth + x] = (x == 0 || x == mArenaWidth - 1 || y == mArenaHeight - 1) ? '#' : '.';
-
-    mArena[mArenaHeight * mArenaWidth] = '\0';
+    generateArena();
     return mArena;
 }
+
+
+void Arena::generateArena()
+{
+    for(int x = 0; x < mArenaWidth; x++)
+    for (int y = 0; y < mArenaHeight; y++)
+        mArena[y * mArenaWidth + x] = (x == 0 || x == mArenaWidth - 1 || y == mArenaHeight - 1) ? '#' : blankChar;
+
+    mArena[mArenaHeight * mArenaWidth] = '\0';
+}
+
 
 void Arena::addToArena(wchar_t* obj, int height, int width, int arenaX, int arenaY)
 {

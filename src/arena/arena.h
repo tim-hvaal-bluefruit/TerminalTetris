@@ -5,8 +5,8 @@ namespace arena
 {
     constexpr int defaultArenaHeight = 19;
     constexpr int defaultArenaWidth = 12;
-    constexpr int defaultXOffset = 2;
-    constexpr int defaultYOffset = 2;
+    constexpr int defaultScreenOffsetX = 2;
+    constexpr int defaultScreenOffsetY = 2;
     constexpr int maxArenaSize = 25 * 25; //arena given some free memory (embedded approach)
     constexpr char blankChar = '.';
 
@@ -17,8 +17,8 @@ public:
         mScreenBuffer(screenBuffer),
         mArenaHeight(defaultArenaHeight),
         mArenaWidth(defaultArenaWidth),
-        mXOffset(defaultXOffset),
-        mYOffset(defaultYOffset)
+        mScreenOffsetX(defaultScreenOffsetX),
+        mScreenOffsetY(defaultScreenOffsetY)
     {}
 
     void drawArena();
@@ -28,12 +28,12 @@ public:
     void addToArena(wchar_t* obj, int height, int width, int arenaX, int arenaY);
 
 private:
-
+    void generateArena();
     ScreenBufferInterface& mScreenBuffer;
     int mArenaHeight;
     int mArenaWidth;
-    int mXOffset;
-    int mYOffset;
+    int mScreenOffsetX;
+    int mScreenOffsetY;
 
     wchar_t mArena[maxArenaSize];
 };
