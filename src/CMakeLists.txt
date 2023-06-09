@@ -11,6 +11,7 @@ target_sources(tetris
 target_include_directories(tetris
     PRIVATE ${PROJECT_SOURCE_DIR}/src/console
     PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/arena
 )
 
 target_link_libraries(tetris

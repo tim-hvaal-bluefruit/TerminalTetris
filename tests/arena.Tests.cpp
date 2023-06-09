@@ -72,4 +72,52 @@ TEST_F(ArenaTests, drawArena_passes_specific_arena)
     ASSERT_EQ(mockScreenBuffer.mObjectYOffset, yOffset);
 }
 
+TEST_F(ArenaTests, addToArena_adds_blocks_to_the_fixed_arena)
+{
+    // Given
+    const int h = 7, w = 6, xOff = 0, yOff = 0;
+    arena.createArena(h, w, xOff, yOff);
 
+    // When
+    int height = 4, width = 4, arenaPosX = 1, arenaPosY = 2;
+    wchar_t obj[] = L"...."
+                     ".xx."
+                     ".x.."
+                     ".x..";
+
+    arena.addToArena(obj, height, width, arenaPosX, arenaPosY);
+
+    // Then
+    const wchar_t* expected =  L"#....#"
+                                "#....#"
+                                "#....#"
+                                "#.xx.#"
+                                "#.x..#"
+                                "#.x..#"
+                                "######";
+
+    ASSERT_STREQ(expected, arena.getArena());
+
+    // When
+    height = 4;
+    width = 4;
+    arenaPosX = 2;
+    arenaPosY = 0;
+    wchar_t obj2[] = L"...."
+                      ".OO."
+                      ".OO."
+                      "....";
+
+    arena.addToArena(obj2, height, width, arenaPosX, arenaPosY);
+
+    // Then
+    const wchar_t* expected2 =  L"#....#"
+                                 "#..OO#"
+                                 "#..OO#"
+                                 "#.xx.#"
+                                 "#.x..#"
+                                 "#.x..#"
+                                 "######";
+
+    ASSERT_STREQ(expected2, arena.getArena());
+}

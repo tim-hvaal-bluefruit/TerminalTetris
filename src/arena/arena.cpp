@@ -29,3 +29,17 @@ wchar_t* Arena::createArena(int arenaHeight, int arenaWidth, int xOffset, int yO
     mArena[mArenaHeight * mArenaWidth] = '\0';
     return mArena;
 }
+
+void Arena::addToArena(wchar_t* obj, int height, int width, int arenaX, int arenaY)
+{
+    int ix, iy;
+    for(iy = 0; iy < height; iy++)
+    {
+        for(ix = 0; ix < width; ix++)
+        {
+            char c = obj[iy * width + ix];
+            if (c != blankChar)
+                mArena[ ((arenaY + iy) * mArenaWidth) + (arenaX + ix) ] = c;
+        }
+    }
+}
