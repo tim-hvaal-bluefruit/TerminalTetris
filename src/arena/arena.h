@@ -22,14 +22,15 @@ public:
     {}
 
     void drawArena();
+    void drawCurrentPiece(const wchar_t* piece, int height, int width, int arenaX, int arenaY);
     wchar_t* createArena();
     wchar_t* createArena(int arenaHeight, int arenaWidth); // for testing convenience - can be nixed later
     wchar_t* getArena() {return mArena;}
     wchar_t* getActiveArena() {return mActiveArena;}
-    void addToArena(wchar_t* arena, wchar_t* obj, int height, int width, int arenaX, int arenaY);
+    void addToArena(wchar_t* arena, const wchar_t* obj, int height, int width, int arenaX, int arenaY);
 
 private:
-    void generateArena(wchar_t* arena);
+    void refreshArena(wchar_t* arena);
     ScreenBufferInterface& mScreenBuffer;
     int mArenaHeight;
     int mArenaWidth;

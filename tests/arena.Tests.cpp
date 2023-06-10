@@ -39,6 +39,7 @@ TEST_F(ArenaTests, createArena_can_create_8_by_5_arena)
     ASSERT_STREQ(actual, expected);
 }
 
+
 TEST_F(ArenaTests, drawArena_passes_default_arena_to_screen_buffer)
 {
     // Given
@@ -120,4 +121,54 @@ TEST_F(ArenaTests, addToArena_adds_blocks_to_the_fixed_arena)
                                  "######";
 
     ASSERT_STREQ(expected2, arena.getArena());
+}
+
+
+TEST_F(ArenaTests, drawCurrentPiece_adds_only_the_current_piece_to_the_screen)
+{
+    // Given
+    const int h = 6, w = 8;
+    arena.createArena(h, w);
+
+    // When
+    int height = 4, width = 4, arenaX = 1, arenaY = 1;
+    const wchar_t* piece = L".X.."
+                            ".X.."
+                            ".X.."
+                            ".X..";
+    arena.drawCurrentPiece(piece, height, width, arenaX, arenaY);
+
+    // Then
+    const wchar_t* expected  =  L"#......#"
+                                 "#.X....#"
+                                 "#.X....#"
+                                 "#.X....#"
+                                 "#.X....#"
+                                 "########";
+    ASSERT_STREQ(expected, arena.getActiveArena());
+
+    // When
+    height = 4; width = 4; arenaX = 1; arenaY = 1;
+    piece = L"...."
+             "...."
+             "XXXX"
+             "....";
+    arena.drawCurrentPiece(piece, height, width, arenaX, arenaY);
+
+    // Then
+    expected  =  L"#......#"
+                  "#......#"
+                  "#......#"
+                  "#XXXX..#"
+                  "#......#"
+                  "########";
+    ASSERT_STREQ(expected, arena.getActiveArena());
+
+    // ActiveArena is drawn to screen
+    ASSERT_EQ(mockScreenBuffer.mObjectSize, h * w);
+    ASSERT_EQ(mockScreenBuffer.mObjectHeight, h);
+    ASSERT_EQ(mockScreenBuffer.mObjectWidth, w);
+    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, defaultScreenOffsetX);
+    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, defaultScreenOffsetY);
+
 }

@@ -11,7 +11,8 @@ void Arena::drawArena()
 
 wchar_t* Arena::createArena()
 {
-    generateArena(mArena);
+    refreshArena(mArena);
+    refreshArena(mActiveArena);
     return mArena;
 }
 
@@ -20,22 +21,23 @@ wchar_t* Arena::createArena(int arenaHeight, int arenaWidth)
 {
     mArenaHeight = arenaHeight;
     mArenaWidth = arenaWidth;
-    generateArena(mArena);
+    refreshArena(mArena);
+    refreshArena(mActiveArena);
     return mArena;
 }
 
 
-void Arena::generateArena(wchar_t* arena)
+void Arena::refreshArena(wchar_t* arena)
 {
     for(int x = 0; x < mArenaWidth; x++)
     for (int y = 0; y < mArenaHeight; y++)
-        mArena[y * mArenaWidth + x] = (x == 0 || x == mArenaWidth - 1 || y == mArenaHeight - 1) ? '#' : blankChar;
+        arena[y * mArenaWidth + x] = (x == 0 || x == mArenaWidth - 1 || y == mArenaHeight - 1) ? '#' : blankChar;
 
     arena[mArenaHeight * mArenaWidth] = '\0';
 }
 
 
-void Arena::addToArena(wchar_t* arena, wchar_t* obj, int height, int width, int arenaX, int arenaY)
+void Arena::addToArena(wchar_t* arena, const wchar_t* obj, int height, int width, int arenaX, int arenaY)
 {
     int ix, iy;
     for(iy = 0; iy < height; iy++)
@@ -47,4 +49,11 @@ void Arena::addToArena(wchar_t* arena, wchar_t* obj, int height, int width, int 
                 arena[ ((arenaY + iy) * mArenaWidth) + (arenaX + ix) ] = c;
         }
     }
+}
+
+void Arena::drawCurrentPiece(const wchar_t* piece, const int height, const int width, const int arenaX, const int arenaY)
+{
+    refreshArena(mActiveArena);
+    addToArena(mActiveArena, piece, height, width, arenaX, arenaY);
+    mScreenBuffer.drawToBuffer(mActiveArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
 }
