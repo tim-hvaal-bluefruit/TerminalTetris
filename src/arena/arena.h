@@ -23,12 +23,13 @@ public:
 
     void drawArena();
     wchar_t* createArena();
-    wchar_t* createArena(int arenaHeight, int arenaWidth, int xOffset, int yOffset);
+    wchar_t* createArena(int arenaHeight, int arenaWidth); // for testing convenience - can be nixed later
     wchar_t* getArena() {return mArena;}
-    void addToArena(wchar_t* obj, int height, int width, int arenaX, int arenaY);
+    wchar_t* getActiveArena() {return mActiveArena;}
+    void addToArena(wchar_t* arena, wchar_t* obj, int height, int width, int arenaX, int arenaY);
 
 private:
-    void generateArena();
+    void generateArena(wchar_t* arena);
     ScreenBufferInterface& mScreenBuffer;
     int mArenaHeight;
     int mArenaWidth;
@@ -36,5 +37,6 @@ private:
     int mScreenOffsetY;
 
     wchar_t mArena[maxArenaSize];
+    wchar_t mActiveArena[maxArenaSize];
 };
 } // namespace arena
