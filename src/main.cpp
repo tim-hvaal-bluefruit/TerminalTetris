@@ -17,8 +17,8 @@ int main()
     Piece piece(arena);
     arena.createArena();
 
-
-    piece.setCurrentPiece(p6);
+    piece.setNextPiece(p7);
+    piece.createNewPiece();
 
     const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 20, yOffset2 = 2;
     const wchar_t* object2 = L"SCORE";
@@ -29,7 +29,7 @@ int main()
     while(true)
     {
         arena.drawArena();
-        piece.drawCurrentPiece(1, 10);
+        piece.drawCurrentPiece();
 
         screenBuffer.drawToBuffer(object2, objectHeight2, objectWidth2, xOffset2, yOffset2);
         screenBuffer.drawToBuffer(object3, objectHeight3, objectWidth3, xOffset3, yOffset3);

@@ -4,10 +4,9 @@
 
 namespace piece
 {
-
-constexpr int defaultPieceHeight = 4;
-constexpr int defaultPieceWidth = 4;
-enum pieceIndex { p1 = 0, p2, p3, p4, p5, p6, p7, pieceCount};
+    constexpr int defaultPieceHeight = 4;
+    constexpr int defaultPieceWidth = 4;
+    enum pieceIndex { p1 = 0, p2, p3, p4, p5, p6, p7, pieceCount};
 
 class Piece
 {
@@ -24,16 +23,32 @@ public:
 	    mPieces[p6].append(L".X...X...XX.....");
 	    mPieces[p7].append(L"..X...X..XX.....");
     }
+
+    void drawCurrentPiece();
+    const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
+    void createNewPiece();
+
+    // Getters and Setters
     void setCurrentPiece(pieceIndex piece) {mCurrentPiece = piece;}
     pieceIndex getCurrentPiece() {return mCurrentPiece;}
-    const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
 
-    void drawCurrentPiece(const int arenaX, const int arenaY);
+    void setNextPiece(pieceIndex piece) {mNextPiece = piece;}
+    pieceIndex getNextPiece() {return mNextPiece;}
+
+    void setArenaX(int arenaX) {mArenaX = arenaX;}
+    int getArenaX() {return mArenaX;}
+
+    void setArenaY(int arenaY) {mArenaY = arenaY;}
+    int getArenaY() {return mArenaY;}
 
 private:
     arena::ArenaInterface& mArena;
     std::wstring mPieces[pieceCount];
     pieceIndex mCurrentPiece = pieceCount;
+    int mArenaX = 0;
+    int mArenaY = 0;
+
+    pieceIndex mNextPiece = pieceCount;
 };
 } // namespace piece
 

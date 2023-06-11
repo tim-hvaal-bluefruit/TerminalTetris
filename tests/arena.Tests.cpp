@@ -170,5 +170,4 @@ TEST_F(ArenaTests, drawCurrentPiece_adds_only_the_current_piece_to_the_screen)
     ASSERT_EQ(mockScreenBuffer.mObjectWidth, w);
     ASSERT_EQ(mockScreenBuffer.mObjectXOffset, defaultScreenOffsetX);
     ASSERT_EQ(mockScreenBuffer.mObjectYOffset, defaultScreenOffsetY);
-
 }

@@ -4,13 +4,6 @@
 
 namespace arena
 {
-    constexpr int defaultArenaHeight = 19;
-    constexpr int defaultArenaWidth = 12;
-    constexpr int defaultScreenOffsetX = 2;
-    constexpr int defaultScreenOffsetY = 2;
-    constexpr int maxArenaSize = 25 * 25; //arena given some free memory (embedded approach)
-    constexpr char blankChar = ' ';
-
 class Arena : public ArenaInterface
 {
 public:
