@@ -14,3 +14,29 @@ void Piece::createNewPiece()
     mArenaX = arena::defaultStartPositionX;
     mArenaY = arena::defaultStartPositionY;
 }
+
+void Piece::movePiece(moveDirection direction)
+{
+    switch(direction)
+    {
+        case (moveDirection::left):
+        {
+            mArenaX--;
+            break;
+        }
+        case (moveDirection::right):
+        {
+            mArenaX++;
+            break;
+        }
+        case (moveDirection::down):
+        {
+            mArenaY++;
+            break;
+        }
+        default:
+        {
+            break;
+        }
+    }
+}

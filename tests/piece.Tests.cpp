@@ -72,3 +72,24 @@ TEST_F(PieceTests, createNewPiece_sets_next_piece_to_default_starting_position)
     ASSERT_EQ(piece.getArenaY(), arena::defaultStartPositionY);
 }
 
+TEST_F(PieceTests, movePiece_moves_piece_one_to_the_left_right_or_down)
+{
+    // Given
+    pieceIndex nextPiece = p1;
+    piece.setNextPiece(nextPiece);
+    piece.createNewPiece();
+    int currentArenaX = piece.getArenaX();
+    int currentArenaY = piece.getArenaY();
+
+    // When & Then
+    piece.movePiece(moveDirection::left);
+    ASSERT_EQ(piece.getArenaX(), currentArenaX - 1);
+
+    // When & Then
+    piece.movePiece(moveDirection::right);
+    ASSERT_EQ(piece.getArenaX(), currentArenaX);
+
+    // When & Then
+    piece.movePiece(moveDirection::down);
+    ASSERT_EQ(piece.getArenaY(), currentArenaY + 1);
+}

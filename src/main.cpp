@@ -30,6 +30,37 @@ int main()
     {
         arena.drawArena();
         piece.drawCurrentPiece();
+        Sleep(500);
+
+        piece.movePiece(moveDirection::left);
+        piece.drawCurrentPiece();
+        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
+        Sleep(500);
+
+        piece.movePiece(moveDirection::down);
+        piece.drawCurrentPiece();
+        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
+        Sleep(500);
+
+        piece.movePiece(moveDirection::right);
+        piece.drawCurrentPiece();
+        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
+        Sleep(500);
+
+        piece.movePiece(moveDirection::right);
+        piece.drawCurrentPiece();
+        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
+        Sleep(500);
+
+        piece.movePiece(moveDirection::down);
+        piece.drawCurrentPiece();
+        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
+        Sleep(500);
+
+        piece.movePiece(moveDirection::left);
+        piece.drawCurrentPiece();
+        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
+        Sleep(500);
 
         screenBuffer.drawToBuffer(object2, objectHeight2, objectWidth2, xOffset2, yOffset2);
         screenBuffer.drawToBuffer(object3, objectHeight3, objectWidth3, xOffset3, yOffset3);
