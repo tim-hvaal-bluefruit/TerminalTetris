@@ -1,4 +1,5 @@
 #pragma once
+#include "arenaInterface.h"
 #include "screenBuffer.h"
 
 namespace arena
@@ -8,9 +9,9 @@ namespace arena
     constexpr int defaultScreenOffsetX = 2;
     constexpr int defaultScreenOffsetY = 2;
     constexpr int maxArenaSize = 25 * 25; //arena given some free memory (embedded approach)
-    constexpr char blankChar = '.';
+    constexpr char blankChar = ' ';
 
-class Arena
+class Arena : public ArenaInterface
 {
 public:
     Arena(ScreenBufferInterface& screenBuffer) :
@@ -22,7 +23,7 @@ public:
     {}
 
     void drawArena();
-    void drawCurrentPiece(const wchar_t* piece, int height, int width, int arenaX, int arenaY);
+    void drawCurrentPiece(const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;
     wchar_t* createArena();
     wchar_t* createArena(int arenaHeight, int arenaWidth); // for testing convenience - can be nixed later
     wchar_t* getArena() {return mArena;}
