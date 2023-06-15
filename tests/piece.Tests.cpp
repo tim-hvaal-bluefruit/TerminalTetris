@@ -21,10 +21,10 @@ TEST_F(PieceTests, pieces_array_accessed_by_array_index)
     piece.setCurrentPiece(currentPiece);
 
     // When Then
-    const wchar_t* expected = L"...."
-                               ".XX."
-                               ".XX."
-                               "....";
+    const wchar_t* expected = L"    "
+                               " XX "
+                               " XX "
+                               "    ";
     ASSERT_STREQ(piece.getPieceData(piece.getCurrentPiece()), expected);
 
     // Given
@@ -32,7 +32,7 @@ TEST_F(PieceTests, pieces_array_accessed_by_array_index)
     piece.setCurrentPiece(currentPiece);
 
     // When Then
-    expected = L"..X...X..XX.....";
+    expected = L"  X   X  XX     ";
     ASSERT_STREQ(piece.getPieceData(piece.getCurrentPiece()), expected);
 }
 
@@ -58,11 +58,11 @@ TEST_F(PieceTests, drawCurrentPiece_passes_piece_and_location_to_arena_for_drawi
 }
 
 
-TEST_F(PieceTests, createNewPiece_sets_next_piece_to_default_starting_position)
+TEST_F(PieceTests, createNewPiece_sets_preview_piece_to_new_piece_in_default_start_position)
 {
     // Given
-    pieceIndex nextPiece = p1;
-    piece.setNextPiece(nextPiece);
+    pieceIndex previewPiece = p1;
+    piece.setPreviewPiece(previewPiece);
 
     // When
     piece.createNewPiece();
@@ -72,11 +72,27 @@ TEST_F(PieceTests, createNewPiece_sets_next_piece_to_default_starting_position)
     ASSERT_EQ(piece.getArenaY(), arena::defaultStartPositionY);
 }
 
+
+TEST_F(PieceTests, createNewPiece_generates_a_random_preview_piece)
+{
+    // Given
+    pieceIndex oldPreviewPiece = p3;
+    piece.setPreviewPiece(oldPreviewPiece);
+
+    // When
+    piece.createNewPiece();
+
+    // Then
+    pieceIndex newPreviewPiece = piece.getPreviewPiece();
+    ASSERT_TRUE(newPreviewPiece >= 0 && newPreviewPiece <= 6); // not worth testing randomness, but check it's valid
+}
+
+
 TEST_F(PieceTests, movePiece_moves_piece_one_to_the_left_right_or_down)
 {
     // Given
-    pieceIndex nextPiece = p1;
-    piece.setNextPiece(nextPiece);
+    pieceIndex previewPiece = p1;
+    piece.setPreviewPiece(previewPiece);
     piece.createNewPiece();
     int currentArenaX = piece.getArenaX();
     int currentArenaY = piece.getArenaY();
@@ -92,4 +108,17 @@ TEST_F(PieceTests, movePiece_moves_piece_one_to_the_left_right_or_down)
     // When & Then
     piece.movePiece(moveDirection::down);
     ASSERT_EQ(piece.getArenaY(), currentArenaY + 1);
+}
+
+
+TEST_F(PieceTests, next_test)
+{
+    // Given
+
+
+    // When
+
+
+    // Then
+
 }

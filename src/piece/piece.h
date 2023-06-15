@@ -14,24 +14,25 @@ public:
     {
         mPieces[p1].append(L"  X   X   X   X ");
 	    mPieces[p2].append(L"  X  XX   X     ");
-	    mPieces[p3].append(L".....XX..XX.....");
-	    mPieces[p4].append(L"..X..XX..X......");
-	    mPieces[p5].append(L".X...XX...X.....");
-	    mPieces[p6].append(L".X...X...XX.....");
-	    mPieces[p7].append(L"..X...X..XX.....");
+	    mPieces[p3].append(L"     XX  XX     ");
+	    mPieces[p4].append(L"  X  XX  X      ");
+	    mPieces[p5].append(L" X   XX   X     ");
+	    mPieces[p6].append(L" X   X   XX     ");
+	    mPieces[p7].append(L"  X   X  XX     ");
     }
 
     void drawCurrentPiece() override;
     const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
     void createNewPiece();
+    void chooseNextPiece();
     void movePiece(moveDirection direction) override;
 
     // Getters and Setters
     void setCurrentPiece(pieceIndex piece) {mCurrentPiece = piece;}
     pieceIndex getCurrentPiece() {return mCurrentPiece;}
 
-    void setNextPiece(pieceIndex piece) {mNextPiece = piece;}
-    pieceIndex getNextPiece() {return mNextPiece;}
+    void setPreviewPiece(pieceIndex piece) {mPreviewPiece = piece;}
+    pieceIndex getPreviewPiece() {return mPreviewPiece;}
 
     void setArenaX(int arenaX) {mArenaX = arenaX;}
     int getArenaX() {return mArenaX;}
@@ -43,14 +44,17 @@ private:
     arena::ArenaInterface& mArena;
     std::wstring mPieces[pieceCount];
     pieceIndex mCurrentPiece = pieceCount;
+    int mRotation;
     int mArenaX = 0;
     int mArenaY = 0;
-    pieceIndex mNextPiece = pieceCount;
+
+    pieceIndex mPreviewPiece = pieceCount;
+    int mPreviewRotation = 0;
 };
 } // namespace piece
 
 
 // next piece = random number 0-6
 // block attaches
-// int mCurrentPiece = mNextPiece
+// int mCurrentPiece = mPreviewPiece
 // next piece = random number 0-6

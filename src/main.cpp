@@ -20,7 +20,7 @@ int main()
     arena.createArena();
     UserInput userInput(piece);
 
-    piece.setNextPiece(p2);
+    piece.setPreviewPiece(p2);
     piece.createNewPiece();
 
     const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 20, yOffset2 = 2;

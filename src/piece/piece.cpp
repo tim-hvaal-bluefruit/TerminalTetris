@@ -1,4 +1,6 @@
 #include "piece.h"
+#include <stdio.h>
+#include <ctime>
 
 using namespace piece;
 
@@ -10,9 +12,13 @@ void Piece::drawCurrentPiece()
 
 void Piece::createNewPiece()
 {
-    mCurrentPiece = mNextPiece;
+    mCurrentPiece = mPreviewPiece;
+    mRotation = mPreviewRotation;
     mArenaX = arena::defaultStartPositionX;
     mArenaY = arena::defaultStartPositionY;
+    srand(time(NULL));
+    mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
+    mPreviewRotation = static_cast<pieceIndex>(rand() % 4);
 }
 
 void Piece::movePiece(moveDirection direction)
