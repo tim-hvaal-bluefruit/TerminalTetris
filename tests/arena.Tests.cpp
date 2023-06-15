@@ -28,10 +28,10 @@ TEST_F(ArenaTests, createArena_can_create_8_by_5_arena)
 {
     // Given
     const int height = 5, width = 8;
-    const wchar_t* expected = L"#......#"
-                               "#......#"
-                               "#......#"
-                               "#......#"
+    const wchar_t* expected = L"#      #"
+                               "#      #"
+                               "#      #"
+                               "#      #"
                                "########";
 
     // When Then
@@ -81,20 +81,20 @@ TEST_F(ArenaTests, addToArena_adds_blocks_to_the_fixed_arena)
 
     // When
     int height = 4, width = 4, arenaPosX = 1, arenaPosY = 2;
-    wchar_t obj1[] = L"...."
-                      ".xx."
-                      ".x.."
-                      ".x..";
+    wchar_t obj1[] = L"    "
+                      " xx "
+                      " x  "
+                      " x  ";
 
     arena.addToArena(arena.getArena(), obj1, height, width, arenaPosX, arenaPosY);
 
     // Then
-    const wchar_t* expected =  L"#....#"
-                                "#....#"
-                                "#....#"
-                                "#.xx.#"
-                                "#.x..#"
-                                "#.x..#"
+    const wchar_t* expected =  L"#    #"
+                                "#    #"
+                                "#    #"
+                                "# xx #"
+                                "# x  #"
+                                "# x  #"
                                 "######";
 
     ASSERT_STREQ(expected, arena.getArena());
@@ -104,20 +104,20 @@ TEST_F(ArenaTests, addToArena_adds_blocks_to_the_fixed_arena)
     width = 4;
     arenaPosX = 2;
     arenaPosY = 0;
-    wchar_t obj2[] = L"...."
-                      ".OO."
-                      ".OO."
-                      "....";
+    wchar_t obj2[] = L"    "
+                      " OO "
+                      " OO "
+                      "    ";
 
     arena.addToArena(arena.getArena(), obj2, height, width, arenaPosX, arenaPosY);
 
     // Then
-    const wchar_t* expected2 =  L"#....#"
-                                 "#..OO#"
-                                 "#..OO#"
-                                 "#.xx.#"
-                                 "#.x..#"
-                                 "#.x..#"
+    const wchar_t* expected2 =  L"#    #"
+                                 "#  OO#"
+                                 "#  OO#"
+                                 "# xx #"
+                                 "# x  #"
+                                 "# x  #"
                                  "######";
 
     ASSERT_STREQ(expected2, arena.getArena());
@@ -132,35 +132,35 @@ TEST_F(ArenaTests, drawCurrentPiece_adds_only_the_current_piece_to_the_screen)
 
     // When
     int height = 4, width = 4, arenaX = 1, arenaY = 1;
-    const wchar_t* piece = L".X.."
-                            ".X.."
-                            ".X.."
-                            ".X..";
+    const wchar_t* piece = L" X  "
+                            " X  "
+                            " X  "
+                            " X  ";
     arena.drawCurrentPiece(piece, height, width, arenaX, arenaY);
 
     // Then
-    const wchar_t* expected  =  L"#......#"
-                                 "#.X....#"
-                                 "#.X....#"
-                                 "#.X....#"
-                                 "#.X....#"
+    const wchar_t* expected  =  L"#      #"
+                                 "# X    #"
+                                 "# X    #"
+                                 "# X    #"
+                                 "# X    #"
                                  "########";
     ASSERT_STREQ(expected, arena.getActiveArena());
 
     // When
     height = 4; width = 4; arenaX = 1; arenaY = 1;
-    piece = L"...."
-             "...."
+    piece = L"    "
+             "    "
              "XXXX"
-             "....";
+             "    ";
     arena.drawCurrentPiece(piece, height, width, arenaX, arenaY);
 
     // Then
-    expected  =  L"#......#"
-                  "#......#"
-                  "#......#"
-                  "#XXXX..#"
-                  "#......#"
+    expected  =  L"#      #"
+                  "#      #"
+                  "#      #"
+                  "#XXXX  #"
+                  "#      #"
                   "########";
     ASSERT_STREQ(expected, arena.getActiveArena());
 
