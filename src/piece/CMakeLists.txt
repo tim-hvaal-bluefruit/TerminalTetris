@@ -7,4 +7,5 @@ target_sources(piece
 target_include_directories(piece
     PRIVATE ${PROJECT_SOURCE_DIR}/src/arena
     PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/piece
 )

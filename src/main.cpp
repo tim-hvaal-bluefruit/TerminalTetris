@@ -4,10 +4,12 @@
 #include "console.h"
 #include "arena.h"
 #include "piece.h"
+#include "userInput.h"
 
 using namespace console;
 using namespace arena;
 using namespace piece;
+using namespace userInput;
 
 int main()
 {
@@ -16,8 +18,9 @@ int main()
     Arena arena(screenBuffer);
     Piece piece(arena);
     arena.createArena();
+    UserInput userInput(piece);
 
-    piece.setNextPiece(p7);
+    piece.setNextPiece(p2);
     piece.createNewPiece();
 
     const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 20, yOffset2 = 2;
@@ -30,37 +33,9 @@ int main()
     {
         arena.drawArena();
         piece.drawCurrentPiece();
-        Sleep(500);
-
-        piece.movePiece(moveDirection::left);
-        piece.drawCurrentPiece();
-        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
-        Sleep(500);
-
-        piece.movePiece(moveDirection::down);
-        piece.drawCurrentPiece();
-        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
-        Sleep(500);
-
-        piece.movePiece(moveDirection::right);
-        piece.drawCurrentPiece();
-        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
-        Sleep(500);
-
-        piece.movePiece(moveDirection::right);
-        piece.drawCurrentPiece();
-        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
-        Sleep(500);
-
-        piece.movePiece(moveDirection::down);
-        piece.drawCurrentPiece();
-        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
-        Sleep(500);
-
-        piece.movePiece(moveDirection::left);
-        piece.drawCurrentPiece();
-        console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
-        Sleep(500);
+        userInput.getUserInput();
+        userInput.move();
+        Sleep(50);
 
         screenBuffer.drawToBuffer(object2, objectHeight2, objectWidth2, xOffset2, yOffset2);
         screenBuffer.drawToBuffer(object3, objectHeight3, objectWidth3, xOffset3, yOffset3);

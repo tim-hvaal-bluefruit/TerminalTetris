@@ -1,23 +1,19 @@
 #pragma once
 #include "arena.h"
+#include "pieceInterface.h"
 #include <string>
 
 namespace piece
 {
-    constexpr int defaultPieceHeight = 4;
-    constexpr int defaultPieceWidth = 4;
-    enum pieceIndex { p1 = 0, p2, p3, p4, p5, p6, p7, pieceCount};
-    enum moveDirection { left = 0, right, down};
-
-class Piece
+class Piece : public PieceInterface
 {
 
 public:
     Piece(arena::ArenaInterface& arena) :
         mArena(arena)
     {
-        mPieces[p1].append(L"..X...X...X...X.");
-	    mPieces[p2].append(L"..X..XX...X.....");
+        mPieces[p1].append(L"  X   X   X   X ");
+	    mPieces[p2].append(L"  X  XX   X     ");
 	    mPieces[p3].append(L".....XX..XX.....");
 	    mPieces[p4].append(L"..X..XX..X......");
 	    mPieces[p5].append(L".X...XX...X.....");
@@ -25,10 +21,10 @@ public:
 	    mPieces[p7].append(L"..X...X..XX.....");
     }
 
-    void drawCurrentPiece();
+    void drawCurrentPiece() override;
     const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
     void createNewPiece();
-    void movePiece(moveDirection direction);
+    void movePiece(moveDirection direction) override;
 
     // Getters and Setters
     void setCurrentPiece(pieceIndex piece) {mCurrentPiece = piece;}
@@ -49,7 +45,6 @@ private:
     pieceIndex mCurrentPiece = pieceCount;
     int mArenaX = 0;
     int mArenaY = 0;
-
     pieceIndex mNextPiece = pieceCount;
 };
 } // namespace piece
