@@ -50,6 +50,8 @@ public:
     int getArenaY() {return mArenaY;}
 
 private:
+    bool checkPieceFits(int arenaX, int arenaY);
+
     arena::ArenaInterface& mArena;
     screen::ScreenBufferInterface& mScreenBuffer;
     std::wstring mPieces[pieceCount];

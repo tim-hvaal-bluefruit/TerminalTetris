@@ -22,6 +22,7 @@ public:
     wchar_t* getArena() {return mArena;}
     wchar_t* getActiveArena() {return mActiveArena;}
     void addToArena(wchar_t* arena, const wchar_t* obj, int height, int width, int arenaX, int arenaY);
+    bool checkObjectFits(const wchar_t* obj, int height, int width, int arenaX, int arenaY) override;
 
 private:
     void refreshArena(wchar_t* arena);

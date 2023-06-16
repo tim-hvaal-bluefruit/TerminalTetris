@@ -171,3 +171,46 @@ TEST_F(ArenaTests, drawCurrentPiece_adds_only_the_current_piece_to_the_screen)
     ASSERT_EQ(mockScreenBuffer.mObjectXOffset, defaultScreenOffsetX);
     ASSERT_EQ(mockScreenBuffer.mObjectYOffset, defaultScreenOffsetY);
 }
+
+TEST_F(ArenaTests, checkObjectFits_returns_false_if_object_overlaps_any_part_of_arena)
+{
+    // Given - clashing arena and object
+    const int h = 3, w = 4;
+    arena.createArena(h, w);
+
+    const int height = 2, width = 2;
+    const int arenaX = 0, arenaY = 0;
+    const wchar_t* object = L"X"
+                             " X";
+
+    // When & Then
+    bool objectFits = true;
+    objectFits = arena.checkObjectFits(object, height, width, arenaX, arenaY);
+    ASSERT_FALSE(objectFits);
+
+    // X  # overlaps here
+    // #X #
+    // ####
+}
+
+
+TEST_F(ArenaTests, checkObjectFits_returns_true_if_object_is_clear_of_any_part_of_arena)
+{
+    // Given - clashing arena and object
+    const int h = 3, w = 4;
+    arena.createArena(h, w);
+
+    const int height = 2, width = 2;
+    const int arenaX = 1, arenaY = 0;
+    const wchar_t* object = L"X"
+                             " X";
+
+    // When & Then
+    bool objectFits = false;
+    objectFits = arena.checkObjectFits(object, height, width, arenaX, arenaY);
+    ASSERT_TRUE(objectFits);
+
+    // #X # fits
+    // # X#
+    // ####
+}

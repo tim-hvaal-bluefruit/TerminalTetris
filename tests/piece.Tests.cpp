@@ -93,6 +93,7 @@ TEST_F(PieceTests, createNewPiece_generates_a_new_random_preview_piece)
 TEST_F(PieceTests, movePiece_moves_piece_one_to_the_left_right_or_down)
 {
     // Given
+    mockArena.mObjectFits = true;
     pieceIndex previewPiece = p1;
     piece.setPreviewPiece(previewPiece);
     piece.createNewPiece();
@@ -123,4 +124,66 @@ TEST_F(PieceTests, drawPreviewPiece_draws_preview_piece_directly_to_screen_buffe
 
     // Then
     ASSERT_EQ(mockScreenBuffer.mObjectSize, expectedSize);
+}
+
+
+TEST_F(PieceTests, movePiece_does_not_move_piece_if_object_does_not_fit)
+{
+    // Given
+    mockArena.mObjectFits = false;
+
+    // When
+    piece.movePiece(moveDirection::left);
+
+    // Then not moved
+    int checkPos = mockArena.mArenaX;
+    ASSERT_EQ(checkPos + 1, piece.getArenaX());
+    ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
+
+    // When
+    piece.movePiece(moveDirection::right);
+
+    // Then not moved
+    checkPos = mockArena.mArenaX;
+    ASSERT_EQ(checkPos - 1, piece.getArenaX());
+    ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
+
+    // When
+    piece.movePiece(moveDirection::down);
+
+    // Then not moved
+    checkPos = mockArena.mArenaY;
+    ASSERT_EQ(mockArena.mArenaX, piece.getArenaX());
+    ASSERT_EQ(checkPos - 1, piece.getArenaY());
+}
+
+
+TEST_F(PieceTests, movePiece_does_move_piece_if_object_fits)
+{
+    // Given
+    mockArena.mObjectFits = true;
+
+    // When
+    piece.movePiece(moveDirection::left);
+
+    // Then moved
+    int checkPos = mockArena.mArenaX;
+    ASSERT_EQ(checkPos, piece.getArenaX());
+    ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
+
+    // When
+    piece.movePiece(moveDirection::right);
+
+    // Then moved
+    checkPos = mockArena.mArenaX;
+    ASSERT_EQ(checkPos, piece.getArenaX());
+    ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
+
+    // When
+    piece.movePiece(moveDirection::down);
+
+    // Then moved
+    checkPos = mockArena.mArenaY;
+    ASSERT_EQ(mockArena.mArenaX, piece.getArenaX());
+    ASSERT_EQ(checkPos, piece.getArenaY());
 }

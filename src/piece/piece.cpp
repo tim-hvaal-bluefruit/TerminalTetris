@@ -28,17 +28,20 @@ void Piece::movePiece(moveDirection direction)
     {
         case (moveDirection::left):
         {
-            mArenaX--;
+            if(checkPieceFits(mArenaX - 1, mArenaY))
+                mArenaX--;
             break;
         }
         case (moveDirection::right):
         {
-            mArenaX++;
+            if(checkPieceFits(mArenaX + 1, mArenaY))
+                mArenaX++;
             break;
         }
         case (moveDirection::down):
         {
-            mArenaY++;
+            if(checkPieceFits(mArenaX, mArenaY + 1))
+                mArenaY++;
             break;
         }
         default:
@@ -46,4 +49,9 @@ void Piece::movePiece(moveDirection direction)
             break;
         }
     }
+}
+
+bool Piece::checkPieceFits(int arenaX, int arenaY)
+{
+    mArena.checkObjectFits(getPieceData(mCurrentPiece), defaultPieceHeight, defaultPieceWidth, arenaX, arenaY);
 }

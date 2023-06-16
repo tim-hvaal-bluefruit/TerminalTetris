@@ -57,3 +57,22 @@ void Arena::drawCurrentPiece(const wchar_t* piece, const int height, const int w
     addToArena(mActiveArena, piece, height, width, arenaX, arenaY);
     mScreenBuffer.drawToBuffer(mActiveArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
 }
+
+
+bool Arena::checkObjectFits(const wchar_t* obj, int height, int width, int arenaX, int arenaY)
+{
+    // check arenaX and arenaY are less than mArena height and width
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            char c = obj[y * width + x];
+            if (c == blankChar)
+                continue;
+            if (mArena[((arenaY + y) * mArenaWidth) + (arenaX + x)] != blankChar)
+                return false;
+        }
+    }
+    return true;
+}
+
