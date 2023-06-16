@@ -1,5 +1,6 @@
 #pragma once
 #include "arena.h"
+#include "screenBuffer.h"
 #include "pieceInterface.h"
 #include <string>
 
@@ -9,8 +10,9 @@ class Piece : public PieceInterface
 {
 
 public:
-    Piece(arena::ArenaInterface& arena) :
-        mArena(arena)
+    Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screenBuffer) :
+        mArena(arena),
+        mScreenBuffer(screenBuffer)
     {
         mPieces[p1].append(L"  X   X   X   X ");
 	    mPieces[p2].append(L"  X  XX   X     ");
@@ -19,12 +21,19 @@ public:
 	    mPieces[p5].append(L" X   XX   X     ");
 	    mPieces[p6].append(L" X   X   XX     ");
 	    mPieces[p7].append(L"  X   X  XX     ");
+
+        srand(time(NULL));
+        mCurrentPiece = static_cast<pieceIndex>(rand() % 7);
+        mArenaX = arena::defaultStartPositionX;
+        mArenaY = arena::defaultStartPositionY;
+
+        mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
     }
 
     void drawCurrentPiece() override;
+    void drawPreviewPiece() override;
     const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
     void createNewPiece();
-    void chooseNextPiece();
     void movePiece(moveDirection direction) override;
 
     // Getters and Setters
@@ -42,14 +51,13 @@ public:
 
 private:
     arena::ArenaInterface& mArena;
+    screen::ScreenBufferInterface& mScreenBuffer;
     std::wstring mPieces[pieceCount];
-    pieceIndex mCurrentPiece = pieceCount;
-    int mRotation;
+    pieceIndex mCurrentPiece;
     int mArenaX = 0;
     int mArenaY = 0;
 
-    pieceIndex mPreviewPiece = pieceCount;
-    int mPreviewRotation = 0;
+    pieceIndex mPreviewPiece;
 };
 } // namespace piece
 

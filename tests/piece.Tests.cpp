@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "piece.h"
 #include "mockArena.h"
+#include "mockScreenBuffer.h"
 
 using namespace piece;
 
@@ -8,9 +9,10 @@ class PieceTests : public ::testing::Test
 {
 public:
     MockArena mockArena;
+    MockScreenBuffer mockScreenBuffer;
     Piece piece;
 
-    PieceTests() : piece(mockArena) {}
+    PieceTests() : piece(mockArena, mockScreenBuffer) {}
 };
 
 
@@ -73,7 +75,7 @@ TEST_F(PieceTests, createNewPiece_sets_preview_piece_to_new_piece_in_default_sta
 }
 
 
-TEST_F(PieceTests, createNewPiece_generates_a_random_preview_piece)
+TEST_F(PieceTests, createNewPiece_generates_a_new_random_preview_piece)
 {
     // Given
     pieceIndex oldPreviewPiece = p3;
@@ -84,7 +86,7 @@ TEST_F(PieceTests, createNewPiece_generates_a_random_preview_piece)
 
     // Then
     pieceIndex newPreviewPiece = piece.getPreviewPiece();
-    ASSERT_TRUE(newPreviewPiece >= 0 && newPreviewPiece <= 6); // not worth testing randomness, but check it's valid
+    ASSERT_TRUE(newPreviewPiece >= 0 && newPreviewPiece <= 6); // not testing randomness here, but check it's valid
 }
 
 
@@ -111,14 +113,14 @@ TEST_F(PieceTests, movePiece_moves_piece_one_to_the_left_right_or_down)
 }
 
 
-TEST_F(PieceTests, next_test)
+TEST_F(PieceTests, drawPreviewPiece_draws_preview_piece_directly_to_screen_buffer)
 {
     // Given
-
+    const int expectedSize = defaultPieceHeight * defaultPieceWidth;
 
     // When
-
+    piece.drawPreviewPiece();
 
     // Then
-
+    ASSERT_EQ(mockScreenBuffer.mObjectSize, expectedSize);
 }

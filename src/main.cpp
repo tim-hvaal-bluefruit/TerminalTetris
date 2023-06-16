@@ -16,12 +16,9 @@ int main()
     Console console;
     ScreenBuffer screenBuffer;
     Arena arena(screenBuffer);
-    Piece piece(arena);
+    Piece piece(arena, screenBuffer);
     arena.createArena();
     UserInput userInput(piece);
-
-    piece.setPreviewPiece(p2);
-    piece.createNewPiece();
 
     const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 20, yOffset2 = 2;
     const wchar_t* object2 = L"SCORE";
@@ -33,6 +30,7 @@ int main()
     {
         arena.drawArena();
         piece.drawCurrentPiece();
+        piece.drawPreviewPiece();
         userInput.getUserInput();
         userInput.move();
         Sleep(50);

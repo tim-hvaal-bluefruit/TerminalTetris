@@ -5,6 +5,11 @@ void MockPiece::drawCurrentPiece()
     std::cout << "drawCurrentPiece called" << std::endl;
 }
 
+void MockPiece::drawPreviewPiece()
+{
+    std::cout << "drawCurrentPiece called" << std::endl;
+}
+
 void MockPiece::movePiece(moveDirection direction)
 {
     switch (direction)

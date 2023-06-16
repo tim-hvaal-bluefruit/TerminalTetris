@@ -1,6 +1,4 @@
 #include "piece.h"
-#include <stdio.h>
-#include <ctime>
 
 using namespace piece;
 
@@ -10,15 +8,18 @@ void Piece::drawCurrentPiece()
     mArena.drawCurrentPiece(pieceData, defaultPieceHeight, defaultPieceWidth, mArenaX, mArenaY);
 }
 
+void Piece::drawPreviewPiece()
+{
+    const wchar_t* pieceData = getPieceData(mPreviewPiece);
+    mScreenBuffer.drawToBuffer(pieceData, defaultPieceHeight, defaultPieceWidth, 20, 6);
+}
+
 void Piece::createNewPiece()
 {
     mCurrentPiece = mPreviewPiece;
-    mRotation = mPreviewRotation;
     mArenaX = arena::defaultStartPositionX;
     mArenaY = arena::defaultStartPositionY;
-    srand(time(NULL));
     mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
-    mPreviewRotation = static_cast<pieceIndex>(rand() % 4);
 }
 
 void Piece::movePiece(moveDirection direction)
