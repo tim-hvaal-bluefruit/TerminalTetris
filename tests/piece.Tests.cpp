@@ -132,7 +132,7 @@ TEST_F(PieceTests, movePiece_does_not_move_piece_if_object_does_not_fit)
     // Given
     mockArena.mObjectFits = false;
 
-    // When
+    // When can't move
     piece.movePiece(moveDirection::left);
 
     // Then not moved
@@ -140,7 +140,7 @@ TEST_F(PieceTests, movePiece_does_not_move_piece_if_object_does_not_fit)
     ASSERT_EQ(checkPos + 1, piece.getArenaX());
     ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
 
-    // When
+    // When can't move
     piece.movePiece(moveDirection::right);
 
     // Then not moved
@@ -148,7 +148,7 @@ TEST_F(PieceTests, movePiece_does_not_move_piece_if_object_does_not_fit)
     ASSERT_EQ(checkPos - 1, piece.getArenaX());
     ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
 
-    // When
+    // When can't move
     piece.movePiece(moveDirection::down);
 
     // Then not moved
@@ -158,12 +158,12 @@ TEST_F(PieceTests, movePiece_does_not_move_piece_if_object_does_not_fit)
 }
 
 
-TEST_F(PieceTests, movePiece_does_move_piece_if_object_fits)
+TEST_F(PieceTests, movePiece_moves_piece_if_object_fits)
 {
     // Given
     mockArena.mObjectFits = true;
 
-    // When
+    // When space left
     piece.movePiece(moveDirection::left);
 
     // Then moved
@@ -171,7 +171,7 @@ TEST_F(PieceTests, movePiece_does_move_piece_if_object_fits)
     ASSERT_EQ(checkPos, piece.getArenaX());
     ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
 
-    // When
+    // When space right
     piece.movePiece(moveDirection::right);
 
     // Then moved
@@ -179,11 +179,25 @@ TEST_F(PieceTests, movePiece_does_move_piece_if_object_fits)
     ASSERT_EQ(checkPos, piece.getArenaX());
     ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
 
-    // When
+    // When space down
     piece.movePiece(moveDirection::down);
 
     // Then moved
     checkPos = mockArena.mArenaY;
     ASSERT_EQ(mockArena.mArenaX, piece.getArenaX());
     ASSERT_EQ(checkPos, piece.getArenaY());
+}
+
+
+TEST_F(PieceTests, movePiece_returns_true_if_object_fits)
+{
+    mockArena.mObjectFits = true;
+    ASSERT_TRUE(piece.movePiece(moveDirection::right ));
+}
+
+
+TEST_F(PieceTests, movePiece_returns_false_if_object_does_not_fit)
+{
+    mockArena.mObjectFits = false;
+    ASSERT_FALSE(piece.movePiece(moveDirection::down));
 }

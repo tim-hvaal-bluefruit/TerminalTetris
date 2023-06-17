@@ -34,7 +34,7 @@ public:
     void drawPreviewPiece() override;
     const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
     void createNewPiece();
-    void movePiece(moveDirection direction) override;
+    bool movePiece(moveDirection direction) override;
 
     // Getters and Setters
     void setCurrentPiece(pieceIndex piece) {mCurrentPiece = piece;}

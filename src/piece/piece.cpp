@@ -22,33 +22,41 @@ void Piece::createNewPiece()
     mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
 }
 
-void Piece::movePiece(moveDirection direction)
+bool Piece::movePiece(moveDirection direction)
 {
     switch(direction)
     {
         case (moveDirection::left):
         {
             if(checkPieceFits(mArenaX - 1, mArenaY))
+            {
                 mArenaX--;
+                return true;
+            }
             break;
         }
         case (moveDirection::right):
         {
             if(checkPieceFits(mArenaX + 1, mArenaY))
+            {
                 mArenaX++;
+                return true;
+            }
             break;
         }
         case (moveDirection::down):
         {
             if(checkPieceFits(mArenaX, mArenaY + 1))
+            {
                 mArenaY++;
+                return true;
+            }
             break;
         }
         default:
-        {
             break;
-        }
     }
+    return false;
 }
 
 bool Piece::checkPieceFits(int arenaX, int arenaY)
