@@ -201,3 +201,19 @@ TEST_F(PieceTests, movePiece_returns_false_if_object_does_not_fit)
     mockArena.mObjectFits = false;
     ASSERT_FALSE(piece.movePiece(moveDirection::down));
 }
+
+
+TEST_F(PieceTests, addPieceToArena_passes_piece_to_arena_to_update)
+{
+    // Given
+    piece.setArenaX(10);
+    piece.setArenaY(10);
+
+
+    // When
+    piece.addPieceToArena();
+
+    // Then
+    ASSERT_EQ(mockArena.mArenaX, piece.getArenaX());
+    ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
+}

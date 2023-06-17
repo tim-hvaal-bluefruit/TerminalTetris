@@ -61,5 +61,10 @@ bool Piece::movePiece(moveDirection direction)
 
 bool Piece::checkPieceFits(int arenaX, int arenaY)
 {
-    mArena.checkObjectFits(getPieceData(mCurrentPiece), defaultPieceHeight, defaultPieceWidth, arenaX, arenaY);
+    return mArena.checkObjectFits(getPieceData(mCurrentPiece), defaultPieceHeight, defaultPieceWidth, arenaX, arenaY);
+}
+
+void Piece::addPieceToArena()
+{
+    mArena.addToArena(mArena.getArena(), getPieceData(mCurrentPiece), defaultPieceHeight, defaultPieceWidth, mArenaX, mArenaY);
 }

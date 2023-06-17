@@ -17,6 +17,7 @@ public:
     virtual void drawCurrentPiece() = 0;
     virtual void drawPreviewPiece() = 0;
     virtual bool movePiece(moveDirection direction) = 0;
+    virtual void addPieceToArena() = 0;
 };
 
 } // namespace piece

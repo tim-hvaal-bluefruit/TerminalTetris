@@ -35,6 +35,7 @@ public:
     const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
     void createNewPiece();
     bool movePiece(moveDirection direction) override;
+    void addPieceToArena() override;
 
     // Getters and Setters
     void setCurrentPiece(pieceIndex piece) {mCurrentPiece = piece;}
@@ -62,9 +63,3 @@ private:
     pieceIndex mPreviewPiece;
 };
 } // namespace piece
-
-
-// next piece = random number 0-6
-// block attaches
-// int mCurrentPiece = mPreviewPiece
-// next piece = random number 0-6

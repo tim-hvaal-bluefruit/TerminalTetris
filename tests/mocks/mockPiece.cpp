@@ -17,18 +17,25 @@ bool MockPiece::movePiece(moveDirection direction)
         case (moveDirection::left):
         {
             mMoveLeftCalled = true;
-            return true;
+            break;
         }
         case (moveDirection::right):
         {
             mMoveRightCalled = true;
-            return true;
+            break;
         }
         case (moveDirection::down):
         {
             mMoveDownCalled = true;
-            return true;
+            break;
         }
+        default:
+            break;
     }
-    return false;
+    return mIsMovePossible;
+}
+
+void MockPiece::addPieceToArena()
+{
+    mAddPieceToArenaCalled = true;
 }

@@ -5,11 +5,13 @@
 #include "arena.h"
 #include "piece.h"
 #include "userInput.h"
+#include "game.h"
 
 using namespace console;
 using namespace arena;
 using namespace piece;
 using namespace userInput;
+using namespace game;
 
 int main()
 {
@@ -19,6 +21,7 @@ int main()
     Piece piece(arena, screenBuffer);
     arena.createArena();
     UserInput userInput(piece);
+    Game game(piece);
 
     const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 20, yOffset2 = 2;
     const wchar_t* object2 = L"SCORE";
@@ -34,6 +37,7 @@ int main()
         userInput.getUserInput();
         userInput.move();
         Sleep(50);
+        game.fall();
 
         screenBuffer.drawToBuffer(object2, objectHeight2, objectWidth2, xOffset2, yOffset2);
         screenBuffer.drawToBuffer(object3, objectHeight3, objectWidth3, xOffset3, yOffset3);
