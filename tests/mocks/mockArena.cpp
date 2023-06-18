@@ -30,8 +30,3 @@ void MockArena::addToArena(wchar_t* arena, const wchar_t* piece, int height, int
     mArenaX = arenaX;
     mArenaY = arenaY;
 }
-
-wchar_t* MockArena::getArena()
-{
-    return mMockArena;
-}

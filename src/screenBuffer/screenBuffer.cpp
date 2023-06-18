@@ -23,6 +23,25 @@ void ScreenBuffer::fillBuffer(const wchar_t c)
 void ScreenBuffer::drawToBuffer(const wchar_t* object, int objectHeight, int objectWidth, int xOffset, int yOffset)
 {
     for (int x = 0; x < objectWidth; x++)
+    {
 		for (int y = 0; y < objectHeight; y++)
-				mBuffer[(y + yOffset) * mScreenWidth + (x + xOffset)] = object[y * objectWidth + x];
+        {
+                mBuffer[(y + yOffset) * mScreenWidth + (x + xOffset)] = object[y * objectWidth + x];
+        }
+    }
+}
+
+void ScreenBuffer::drawVisibleToBuffer(const wchar_t* object, int objectHeight, int objectWidth, int xOffset, int yOffset)
+{
+    for (int x = 0; x < objectWidth; x++)
+    {
+		for (int y = 0; y < objectHeight; y++)
+        {
+            char c = object[ ( y * objectWidth ) + x];
+            if (c != ' ')
+            {
+                mBuffer[(y + yOffset) * mScreenWidth + (x + xOffset)] = object[y * objectWidth + x];
+            }
+        }
+    }
 }

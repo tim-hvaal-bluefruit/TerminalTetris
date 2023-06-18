@@ -14,12 +14,20 @@ void Piece::drawPreviewPiece()
     mScreenBuffer.drawToBuffer(pieceData, defaultPieceHeight, defaultPieceWidth, 20, 6);
 }
 
-void Piece::createNewPiece()
+bool Piece::createNewPiece()
 {
     mCurrentPiece = mPreviewPiece;
+    if(!checkPieceFits(arena::defaultStartPositionX, arena::defaultStartPositionY))
+    {
+        mArenaX = arena::defaultStartPositionX;
+        mArenaY = arena::defaultStartPositionY;
+        return false;
+    }
+
     mArenaX = arena::defaultStartPositionX;
     mArenaY = arena::defaultStartPositionY;
     mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
+    return true;
 }
 
 bool Piece::movePiece(moveDirection direction)

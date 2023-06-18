@@ -39,3 +39,8 @@ void MockPiece::addPieceToArena()
 {
     mAddPieceToArenaCalled = true;
 }
+
+bool MockPiece::createNewPiece()
+{
+    return mSpaceForNewPiece;
+}

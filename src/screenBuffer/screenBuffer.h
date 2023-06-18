@@ -26,6 +26,7 @@ public:
     void setScreenBufferSize(const int screenHeight, const int screenWidth);
     void fillBuffer(const wchar_t c) override;
     void drawToBuffer(const wchar_t* object, int objectHeight, int objectWidth, int xOffset, int yOffset) override;
+    void drawVisibleToBuffer(const wchar_t* object, int objectHeight, int objectWidth, int xOffset, int yOffset);
 
 private:
     int mScreenHeight;

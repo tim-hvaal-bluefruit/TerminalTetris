@@ -10,10 +10,12 @@ public:
     void drawPreviewPiece() override;
     bool movePiece(moveDirection direction) override;
     void addPieceToArena() override;
+    bool createNewPiece() override;
 
     bool mMoveLeftCalled = false;
     bool mMoveRightCalled = false;
     bool mMoveDownCalled = false;
     bool mIsMovePossible = false;
     bool mAddPieceToArenaCalled = false;
+    bool mSpaceForNewPiece = true;
 };

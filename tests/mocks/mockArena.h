@@ -9,7 +9,9 @@ public:
     void drawCurrentPiece(const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;
     bool checkObjectFits(const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;
     void addToArena(wchar_t* arena, const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;
-    wchar_t* getArena() override;
+    wchar_t* getArena() override {return mMockArena;}
+    wchar_t* createArena() override {return mMockArena;}
+    void drawArena() override {};
 
     wchar_t* mMockArena;
     const wchar_t* mPieceData = L"UNSET_DATA";

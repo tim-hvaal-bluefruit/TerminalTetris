@@ -33,7 +33,7 @@ public:
     void drawCurrentPiece() override;
     void drawPreviewPiece() override;
     const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
-    void createNewPiece();
+    bool createNewPiece() override;
     bool movePiece(moveDirection direction) override;
     void addPieceToArena() override;
 

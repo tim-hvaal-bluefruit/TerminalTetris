@@ -1,4 +1,5 @@
 #pragma once
+#include "userInputInterface.h"
 #include "piece.h"
 
 using namespace piece;
@@ -7,14 +8,14 @@ namespace userInput
 {
     enum Key {left = 0, right, down, keyCount};
 
-class UserInput
+class UserInput : public UserInputInterface
 {
 public:
     UserInput(PieceInterface& piece) : mPiece(piece)
     {}
 
-    void getUserInput();
-    void move();
+    void getUserInput() override;
+    void move() override;
 
     // getters and setters
     void setIsKeyPressed(Key key, bool pressed) {mKeysPressed[key] = pressed;}

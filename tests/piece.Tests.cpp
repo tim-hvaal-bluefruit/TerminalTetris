@@ -217,3 +217,17 @@ TEST_F(PieceTests, addPieceToArena_passes_piece_to_arena_to_update)
     ASSERT_EQ(mockArena.mArenaX, piece.getArenaX());
     ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
 }
+
+
+TEST_F(PieceTests, createNewPiece_returns_false_if_piece_does_not_fit)
+{
+    mockArena.mObjectFits = false;
+    ASSERT_FALSE(piece.createNewPiece());
+}
+
+
+TEST_F(PieceTests, createNewPiece_returns_true_if_piece_fits)
+{
+    mockArena.mObjectFits = true;
+    ASSERT_TRUE(piece.createNewPiece());
+}

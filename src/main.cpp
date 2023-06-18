@@ -13,34 +13,46 @@ using namespace piece;
 using namespace userInput;
 using namespace game;
 
+
 int main()
 {
+    // build classes
     Console console;
     ScreenBuffer screenBuffer;
     Arena arena(screenBuffer);
     Piece piece(arena, screenBuffer);
-    arena.createArena();
     UserInput userInput(piece);
-    Game game(piece);
+    Game game(piece, userInput, arena);
 
+    // temporary bits - move to score later
     const int objectHeight2 = 1, objectWidth2 = 5, xOffset2 = 20, yOffset2 = 2;
     const wchar_t* object2 = L"SCORE";
 
     const int objectHeight3 = 1, objectWidth3 = 3, xOffset3 = 21, yOffset3 = 3;
     const wchar_t* object3 = L"123";
 
-    while(true)
-    {
-        arena.drawArena();
-        piece.drawCurrentPiece();
-        piece.drawPreviewPiece();
-        userInput.getUserInput();
-        userInput.move();
-        Sleep(50);
-        game.fall();
+    bool programRunning = true;
+    bool gameOver = false;
 
+    game.initialiseGame();
+
+    while(programRunning)
+    {
+        Sleep(50);
+
+        if(!gameOver)
+        {
+            if (!game.gameTick())
+                gameOver = true;
+        }
+        else
+            game.gameOver();
+
+        // draw to screen buffer
         screenBuffer.drawToBuffer(object2, objectHeight2, objectWidth2, xOffset2, yOffset2);
         screenBuffer.drawToBuffer(object3, objectHeight3, objectWidth3, xOffset3, yOffset3);
+
+        // copy buffer to console
         console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
     }
 }

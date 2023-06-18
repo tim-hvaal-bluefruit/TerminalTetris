@@ -55,7 +55,7 @@ void Arena::drawCurrentPiece(const wchar_t* piece, const int height, const int w
 {
     refreshArena(mActiveArena);
     addToArena(mActiveArena, piece, height, width, arenaX, arenaY);
-    mScreenBuffer.drawToBuffer(mActiveArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
+    mScreenBuffer.drawVisibleToBuffer(mActiveArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
 }
 
 
