@@ -2,17 +2,20 @@
 
 using namespace piece;
 
+
 void Piece::drawCurrentPiece()
 {
     const wchar_t* pieceData = getPieceData(mCurrentPiece);
     mArena.drawCurrentPiece(pieceData, defaultPieceHeight, defaultPieceWidth, mArenaX, mArenaY);
 }
 
+
 void Piece::drawPreviewPiece()
 {
     const wchar_t* pieceData = getPieceData(mPreviewPiece);
     mScreenBuffer.drawToBuffer(pieceData, defaultPieceHeight, defaultPieceWidth, 20, 6);
 }
+
 
 bool Piece::createNewPiece()
 {
@@ -29,6 +32,7 @@ bool Piece::createNewPiece()
     mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
     return true;
 }
+
 
 bool Piece::movePiece(moveDirection direction)
 {
@@ -67,54 +71,37 @@ bool Piece::movePiece(moveDirection direction)
     return false;
 }
 
+
 bool Piece::checkPieceFits(int arenaX, int arenaY)
 {
     return mArena.checkObjectFits(getPieceData(mCurrentPiece), defaultPieceHeight, defaultPieceWidth, arenaX, arenaY);
 }
+
 
 void Piece::addPieceToArena()
 {
     mArena.addToArena(mArena.getArena(), getPieceData(mCurrentPiece), defaultPieceHeight, defaultPieceWidth, mArenaX, mArenaY);
 }
 
-int Piece::rotateIndex(int x, int y, int width, rotation rotation)
+
+int Piece::rotateIndex(int x, int y, int width, int height, rotation rotation)
 {
-    int rotatedIndex = (y * width) + x;
-    return rotatedIndex;
+    int rotatedIndex = 0;
+    switch (rotation)
+    {
+        case (rotation::r0):
+            return rotatedIndex = (y * width) + x;
+
+        case (rotation::r90):
+            return rotatedIndex = ((height - 1) * width) + y - (x * width);
+
+        case (rotation::r180):
+            return rotatedIndex = ( ( height * width ) - 1 ) - ( y * width ) - x;
+
+        case (rotation::r270):
+            return rotatedIndex = (width - 1) - y + (x * height);
+
+        default:
+            return rotatedIndex = (y * width) + x;
+    }
 }
-
-
-
-
-// // ROTATE PLAN
-
-// piece
-// 0  1  2  3
-// 4  5  6  7
-// 8  9  10 11
-// 12 13 14 15
-
-// rotated piece
-// 12 8  4  0
-// 13 9  5  1
-// 14 10 6  2
-// 15 11 7  3
-
-// 0 rotation is easy
-//   index = y * width + x
-
-// so for each pixel
-//   rotated[ ( y * width) + x ] = piece[ ( y * width) + x ]
-
-// 90 rotation
-//   rotated[ ( y * width) + x ] = piece[ 12 + y - (x * width) ] 0 becomes 12 // when y = 0 x = 0
-//   rotated[ ( y * width) + x ] = piece[ 12 + y - (x * width) ] 1 becomes 8 // when y = 0 x = 1
-//   rotated[ ( y * width) + x ] = piece[ 12 + y - (x * width) ] 2 becomes 4 // when y = 0 x = 2
-//   rotated[ ( y * width) + x ] = piece[ 12 + y - (x * width) ] 3 becomes 0 // when y = 0 x = 3
-
-// 180 rotation
-//  index = 15 - (y * width) - x
-
-// 270 rotation
-//  index = 3 - y + (x * 4)
-
