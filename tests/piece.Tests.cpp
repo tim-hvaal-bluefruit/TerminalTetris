@@ -231,3 +231,35 @@ TEST_F(PieceTests, createNewPiece_returns_true_if_piece_fits)
     mockArena.mObjectFits = true;
     ASSERT_TRUE(piece.createNewPiece());
 }
+
+
+TEST_F(PieceTests, rotateIndex_returns_the_unrotated_index_if_rotation_is_0)
+{
+    // no rotation so expected = (y * width) + x
+
+    // Given
+    int x = 0, y = 0, width = 4;
+    rotation rotation = r0;
+
+    // When & Then
+    int rotatedIndex = piece.rotateIndex(x, y, width, rotation);
+    ASSERT_EQ(rotatedIndex, 0); // 0*4 + 0
+
+
+    // Given
+    x = 1; y = 0; width = 4;
+    rotation = r0;
+
+    // When & Then
+    rotatedIndex = piece.rotateIndex(x, y, width, rotation);
+    ASSERT_EQ(rotatedIndex, 1); // 0*4 + 1
+
+
+    // Given
+    x = 3; y = 3; width = 4;
+    rotation = r0;
+
+    // When & Then
+    rotatedIndex = piece.rotateIndex(x, y, width, rotation);
+    ASSERT_EQ(rotatedIndex, 15); // 3*4 + 3
+}

@@ -36,6 +36,7 @@ public:
     bool createNewPiece() override;
     bool movePiece(moveDirection direction) override;
     void addPieceToArena() override;
+    int rotateIndex(int x, int y, int width, rotation rotation);
 
     // Getters and Setters
     void setCurrentPiece(pieceIndex piece) {mCurrentPiece = piece;}
