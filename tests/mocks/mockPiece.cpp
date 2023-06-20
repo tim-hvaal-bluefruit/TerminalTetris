@@ -29,6 +29,11 @@ bool MockPiece::movePiece(moveDirection direction)
             mMoveDownCalled = true;
             break;
         }
+        case (moveDirection::rotate):
+        {
+            mRotateCalled = true;
+            break;
+        }
         default:
             break;
     }

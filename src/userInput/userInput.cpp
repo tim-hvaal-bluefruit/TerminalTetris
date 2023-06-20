@@ -19,4 +19,7 @@ void UserInput::move()
 
     if (mKeysPressed[Key::down])
         mPiece.movePiece(piece::moveDirection::down);
+
+    if (mKeysPressed[Key::rotate])
+        mPiece.movePiece(piece::moveDirection::rotate);
 }

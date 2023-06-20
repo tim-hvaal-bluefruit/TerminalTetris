@@ -206,6 +206,30 @@ TEST_F(PieceTests, movePiece_moves_piece_if_object_fits)
 }
 
 
+TEST_F(PieceTests, movePiece_does_not_rotate_piece_if_piece_wont_fit)
+{
+    // Given
+    mockArena.mObjectFits = false;
+    piece.setCurrentRotation(rotation::r0);
+
+    // When
+    piece.movePiece(moveDirection::rotate);
+    ASSERT_EQ(piece.getCurrentRotation(), rotation::r0);
+}
+
+
+TEST_F(PieceTests, movePiece_rotates_90_degrees_if_piece_fits)
+{
+    // Given
+    mockArena.mObjectFits = true;
+    piece.setCurrentRotation(rotation::r0);
+
+    // When
+    piece.movePiece(moveDirection::rotate);
+    ASSERT_EQ(piece.getCurrentRotation(), rotation::r90);
+}
+
+
 TEST_F(PieceTests, movePiece_returns_true_if_object_fits)
 {
     mockArena.mObjectFits = true;
@@ -218,6 +242,7 @@ TEST_F(PieceTests, movePiece_returns_false_if_object_does_not_fit)
     mockArena.mObjectFits = false;
     ASSERT_FALSE(piece.movePiece(moveDirection::down));
 }
+
 
 
 TEST_F(PieceTests, addPieceToArena_passes_piece_to_arena_to_update)

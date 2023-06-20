@@ -17,6 +17,7 @@ public:
     bool mMoveLeftCalled = false;
     bool mMoveRightCalled = false;
     bool mMoveDownCalled = false;
+    bool mRotateCalled = false;
     bool mIsMovePossible = false;
     bool mAddPieceToArenaCalled = false;
     bool mSpaceForNewPiece = true;

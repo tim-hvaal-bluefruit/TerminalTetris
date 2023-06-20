@@ -45,6 +45,7 @@ TEST_F(UserInputTests, move_passes_move_direction_to_piece)
 	userInput.setIsKeyPressed(Key::left, true);
     userInput.setIsKeyPressed(Key::right, true);
     userInput.setIsKeyPressed(Key::down, true);
+    userInput.setIsKeyPressed(Key::rotate, true);
 
     // When Then
 	userInput.move();
@@ -52,4 +53,6 @@ TEST_F(UserInputTests, move_passes_move_direction_to_piece)
     ASSERT_TRUE(mockPiece.mMoveLeftCalled);
     ASSERT_TRUE(mockPiece.mMoveRightCalled);
     ASSERT_TRUE(mockPiece.mMoveDownCalled);
+    ASSERT_TRUE(mockPiece.mRotateCalled);
 }
+

@@ -6,7 +6,7 @@ using namespace piece;
 
 namespace userInput
 {
-    enum Key {left = 0, right, down, keyCount};
+    enum Key {left = 0, right, down, rotate, keyCount};
 
 class UserInput : public UserInputInterface
 {
