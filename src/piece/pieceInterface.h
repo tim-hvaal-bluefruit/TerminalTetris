@@ -20,6 +20,10 @@ public:
     virtual bool movePiece(moveDirection direction) = 0;
     virtual void addPieceToArena() = 0;
     virtual bool createNewPiece() = 0;
+
+// TEMP IN INTERFACE
+    virtual void setCurrentRotation(rotation rotation) = 0;
+    virtual rotation getCurrentRotation() = 0;
 };
 
 } // namespace piece

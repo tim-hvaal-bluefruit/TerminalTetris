@@ -2,11 +2,15 @@
 
 using namespace piece;
 
-
 void Piece::drawCurrentPiece()
 {
-    const wchar_t* pieceData = getPieceData(mCurrentPiece);
-    mArena.drawCurrentPiece(pieceData, defaultPieceHeight, defaultPieceWidth, mArenaX, mArenaY);
+    int height = defaultPieceHeight;
+    int width = defaultPieceWidth;
+    wchar_t pieceBuffer[height * width];
+
+    rotatePiece(pieceBuffer, mCurrentPiece, mCurrentRotation, height, width);
+
+    mArena.drawCurrentPiece(pieceBuffer, height, width, mArenaX, mArenaY);
 }
 
 
@@ -74,13 +78,39 @@ bool Piece::movePiece(moveDirection direction)
 
 bool Piece::checkPieceFits(int arenaX, int arenaY)
 {
-    return mArena.checkObjectFits(getPieceData(mCurrentPiece), defaultPieceHeight, defaultPieceWidth, arenaX, arenaY);
+    int height = defaultPieceHeight;
+    int width = defaultPieceWidth;
+
+    wchar_t pieceBuffer[height * width];
+    rotatePiece(pieceBuffer, mCurrentPiece, mCurrentRotation, height, width);
+
+    return mArena.checkObjectFits(pieceBuffer, height, width, arenaX, arenaY);
+}
+
+
+void Piece::rotatePiece(wchar_t* pieceData, pieceIndex piece, rotation rotation, int height, int width)
+{
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
+            int currentIndex = (y * width) + x;
+            int rotatedIndex = rotateIndex(x, y, width, height, rotation);
+            pieceData[currentIndex] = getPieceData(piece)[rotatedIndex];
+        }
+    }
 }
 
 
 void Piece::addPieceToArena()
 {
-    mArena.addToArena(mArena.getArena(), getPieceData(mCurrentPiece), defaultPieceHeight, defaultPieceWidth, mArenaX, mArenaY);
+    int height = defaultPieceHeight;
+    int width = defaultPieceWidth;
+
+    wchar_t pieceBuffer[height * width];
+    rotatePiece(pieceBuffer, mCurrentPiece, mCurrentRotation, height, width);
+
+    mArena.addToArena(mArena.getArena(), pieceBuffer, height, width, mArenaX, mArenaY);
 }
 
 

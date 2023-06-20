@@ -12,6 +12,7 @@ namespace arena
     constexpr int defaultScreenOffsetY = 2;
 
     constexpr int maxArenaSize = 25 * 25; //arena given some free memory (embedded approach)
+    constexpr int maxObjectSize = 100; // safe amount
     constexpr char blankChar = ' ';
 
 class ArenaInterface

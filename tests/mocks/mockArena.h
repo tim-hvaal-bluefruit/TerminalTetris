@@ -12,11 +12,12 @@ public:
     wchar_t* getArena() override {return mMockArena;}
     wchar_t* createArena() override {return mMockArena;}
     void drawArena() override {};
+    void copyToMockObject(const wchar_t* object, int height, int width);
 
     wchar_t* mMockArena;
-    const wchar_t* mPieceData = L"UNSET_DATA";
-    int mPieceHeight= 0;
-    int mPieceWidth = 0;
+    wchar_t mObjectData[maxObjectSize];
+    int mObjectHeight= 0;
+    int mObjectWidth = 0;
     int mArenaX = 0;
     int mArenaY = 0;
     bool mCheckObjectFitsCalled = false;

@@ -52,11 +52,28 @@ TEST_F(PieceTests, drawCurrentPiece_passes_piece_and_location_to_arena_for_drawi
     piece.drawCurrentPiece();
 
     // Then
-    ASSERT_STREQ(mockArena.mPieceData, piece.getPieceData(pieceIndex));
-    ASSERT_EQ(mockArena.mPieceHeight, defaultPieceHeight);
-    ASSERT_EQ(mockArena.mPieceWidth, defaultPieceWidth);
+    ASSERT_STREQ(mockArena.mObjectData, piece.getPieceData(pieceIndex));
+    ASSERT_EQ(mockArena.mObjectHeight, defaultPieceHeight);
+    ASSERT_EQ(mockArena.mObjectWidth, defaultPieceWidth);
     ASSERT_EQ(mockArena.mArenaX, arenaX);
     ASSERT_EQ(mockArena.mArenaY, arenaY);
+}
+
+
+TEST_F(PieceTests, drawCurrentPiece_passes_current_piece_at_current_rotation_to_arena)
+{
+    // Given
+    piece.setCurrentPiece(p2);
+    piece.setCurrentRotation(r90);
+    const wchar_t* expectedRotatedTeePiece =
+       L"    "
+        "  X "
+        " XXX"
+        "    ";
+
+    // When & Then
+    piece.drawCurrentPiece();
+    ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
 }
 
 
@@ -216,6 +233,23 @@ TEST_F(PieceTests, addPieceToArena_passes_piece_to_arena_to_update)
     // Then
     ASSERT_EQ(mockArena.mArenaX, piece.getArenaX());
     ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
+}
+
+
+TEST_F(PieceTests, addPieceToArena_passes_current_piece_at_current_rotation_to_arena)
+{
+    // Given
+    piece.setCurrentPiece(p2);
+    piece.setCurrentRotation(r90);
+    const wchar_t* expectedRotatedTeePiece =
+       L"    "
+        "  X "
+        " XXX"
+        "    ";
+
+    // When & Then
+    piece.addPieceToArena();
+    ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
 }
 
 
@@ -387,4 +421,72 @@ TEST_F(PieceTests, rotateIndex_returns_unrotated_index_in_the_default_case)
     // When & Then
     int rotatedIndex = piece.rotateIndex(x, y, width, height, rotation);
     ASSERT_EQ(rotatedIndex, expectedIndex);
+}
+
+
+TEST_F(PieceTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
+{
+    // Given - rotate tee piece 90 degrees
+    int height = defaultPieceHeight;
+    int width = defaultPieceHeight;
+
+    wchar_t pieceBuffer[height * width];
+    pieceBuffer[width * height] = '\0';
+
+    piece.setCurrentPiece(p2);
+    // unrotated piece
+    // "  X "
+    // " XX "
+    // "  X "
+    // "    "
+
+    piece.setCurrentRotation(rotation::r90);
+    const wchar_t* expectedRotatedTeePiece =
+       L"    "
+        "  X "
+        " XXX"
+        "    ";
+
+    // When & Then
+    piece.rotatePiece(pieceBuffer, piece.getCurrentPiece(), piece.getCurrentRotation(), height, width);
+    ASSERT_STREQ(pieceBuffer, expectedRotatedTeePiece);
+
+
+    // Given - rotate long piece 270 degrees
+    piece.setCurrentPiece(p1);
+    // unrotated piece
+    // "  X "
+    // "  X "
+    // "  X "
+    // "  X ";
+
+    piece.setCurrentRotation(rotation::r270);
+    const wchar_t* expectedRotatedLongPiece =
+       L"    "
+        "XXXX"
+        "    "
+        "    ";
+
+    // When & Then
+    piece.rotatePiece(pieceBuffer, piece.getCurrentPiece(), piece.getCurrentRotation(), height, width);
+    ASSERT_STREQ(pieceBuffer, expectedRotatedLongPiece);
+}
+
+
+TEST_F(PieceTests, checkPieceFits_passes_current_piece_at_current_rotation_for_arena_to_check)
+{
+    // Given
+    const int arenaX = 10;
+    const int arenaY = 10;
+    piece.setCurrentPiece(p2);
+    piece.setCurrentRotation(r90);
+    const wchar_t* expectedRotatedTeePiece =
+       L"    "
+        "  X "
+        " XXX"
+        "    ";
+
+    // When & Then
+    piece.checkPieceFits(arenaX, arenaY);
+    ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
 }
