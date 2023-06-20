@@ -23,6 +23,7 @@ void MockScreenBuffer::drawToBuffer(const wchar_t* object, int objectHeight, int
     mObjectWidth = objectWidth;
     mObjectXOffset = xOffset;
     mObjectYOffset = yOffset;
+    mCallCount++;
 }
 
 

@@ -22,4 +22,5 @@ public:
     int mObjectWidth;
     int mObjectXOffset;
     int mObjectYOffset;
+    int mCallCount = 0;
 };

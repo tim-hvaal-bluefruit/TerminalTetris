@@ -3,6 +3,7 @@
 #include "mockPiece.h"
 #include "mockArena.h"
 #include "mockUserInput.h"
+#include "mockScore.h"
 
 using namespace game;
 
@@ -13,8 +14,9 @@ public:
     MockPiece mockPiece;
     MockArena mockArena;
     MockUserInput mockUserInput;
+    MockScore mockScore;
 
-    GameTests() : game(mockPiece, mockUserInput, mockArena) {}
+    GameTests() : game(mockPiece, mockUserInput, mockArena, mockScore) {}
 };
 
 

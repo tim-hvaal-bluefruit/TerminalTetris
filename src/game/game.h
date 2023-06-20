@@ -2,10 +2,12 @@
 #include "piece.h"
 #include "userInput.h"
 #include "arena.h"
+#include "score.h"
 
 using namespace piece;
 using namespace userInput;
 using namespace arena;
+using namespace score;
 
 namespace game
 {
@@ -19,10 +21,11 @@ namespace game
 class Game
 {
 public:
-    Game(PieceInterface& piece, UserInputInterface& userInput, ArenaInterface& arena) :
+    Game(PieceInterface& piece, UserInputInterface& userInput, ArenaInterface& arena, ScoreInterface& score) :
         mPiece(piece),
         mUserInput(userInput),
         mArena(arena),
+        mScore(score),
         mFallTicks(defaultFallTicks)
     {}
 
@@ -40,6 +43,7 @@ private:
     PieceInterface& mPiece;
     UserInputInterface& mUserInput;
     ArenaInterface& mArena;
+    ScoreInterface& mScore;
     int mTickCount = 0;
     int mFallTicks;
 };

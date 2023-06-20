@@ -38,6 +38,8 @@ bool Game::gameTick()
     mPiece.drawCurrentPiece();
     mPiece.drawPreviewPiece();
 
+    mScore.drawElementsToBuffer();
+
     return true;
 }
 
