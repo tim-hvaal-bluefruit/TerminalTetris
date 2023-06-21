@@ -19,11 +19,17 @@ public:
     void drawCurrentPiece(const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;
     wchar_t* createArena() override;
     wchar_t* createArena(int arenaHeight, int arenaWidth); // for testing convenience - can be nixed later
-    wchar_t* getArena() {return mArena;}
-    wchar_t* getActiveArena() {return mActiveArena;}
     void addToArena(wchar_t* arena, const wchar_t* obj, int height, int width, int arenaX, int arenaY);
     bool checkObjectFits(const wchar_t* obj, int height, int width, int arenaX, int arenaY) override;
     void refreshArena(wchar_t* arena);
+    bool checkLineComplete(int arenaY);
+    int checkAllLines();
+
+    // Getters and Setters
+    wchar_t* getArena() {return mArena;}
+    wchar_t* getActiveArena() {return mActiveArena;}
+    int getArenaHeight() {return mArenaHeight;}
+    int getArenaWidth() {return mArenaWidth;}
 
 private:
     ScreenBufferInterface& mScreenBuffer;

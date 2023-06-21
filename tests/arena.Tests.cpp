@@ -214,3 +214,73 @@ TEST_F(ArenaTests, checkObjectFits_returns_true_if_object_is_clear_of_any_part_o
     // # X#
     // ####
 }
+
+
+TEST_F(ArenaTests, check_line_returns_true_if_line_complete)
+{
+    // Given
+    int height = 2, width = 5;
+    arena.createArena(height, width);
+
+    const int h = 1, w = 5, xPos = 0, yPos = 0;
+    const wchar_t* line = L"#xxx#";
+    arena.addToArena(arena.getArena(), line, h, w, xPos, yPos);
+
+    // When & Then
+    ASSERT_TRUE(arena.checkLineComplete(yPos));
+}
+
+
+TEST_F(ArenaTests, check_line_returns_false_if_line_incomplete)
+{
+    // Given
+    int height = 2, width = 5;
+    arena.createArena(height, width);
+
+    const int h = 1, w = 5, xPos = 0, yPos = 0;
+    const wchar_t* line = L"#x x#";
+    arena.addToArena(arena.getArena(), line, h, w, xPos, yPos);
+
+    // When & Then
+    ASSERT_FALSE(arena.checkLineComplete(yPos));
+}
+
+
+TEST_F(ArenaTests, checkAllLines_returns_two_when_two_complete_lines)
+{
+    // Given
+    int height = 3, width = 5;
+    arena.createArena(height, width);
+
+    const int h = 1, w = 5, xPos = 0, yPos = 0;
+    const wchar_t* line0 = L"#0000#";
+    const wchar_t* line1 = L"#1111#";
+    arena.addToArena(arena.getArena(), line0, h, w, xPos, yPos);
+    arena.addToArena(arena.getArena(), line1, h, w, xPos, yPos + 1);
+
+    // When & Then
+    ASSERT_EQ(arena.checkAllLines(), 2);
+}
+
+
+TEST_F(ArenaTests, checkAllLines_returns_three_when_three_complete_lines_amongst_incomplete_lines)
+{
+    // Given
+    int height = 6, width = 5;
+    arena.createArena(height, width);
+
+    const int h = 1, w = 5, xPos = 0, yPos = 0;
+    const wchar_t* line0 = L"#0000#";
+    const wchar_t* line1 = L"# 111#";
+    const wchar_t* line2 = L"#22 2#";
+    const wchar_t* line3 = L"#3333#";
+    const wchar_t* line4 = L"#4444#";
+    arena.addToArena(arena.getArena(), line0, h, w, xPos, yPos);
+    arena.addToArena(arena.getArena(), line1, h, w, xPos, yPos + 1);
+    arena.addToArena(arena.getArena(), line2, h, w, xPos, yPos + 2);
+    arena.addToArena(arena.getArena(), line3, h, w, xPos, yPos + 3);
+    arena.addToArena(arena.getArena(), line4, h, w, xPos, yPos + 4);
+
+    // When & Then
+    ASSERT_EQ(arena.checkAllLines(), 3);
+}
