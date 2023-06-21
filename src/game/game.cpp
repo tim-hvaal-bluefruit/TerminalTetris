@@ -15,6 +15,7 @@ bool Game::dropDown()
         return true;
     }
     mPiece.addPieceToArena();
+    mArena.checkAllLines();
     return false;
 }
 

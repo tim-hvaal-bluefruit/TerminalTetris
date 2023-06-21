@@ -15,6 +15,8 @@ namespace arena
     constexpr int maxObjectSize = 100; // safe amount
     constexpr char blankChar = ' ';
 
+    constexpr int animationFrameLengthMs = 10;
+
 class ArenaInterface
 {
 public:
@@ -24,5 +26,6 @@ public:
     virtual wchar_t* getArena() = 0;
     virtual wchar_t* createArena() = 0;
     virtual void drawArena() = 0;
+    virtual int checkAllLines() = 0;
 };
-} // namespace arena
+} // namespace arenaÓ

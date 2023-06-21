@@ -1,4 +1,5 @@
 #pragma once
+#include "consoleInterface.h"
 #include "Windows.h"
 
 namespace console
@@ -8,7 +9,7 @@ namespace console
     constexpr int consoleHeight = 30;
     constexpr int consoleSize = consoleWidth * consoleHeight;
 
-class Console
+class Console : public ConsoleInterface
 {
 public:
     Console()
@@ -25,7 +26,8 @@ public:
         SetConsoleActiveScreenBuffer(mHConsole);
     }
 
-    void copyBufferToConsoleBuffer(const wchar_t* buffer, const int bufferSize);
+    void copyBufferToConsoleBuffer(const wchar_t* buffer, const int bufferSize) override;
+    void animateFrame(const int frameLengthsMs, const wchar_t* buffer, const int bufferSize) override;
 
 private:
     HANDLE mHConsole;

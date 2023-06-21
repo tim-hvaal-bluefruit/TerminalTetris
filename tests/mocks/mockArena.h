@@ -13,6 +13,7 @@ public:
     wchar_t* createArena() override {return mMockArena;}
     void drawArena() override {};
     void copyToMockObject(const wchar_t* object, int height, int width);
+    int checkAllLines() override {return 0;};
 
     wchar_t* mMockArena;
     wchar_t mObjectData[maxObjectSize];

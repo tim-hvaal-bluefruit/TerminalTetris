@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "arena.h"
+#include "mockConsole.h"
 #include "mockScreenBuffer.h"
 
 using namespace arena;
@@ -7,8 +8,9 @@ class ArenaTests : public testing::Test
 {
 public:
     MockScreenBuffer mockScreenBuffer;
+    MockConsole mockConsole;
     Arena arena;
-    ArenaTests() : arena(mockScreenBuffer) {}
+    ArenaTests() :  arena(mockScreenBuffer, mockConsole) {}
 };
 
 TEST_F(ArenaTests, createArena_can_create_2_by_2_arena)
@@ -283,4 +285,33 @@ TEST_F(ArenaTests, checkAllLines_returns_three_when_three_complete_lines_amongst
 
     // When & Then
     ASSERT_EQ(arena.checkAllLines(), 3);
+}
+
+
+TEST_F(ArenaTests, destroyLine_sets_each_line_char_to_blankchar)
+{
+    // Given
+    int height = 2, width = 5;
+    arena.createArena(height, width);
+
+    const int h = 1, w = 5, xPos = 0, yPos = 0;
+    const wchar_t* line0 = L"#0000#";
+    arena.addToArena(arena.getArena(), line0, h, w, xPos, yPos);
+
+    // When
+    arena.destroyLine(yPos);
+
+    // Then
+    ASSERT_FALSE(arena.checkLineComplete(yPos));
+}
+
+
+TEST_F(ArenaTests, animate_for_100ms_passes_delay_to_console)
+{
+    // Given
+    const int expectedFrameLengthMs = 100;
+
+    // When & Then
+    arena.animate(expectedFrameLengthMs);
+    ASSERT_EQ(mockConsole.mFrameLengthMs, expectedFrameLengthMs);
 }

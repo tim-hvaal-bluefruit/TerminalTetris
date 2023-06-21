@@ -1,3 +1,4 @@
+#include "windows.h"
 #include "arena.h"
 
 using namespace arena;
@@ -96,11 +97,33 @@ int Arena::checkAllLines()
         if (checkLineComplete(yPos))
         {
             numLines++;
+            destroyLine(yPos);
         }
     }
     return numLines;
 }
 
+
+void Arena::destroyLine(int yPos)
+{
+    for (int x = 1; x < mArenaWidth - 1; x++) // don't check sides
+    {
+        mArena[ (yPos * mArenaWidth) + x] = '=';
+        animate(animationFrameLengthMs);
+    }
+
+    for (int x = 1; x < mArenaWidth - 1; x++)
+    {
+        mArena[ (yPos * mArenaWidth) + x] = ' ';
+        animate(animationFrameLengthMs);
+    }
+}
+
+void Arena::animate(int frameLengthMs)
+{
+    drawArena();
+    mConsole.animateFrame(frameLengthMs, mScreenBuffer.buffer(), consoleSize);
+}
 
 // if lines = 0 
 //     return lines;
@@ -160,7 +183,7 @@ int Arena::checkAllLines()
 
 
 
-if line counter >1
+// if line counter >1
 // //     send lineCompleteEvent(payload number of lines)
 //             // on notify observers run there onNotify function
 // //

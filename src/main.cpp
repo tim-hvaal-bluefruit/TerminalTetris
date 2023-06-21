@@ -21,7 +21,7 @@ int main()
     // build classes
     Console console;
     ScreenBuffer screenBuffer;
-    Arena arena(screenBuffer);
+    Arena arena(screenBuffer, console);
     Piece piece(arena, screenBuffer);
     UserInput userInput(piece);
     Score score(screenBuffer);

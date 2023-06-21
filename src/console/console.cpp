@@ -13,3 +13,9 @@ void Console::copyBufferToConsoleBuffer(const wchar_t* buffer, const int bufferS
                                 &dwBytesWritten
     );
 }
+
+void Console::animateFrame(const int frameLengthMs, const wchar_t* buffer, const int bufferSize)
+{
+    Sleep(frameLengthMs);
+    copyBufferToConsoleBuffer(buffer, bufferSize);
+}
