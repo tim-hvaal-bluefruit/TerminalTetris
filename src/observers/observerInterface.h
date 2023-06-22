@@ -5,7 +5,8 @@ namespace observer
 
 enum class Event {
     linesCompleted,
-    gameOver
+    gameOver,
+    eventCount
 };
 
 
@@ -34,11 +35,23 @@ public:
         mNumObservers++;
     }
 
+    void notify(Event event, int value)
+    {
+        for(size_t i = 0; i < mNumObservers; i++)
+        {
+            ObserverPair pair = mObservers[i];
+            if (pair.eventType == event)
+            {
+                pair.entity->onNotify(event, value);
+            }
+        }
+    }
+
     // getters & setters
     int getNumObservers() {return mNumObservers;}
     ObserverPair* getObservers() {return mObservers;}
 
-protected:
+private:
     int mNumObservers = 0;
     ObserverPair mObservers[maxObservers];
 };

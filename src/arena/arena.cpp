@@ -103,6 +103,12 @@ int Arena::checkAllLines()
             moveStackDown(yPos);
         }
     }
+
+    if(numLines > 0)
+    {
+        notify(Event::linesCompleted, numLines);
+    }
+
     return numLines;
 }
 

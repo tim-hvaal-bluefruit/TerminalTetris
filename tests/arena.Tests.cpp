@@ -2,6 +2,7 @@
 #include "arena.h"
 #include "mockConsole.h"
 #include "mockScreenBuffer.h"
+#include "mockObserver.h"
 
 using namespace arena;
 class ArenaTests : public testing::Test
@@ -342,4 +343,51 @@ TEST_F(ArenaTests, moveStackDown_moves_the_whole_stack_down_by_one_line_at_a_giv
                                      "######";
 
     ASSERT_STREQ(arena.getArena(), expectedArena);
+}
+
+
+TEST_F(ArenaTests, checkAllLines_does_not_notify_with_no_complete_lines)
+{
+    // Given
+    MockObserver mockObserver;
+    arena.addObserver(&mockObserver, Event::linesCompleted);
+
+    int height = 3, width = 6;
+    arena.createArena(height, width);
+
+    const int h = 1, w = 5, xPos = 0, yPos = 0;
+    const wchar_t* row0 = L"#00 0#";
+    const wchar_t* row1 = L"#1 11#";
+    arena.addToArena(arena.getArena(), row0, h, w, xPos, yPos);
+    arena.addToArena(arena.getArena(), row1, h, w, xPos, yPos + 1);
+
+    // When
+    arena.checkAllLines();
+
+    // Then
+    ASSERT_EQ(mockObserver.mCallCount, 0);
+}
+
+
+TEST_F(ArenaTests, checkAllLines_notifies_on_complete_lines)
+{
+    // Given
+    MockObserver mockObserver;
+    arena.addObserver(&mockObserver, Event::linesCompleted);
+
+    int height = 3, width = 6;
+    arena.createArena(height, width);
+
+    const int h = 1, w = 5, xPos = 0, yPos = 0;
+    const wchar_t* row0 = L"#0000#";
+    const wchar_t* row1 = L"#1111#";
+    arena.addToArena(arena.getArena(), row0, h, w, xPos, yPos);
+    arena.addToArena(arena.getArena(), row1, h, w, xPos, yPos + 1);
+
+    // When
+    arena.checkAllLines(); // 2 complete lines
+
+    // Then
+    ASSERT_EQ(mockObserver.mCallCount, 1);
+    ASSERT_EQ(mockObserver.mValue, 2);
 }
