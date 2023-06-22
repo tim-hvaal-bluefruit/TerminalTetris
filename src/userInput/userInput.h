@@ -20,6 +20,7 @@ public:
     // getters and setters
     void setIsKeyPressed(Key key, bool pressed) {mKeysPressed[key] = pressed;}
     bool getIsKeyPressed(Key key) {return mKeysPressed[key];}
+    bool startGame();
 
 
 private:

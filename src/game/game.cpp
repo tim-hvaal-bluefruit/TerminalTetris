@@ -52,6 +52,26 @@ void Game::gameOver()
         mStackBurned = true;
     }
 
-    mArena.addToArena(mArena.getArena(), L"GAMEOVER", gameOverHeight, gameOverWidth, gameOverArenaPositionX, gameOverArenaPositionY);
+    mArena.addToArena(mArena.getArena(), gameOverText, gameOverHeight, gameOverWidth, textArenaPosX, textArenaPosY);
     mArena.drawArena();
+}
+
+bool Game::startGame()
+{
+    mUserInput.getUserInput();
+    if(!mUserInput.startGame())
+    {
+        mArena.addToArena(mArena.getArena(), startGameText, startGameHeight, startGameWidth, textArenaPosX, textArenaPosY);
+        mArena.drawArena();
+        return false;
+    }
+
+    while(!mStackBurned)
+    {
+        mArena.gameOverFlames();
+        mStackBurned = true;
+    }
+
+    mStackBurned = false;
+    return true;
 }

@@ -23,3 +23,9 @@ void UserInput::move()
     if (mKeysPressed[Key::rotate])
         mPiece.movePiece(piece::moveDirection::rotate);
 }
+
+bool UserInput::startGame()
+{
+    if(mKeysPressed[Key::rotate])
+        return true;
+}

@@ -5,10 +5,12 @@ using namespace userInput;
 
 void MockUserInput::getUserInput()
 {
-    std::cout << "getUserInput() called";
+    mUserInputPolled = true;
 }
 
-void MockUserInput::move()
+bool MockUserInput::startGame()
 {
-    std::cout << "move() called";
+    if(mUserInputPolled && mStartGamePressed)
+        return true;
+    return false;
 }

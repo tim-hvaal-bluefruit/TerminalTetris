@@ -28,6 +28,7 @@ int main()
     Game game(piece, userInput, arena, score);
 
     bool programRunning = true;
+    bool gameRunning = false;
     bool gameOver = false;
 
     game.initialiseGame();
@@ -36,12 +37,17 @@ int main()
     {
         Sleep(50);
 
-        if(!gameOver)
+        if(!gameRunning)
+            if(game.startGame())
+                gameRunning = true;
+
+        if(!gameOver && gameRunning)
         {
             if (!game.gameTick())
                 gameOver = true;
         }
-        else
+
+        if(gameOver)
             game.gameOver();
 
         // copy buffer to console

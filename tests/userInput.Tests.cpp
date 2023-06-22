@@ -56,3 +56,11 @@ TEST_F(UserInputTests, move_passes_move_direction_to_piece)
     ASSERT_TRUE(mockPiece.mRotateCalled);
 }
 
+TEST_F(UserInputTests, start_game_returns_true_if_start_pressed_or_false_if_not_pressed)
+{
+	userInput.setIsKeyPressed(Key::rotate, true);
+    ASSERT_TRUE(userInput.startGame());
+
+    userInput.setIsKeyPressed(Key::rotate, false);
+    ASSERT_FALSE(userInput.startGame());
+}

@@ -67,6 +67,15 @@ TEST_F(GameTests, gameOver_draws_game_over_to_screen)
     game.gameOver();
 
     // Then
-    ASSERT_EQ(mockArena.mArenaX, gameOverArenaPositionX);
-    ASSERT_EQ(mockArena.mArenaY, gameOverArenaPositionY);
+    ASSERT_EQ(mockArena.mArenaX, textArenaPosX);
+    ASSERT_EQ(mockArena.mArenaY, textArenaPosY);
+}
+
+TEST_F(GameTests, startGame_returns_true_start_button_pressed_and_false_if_not_pressed)
+{
+    mockUserInput.mStartGamePressed = true;
+    ASSERT_TRUE(game.startGame());
+
+    mockUserInput.mStartGamePressed = false;
+    ASSERT_FALSE(game.startGame());
 }
