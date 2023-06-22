@@ -79,3 +79,17 @@ TEST_F(GameTests, startGame_returns_true_start_button_pressed_and_false_if_not_p
     mockUserInput.mStartGamePressed = false;
     ASSERT_FALSE(game.startGame());
 }
+
+TEST_F(GameTests, gameOver_returns_true_when_tickCount_is_less_than_newGameTicks)
+{
+    game.setStackBurned(true);
+    game.setTickCount(defaultNewGameTicks - 1);
+    ASSERT_TRUE(game.gameOver());
+}
+
+TEST_F(GameTests, gameOver_returns_false_when_tickCount_is_equal_to_newGameTicks)
+{
+    game.setStackBurned(true);
+    game.setTickCount(defaultNewGameTicks);
+    ASSERT_FALSE(game.gameOver());
+}

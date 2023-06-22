@@ -12,6 +12,7 @@ using namespace score;
 namespace game
 {
     constexpr int defaultFallTicks = 30;
+    constexpr int defaultNewGameTicks = 30;
 
     constexpr int textArenaPosX = 2;
     constexpr int textArenaPosY = 3;
@@ -20,7 +21,7 @@ namespace game
     constexpr int gameOverHeight = 1;
     constexpr int gameOverWidth = 8;
 
-    const wchar_t* const startGameText = L"  PRESS     Z";
+    const wchar_t* const startGameText = L"  PRESS     Z   ";
     constexpr int startGameHeight = 2;
     constexpr int startGameWidth = 8;
 
@@ -38,13 +39,14 @@ public:
     void initialiseGame();
     bool gameTick();
     bool dropDown();
-    void gameOver();
+    bool gameOver();
     bool startGame();
 
     // Getters and Setters
     void setTickCount(int ticks) {mTickCount = ticks;}
     int getTickCount() {return mTickCount;}
     int getFallTicks() {return mFallTicks;}
+    void setStackBurned(bool stackBurned) {mStackBurned = stackBurned;}
 
 private:
     PieceInterface& mPiece;

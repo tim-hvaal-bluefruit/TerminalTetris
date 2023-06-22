@@ -44,16 +44,28 @@ bool Game::gameTick()
     return true;
 }
 
-void Game::gameOver()
+bool Game::gameOver()
 {
     while(!mStackBurned)
     {
         mArena.gameOverFlames();
         mStackBurned = true;
+        mTickCount = 0;
     }
 
     mArena.addToArena(mArena.getArena(), gameOverText, gameOverHeight, gameOverWidth, textArenaPosX, textArenaPosY);
     mArena.drawArena();
+
+    if(mTickCount == defaultNewGameTicks)
+    {
+        mArena.createArena();
+        mTickCount = 0;
+        mStackBurned = false;
+        return false;
+    }
+
+    mTickCount++;
+    return true;
 }
 
 bool Game::startGame()

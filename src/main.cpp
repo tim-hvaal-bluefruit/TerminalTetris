@@ -33,24 +33,39 @@ int main()
 
     game.initialiseGame();
 
+
     while(programRunning)
     {
         Sleep(50);
 
+        // start game screen
         if(!gameRunning)
+        {
             if(game.startGame())
+            {
                 gameRunning = true;
+            }
+        }
 
+        // main game
         if(!gameOver && gameRunning)
         {
             if (!game.gameTick())
+            {
                 gameOver = true;
+            }
         }
 
+        // game over screen
         if(gameOver)
-            game.gameOver();
+        {
+            if(!game.gameOver())
+            {
+                gameOver = false;
+                gameRunning = false;
+            }
+        }
 
-        // copy buffer to console
         console.copyBufferToConsoleBuffer(screenBuffer.buffer(), consoleSize);
     }
 }

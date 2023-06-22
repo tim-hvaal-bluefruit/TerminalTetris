@@ -4,7 +4,19 @@
 
 using namespace score;
 
-TEST(ScoreTests, draw_to_buffer_passes_elemnts_to_be_drawn)
+class ScoreTests : public ::testing::Test
+{
+public:
+    ScoreTests() : score(mockScreenBuffer)
+    {}
+
+private:
+    MockScreenBuffer mockScreenBuffer;
+    Score score;
+};
+
+
+TEST_F(ScoreTests, draw_to_buffer_passes_elemnts_to_be_drawn)
 {
     // Given
     MockScreenBuffer mockScreenBuffer;
@@ -24,7 +36,20 @@ TEST(ScoreTests, draw_to_buffer_passes_elemnts_to_be_drawn)
     ASSERT_EQ(mockScreenBuffer.mObjectYOffset, y);
 }
 
-TEST(ScoreTests, three_score_elements_drawn_to_the_buffer)
+TEST_F(ScoreTests, three_score_elements_drawn_to_the_buffer)
+{
+    // Given
+    MockScreenBuffer mockScreenBuffer;
+    Score score(mockScreenBuffer);
+
+    // When
+    score.drawElementsToBuffer();
+
+    // Then
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 3);
+}
+
+TEST_F(ScoreTests, updating_the_score_updates_the_value_drawn)
 {
     // Given
     MockScreenBuffer mockScreenBuffer;
