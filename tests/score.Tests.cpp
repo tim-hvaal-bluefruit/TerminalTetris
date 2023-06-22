@@ -7,10 +7,8 @@ using namespace score;
 class ScoreTests : public ::testing::Test
 {
 public:
-    ScoreTests() : score(mockScreenBuffer)
-    {}
+    ScoreTests() : score(mockScreenBuffer) {}
 
-private:
     MockScreenBuffer mockScreenBuffer;
     Score score;
 };
@@ -19,11 +17,7 @@ private:
 TEST_F(ScoreTests, draw_to_buffer_passes_elemnts_to_be_drawn)
 {
     // Given
-    MockScreenBuffer mockScreenBuffer;
-    Score score(mockScreenBuffer);
-
-    const int h = 1, w = 4;
-    const int x = 5, y = 6;
+    const int h = 1, w = 4, x = 5, y = 6;
     const wchar_t* element = L"2222";
 
     // When
@@ -36,28 +30,41 @@ TEST_F(ScoreTests, draw_to_buffer_passes_elemnts_to_be_drawn)
     ASSERT_EQ(mockScreenBuffer.mObjectYOffset, y);
 }
 
+
 TEST_F(ScoreTests, three_score_elements_drawn_to_the_buffer)
 {
-    // Given
-    MockScreenBuffer mockScreenBuffer;
-    Score score(mockScreenBuffer);
-
-    // When
     score.drawElementsToBuffer();
-
-    // Then
     ASSERT_EQ(mockScreenBuffer.mCallCount, 3);
 }
 
-TEST_F(ScoreTests, updating_the_score_updates_the_value_drawn)
+
+TEST_F(ScoreTests, updateScore_adds_an_increment)
 {
     // Given
-    MockScreenBuffer mockScreenBuffer;
-    Score score(mockScreenBuffer);
+    const int startingScore = score.getScore();
+    const int lineScore = 10;
 
-    // When
-    score.drawElementsToBuffer();
-
-    // Then
-    ASSERT_EQ(mockScreenBuffer.mCallCount, 3);
+    // When & Then
+    score.updateScore(lineScore);
+    ASSERT_EQ(score.getScore(), lineScore + startingScore);
 }
+
+
+TEST_F(ScoreTests, updateScore_sets_the_score_to_the_buffer)
+{
+    // Given
+    const int scoreOne = 99999;
+
+    // When & Then
+    score.updateScore(scoreOne);
+    ASSERT_STREQ(score.getScoreBuffer(), L"99999");
+
+    // Given
+    score.setScore(0);
+    const int scoreTwo = 1;
+
+    // When & Then
+    score.updateScore(scoreTwo);
+    ASSERT_STREQ(score.getScoreBuffer(), L"1");
+}
+

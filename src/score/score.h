@@ -22,8 +22,8 @@ namespace score
     constexpr int titlePosY = boxPosY + 2;
 
     constexpr int scoreHeight = 1;
-    constexpr int scoreWidth = 3;
-    constexpr int scorePosX = boxPosX + 10;
+    constexpr int scoreWidth = 5;
+    constexpr int scorePosX = boxPosX + 8;
     constexpr int scorePosY = boxPosY + 3;
 
 
@@ -31,21 +31,22 @@ class Score : public ScoreInterface
 {
 public:
     Score(ScreenBufferInterface& screenBuffer)
-        : mScreenBuffer(screenBuffer)
-    {}
+        : mScreenBuffer(screenBuffer) {}
 
     void drawToBuffer(const wchar_t* element, const int height, const int width,
                       const int posX, const int posY);
-
     void drawElementsToBuffer() override;
+    void updateScore(const int increment);
 
-
-    void updateScore() {};
+    // Getters and Setters
+    int getScore() {return mScore;}
+    void setScore(int score) {mScore = score;}
+    wchar_t* getScoreBuffer() {return mScoreBuffer;}
 
 private:
     ScreenBufferInterface& mScreenBuffer;
     int mScore = 0;
-    wchar_t mScoreBuffer[scoreWidth + 1] = {L"000"};
+    wchar_t mScoreBuffer[scoreWidth + 1] = L"0";
 };
 
 } // namespace score
