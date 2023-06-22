@@ -4,12 +4,12 @@
 
 namespace score
 {
-    const wchar_t* const box = L"22222222222222222"
-                                "2               2"
-                                "2               2"
-                                "2               2"
-                                "2               2"
-                                "22222222222222222";
+    const wchar_t* const box = L"#################"
+                                "#               #"
+                                "#               #"
+                                "#               #"
+                                "#               #"
+                                "#################";
     constexpr int boxHeight = 6;
     constexpr int boxWidth = 17;
     constexpr int boxPosX = 30;

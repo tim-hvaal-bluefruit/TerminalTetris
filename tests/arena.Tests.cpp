@@ -315,3 +315,31 @@ TEST_F(ArenaTests, animate_for_100ms_passes_delay_to_console)
     arena.animate(expectedFrameLengthMs);
     ASSERT_EQ(mockConsole.mFrameLengthMs, expectedFrameLengthMs);
 }
+
+
+TEST_F(ArenaTests, moveStackDown_moves_the_whole_stack_down_by_one_line_at_a_given_line)
+{
+    // Given
+    int height = 4, width = 6;
+    arena.createArena(height, width);
+
+    const int h = 1, w = 5, xPos = 0, yPos = 0;
+    const wchar_t* row0 = L"#00 0#";
+    const wchar_t* row1 = L"#1 11#";
+    const wchar_t* row2 = L"#2222#";
+    arena.addToArena(arena.getArena(), row0, h, w, xPos, yPos);
+    arena.addToArena(arena.getArena(), row1, h, w, xPos, yPos + 1);
+    arena.addToArena(arena.getArena(), row2, h, w, xPos, yPos + 2);
+
+    // When
+    int completeRowPosY = yPos + 2;
+    arena.moveStackDown(completeRowPosY);
+
+    // Then
+    const wchar_t * expectedArena = L"#    #"
+                                     "#00 0#"
+                                     "#1 11#"
+                                     "######";
+
+    ASSERT_STREQ(arena.getArena(), expectedArena);
+}

@@ -29,6 +29,8 @@ public:
     bool checkLineComplete(int arenaY);
     void destroyLine(int yPos);
     void animate(int frameLengthMs);
+    void moveStackDown(int rowPosY);
+    void gameOverFlames();
 
     // Getters and Setters
     wchar_t* getArena() {return mArena;}

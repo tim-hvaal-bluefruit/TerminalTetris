@@ -46,5 +46,6 @@ private:
     ScoreInterface& mScore;
     int mTickCount = 0;
     int mFallTicks;
+    bool mStackBurned = false;
 };
 } // namespace game

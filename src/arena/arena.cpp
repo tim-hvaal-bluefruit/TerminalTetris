@@ -98,6 +98,7 @@ int Arena::checkAllLines()
         {
             numLines++;
             destroyLine(yPos);
+            moveStackDown(yPos);
         }
     }
     return numLines;
@@ -109,13 +110,13 @@ void Arena::destroyLine(int yPos)
     for (int x = 1; x < mArenaWidth - 1; x++) // don't check sides
     {
         mArena[ (yPos * mArenaWidth) + x] = '=';
-        animate(animationFrameLengthMs);
+        animate(destroyLineAnimationSpeedMs + x); // speeds up
     }
 
     for (int x = 1; x < mArenaWidth - 1; x++)
     {
         mArena[ (yPos * mArenaWidth) + x] = ' ';
-        animate(animationFrameLengthMs);
+        animate(destroyLineAnimationSpeedMs + x);
     }
 }
 
@@ -125,67 +126,45 @@ void Arena::animate(int frameLengthMs)
     mConsole.animateFrame(frameLengthMs, mScreenBuffer.buffer(), consoleSize);
 }
 
-// if lines = 0 
-//     return lines;
 
-// make event (number of lines)
-//     return lines
+void Arena::moveStackDown(int rowPosY)
+{
+    int startPos = (rowPosY * mArenaWidth) + mArenaWidth;
 
-// who will move the lines down? 
-// ... arena! no need for an observer in class surely
+    for(int i = startPos; i > mArenaWidth; i--)
+        mArena[i] = mArena[i - mArenaWidth];
 
-// who cares
-// ... score cares
-// ... audio might care later
+    // blank top row and avoid sides
+    for (int x = mArenaWidth - 2; x > 0; x--)
+        mArena[x] = blankChar;
 
+    animate(stackFallAnimationDelayMs);
+}
 
-// TESTING
+void Arena::gameOverFlames()
+{
+    int i = 0;
+    while(5 > i++)
+    {
+        for(int y = mArenaHeight - 2; y >= 0; y--)
+        {
+            for(int x = 1; x < mArenaWidth - 1; x++)
+            {
+                int index = (y * mArenaWidth) + x;
+                mArena[index] = L"Vv"[rand() % 2];
+            }
+            animate(flameAnimationSpeedMs);
+        }
+    }
 
-// // Given
-// create a default arena for testing
-// height 8 width 6
-// #    # 
-// #asdf# line
-// #sdf #
-// ###### line
-// #se gd
-// #1234# line
-// #!!!!# line
-// ###### don't count bottom line
-
-// // when
-// int countCompletedLines()
-
-// ASSERT( 4 lines)
-
-// PLAN
-// callCheckAllLines
-// for each line from bottom to top
-//   if line
-//     line++
-//     animate delete line
-//     save line for deletion (list size 4)
-//   if no line - continue
-//  if lines == 0 - return false
-//  call shiftStackDown(list of y coords)
-
-// shiftStackDown
-//   takes value of y and moves everything above down by arenaWidth
-//   animate could draw the current state - try it
-//   takes value of next y and move everything down by arenaWidth
-//   takes value of next y and moves down by arenaWidth
-//   etc
-
-
-// observer for score
-//   later - lines > 1 raises event
-//   score is listening - increases score based on line going down
-
-
-
-// if line counter >1
-// //     send lineCompleteEvent(payload number of lines)
-//             // on notify observers run there onNotify function
-// //
-
+    for(int y = 0; y < mArenaHeight - 1; y++)
+    {
+        for(int x = 1; x < mArenaWidth - 1; x++)
+        {
+            int index = (y * mArenaWidth) + x;
+            mArena[index] = blankChar;
+        }
+        animate(flameAnimationSpeedMs - i);
+    }
+}
 

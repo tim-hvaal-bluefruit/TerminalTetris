@@ -11,7 +11,6 @@ void MockScreenBuffer::setScreenBufferSize(const int screenHeight, const int scr
 
 wchar_t* MockScreenBuffer::buffer()
 {
-    std::cout << "get buffer() called";
     return mMockBuffer;
 }
 

@@ -46,6 +46,12 @@ bool Game::gameTick()
 
 void Game::gameOver()
 {
+    while(!mStackBurned)
+    {
+        mArena.gameOverFlames();
+        mStackBurned = true;
+    }
+
     mArena.addToArena(mArena.getArena(), L"GAMEOVER", gameOverHeight, gameOverWidth, gameOverArenaPositionX, gameOverArenaPositionY);
     mArena.drawArena();
 }
