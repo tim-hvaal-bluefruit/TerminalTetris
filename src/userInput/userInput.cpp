@@ -28,4 +28,5 @@ bool UserInput::startGame()
 {
     if(mKeysPressed[Key::rotate])
         return true;
+    return false;
 }

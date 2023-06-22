@@ -52,6 +52,7 @@ void Arena::addToArena(wchar_t* arena, const wchar_t* obj, int height, int width
     }
 }
 
+
 void Arena::drawCurrentPiece(const wchar_t* piece, const int height, const int width, const int arenaX, const int arenaY)
 {
     refreshArena(mActiveArena);
@@ -76,6 +77,7 @@ bool Arena::checkObjectFits(const wchar_t* obj, int height, int width, int arena
     }
     return true;
 }
+
 
 bool Arena::checkLineComplete(int arenaY)
 {
@@ -120,6 +122,7 @@ void Arena::destroyLine(int yPos)
     }
 }
 
+
 void Arena::animate(int frameLengthMs)
 {
     drawArena();
@@ -140,6 +143,7 @@ void Arena::moveStackDown(int rowPosY)
 
     animate(stackFallAnimationDelayMs);
 }
+
 
 void Arena::gameOverFlames()
 {
