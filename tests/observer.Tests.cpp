@@ -50,6 +50,6 @@ TEST(ObserverTests, addObserver_adds_observer_and_event_to_observer_list)
     subject.addObserver(&observer2, Event::gameOver);
 
     // Then
-    ASSERT_EQ(subject.getObservers()[subject.getNumObservers()].entity, &observer2);
-    ASSERT_EQ(subject.getObservers()[subject.getNumObservers()].eventType, Event::linesCompleted);
+    ASSERT_EQ(subject.getObservers()[subject.getNumObservers() - 1].entity, &observer2);
+    ASSERT_EQ(subject.getObservers()[subject.getNumObservers() - 1].eventType, Event::gameOver);
 }

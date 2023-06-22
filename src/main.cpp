@@ -7,6 +7,7 @@
 #include "userInput.h"
 #include "game.h"
 #include "score.h"
+#include "observerInterface.h"
 
 using namespace console;
 using namespace arena;
@@ -14,6 +15,7 @@ using namespace piece;
 using namespace userInput;
 using namespace game;
 using namespace score;
+using namespace observer;
 
 
 int main()
@@ -26,6 +28,8 @@ int main()
     UserInput userInput(piece);
     Score score(screenBuffer);
     Game game(piece, userInput, arena, score);
+
+    arena.addObserver(&score, Event::linesCompleted);
 
     bool programRunning = true;
     bool gameRunning = false;

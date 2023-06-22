@@ -2,11 +2,14 @@
 #include "arenaInterface.h"
 #include "screenBuffer.h"
 #include "console.h"
+#include "observerInterface.h"
 
 using namespace console;
+using namespace observer;
 namespace arena
 {
-class Arena : public ArenaInterface
+class Arena : public ArenaInterface,
+              public Subject
 {
 public:
     Arena(ScreenBufferInterface& screenBuffer, ConsoleInterface& console) :

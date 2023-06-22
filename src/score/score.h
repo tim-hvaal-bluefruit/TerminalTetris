@@ -1,7 +1,9 @@
 #pragma once
 #include "scoreInterface.h"
 #include "screenBuffer.h"
+#include "observerInterface.h"
 
+using namespace observer;
 namespace score
 {
     const wchar_t* const box = L"#################"
@@ -27,21 +29,28 @@ namespace score
     constexpr int scorePosY = boxPosY + 3;
 
 
-class Score : public ScoreInterface
+class Score : public ScoreInterface,
+              public ObserverInterface
 {
 public:
     Score(ScreenBufferInterface& screenBuffer)
         : mScreenBuffer(screenBuffer) {}
 
+    // score interface
     void drawToBuffer(const wchar_t* element, const int height, const int width,
                       const int posX, const int posY);
     void drawElementsToBuffer() override;
+
+    // observer interface
+    void onNotify(Event event, int value) override {};
+
     void updateScore(const int increment);
 
     // Getters and Setters
     int getScore() {return mScore;}
     void setScore(int score) {mScore = score;}
     wchar_t* getScoreBuffer() {return mScoreBuffer;}
+
 
 private:
     ScreenBufferInterface& mScreenBuffer;
