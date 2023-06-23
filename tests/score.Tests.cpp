@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "score.h"
 #include "mockScreenBuffer.h"
+#include "observerInterface.h"
 
 using namespace score;
 
@@ -68,3 +69,68 @@ TEST_F(ScoreTests, updateScore_sets_the_score_to_the_buffer)
     ASSERT_STREQ(score.getScoreBuffer(), L"1");
 }
 
+
+TEST_F(ScoreTests, score_can_subscribe_to_a_subject)
+{
+    Subject mockSubject;
+    mockSubject.addObserver(&score, Event::linesCompleted);
+    ASSERT_EQ(mockSubject.getObservers()->entity, &score);
+}
+
+
+TEST_F(ScoreTests, onNotify_does_not_update_score_on_irrelevant_event_from_subject)
+{
+    // Given
+    int initialScore = score.getScore();
+
+    Subject mockSubject;
+    mockSubject.addObserver(&score, Event::linesCompleted);
+
+    Event irrelevantEvent = Event::gameOver;
+    int irrelevantValue = 1;
+
+    // When
+    mockSubject.notify(irrelevantEvent, irrelevantValue);
+
+    // Then
+    ASSERT_EQ(score.getScore(), initialScore);
+}
+
+
+TEST_F(ScoreTests, onNotify_updates_score_on_event_depending_on_number_of_lines_completed)
+{
+    // Given
+    Subject mockSubject;
+    mockSubject.addObserver(&score, Event::linesCompleted);
+
+    int initialScore = score.getScore();
+    int linesCompleted = 1;
+
+    // When & Then
+    mockSubject.notify(Event::linesCompleted, linesCompleted);
+    ASSERT_EQ(score.getScore(), initialScore + oneLinePoints);
+
+
+    // Given
+    linesCompleted = 2;
+
+    // When & Then
+    mockSubject.notify(Event::linesCompleted, linesCompleted);
+    ASSERT_EQ(score.getScore(), initialScore + oneLinePoints + twoLinePoints);
+
+
+    // Given
+    linesCompleted = 3;
+
+    // When & Then
+    mockSubject.notify(Event::linesCompleted, linesCompleted);
+    ASSERT_EQ(score.getScore(), initialScore + oneLinePoints + twoLinePoints + threeLinePoints);
+
+
+    // Given
+    linesCompleted = 4;
+
+    // When & Then
+    mockSubject.notify(Event::linesCompleted, linesCompleted);
+    ASSERT_EQ(score.getScore(), initialScore + oneLinePoints + twoLinePoints + threeLinePoints + fourLinePoints);
+}

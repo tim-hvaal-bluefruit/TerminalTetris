@@ -28,6 +28,11 @@ namespace score
     constexpr int scorePosX = boxPosX + 8;
     constexpr int scorePosY = boxPosY + 3;
 
+    constexpr int oneLinePoints = 10;
+    constexpr int twoLinePoints = 20;
+    constexpr int threeLinePoints = 40;
+    constexpr int fourLinePoints = 80;
+
 
 class Score : public ScoreInterface,
               public ObserverInterface
@@ -42,7 +47,7 @@ public:
     void drawElementsToBuffer() override;
 
     // observer interface
-    void onNotify(Event event, int value) override {};
+    void onNotify(Event event, int value) override;
 
     void updateScore(const int increment);
 

@@ -24,3 +24,28 @@ void Score::updateScore(int increment)
     size_t bufferLen = sizeof(mScoreBuffer) / sizeof(wchar_t);
     swprintf(mScoreBuffer, bufferLen, L"%d", mScore); // Note swprintf
 }
+
+
+void Score::onNotify(Event event, int value)
+{
+    if (event != Event::linesCompleted)
+        return;
+
+    switch (value)
+    {
+        case (1):
+            updateScore(oneLinePoints);
+            break;
+        case (2):
+            updateScore(twoLinePoints);
+            break;
+        case (3):
+            updateScore(threeLinePoints);
+            break;
+        case (4):
+            updateScore(fourLinePoints);
+            break;
+        default:
+            break;
+    }
+}
