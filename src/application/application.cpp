@@ -3,7 +3,12 @@
 
 static Instantiation mInstantiation;
 
-void Application::Loop()
+void Application::Init()
+{
+    mInstantiation.Init();
+}
+
+void Application::Run()
 {
     mInstantiation.Loop();
 }

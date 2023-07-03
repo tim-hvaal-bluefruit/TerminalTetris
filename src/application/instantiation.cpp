@@ -16,17 +16,20 @@ Instantiation::Instantiation() :
     mGame(mPiece, mUserInput, mArena, mScore)
 {}
 
-void Instantiation::Loop()
+void Instantiation::Init()
 {
     mArena.addObserver(&mScore, Event::linesCompleted);
     mGame.addObserver(&mScore, Event::gameOver);
 
+    mGame.initialiseGame();
+}
+
+void Instantiation::Loop()
+{
+
     bool programRunning = true;
     bool gameRunning = false;
     bool gameOver = false;
-
-    mGame.initialiseGame();
-
 
     while(programRunning)
     {

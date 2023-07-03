@@ -2,6 +2,7 @@
 
 int main()
 {
-    Application::Loop();
+    Application::Init();
+    Application::Run();
     return 0;
 }

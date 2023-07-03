@@ -15,6 +15,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_subdirectory(src/application)
+
 add_subdirectory(src/arena)
 add_subdirectory(src/console)
 add_subdirectory(src/game)

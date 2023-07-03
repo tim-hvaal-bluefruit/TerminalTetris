@@ -1,12 +1,12 @@
-add_executable(tetris)
+add_executable(application)
 
-target_sources(tetris
+target_sources(application
     PRIVATE application.cpp
     PRIVATE instantiation.cpp
     PRIVATE main.cpp
 )
 
-target_include_directories(tetris
+target_include_directories(application
     PRIVATE ${PROJECT_SOURCE_DIR}/src/application
     PRIVATE ${PROJECT_SOURCE_DIR}/src/arena
     PRIVATE ${PROJECT_SOURCE_DIR}/src/console
@@ -18,8 +18,7 @@ target_include_directories(tetris
     PRIVATE ${PROJECT_SOURCE_DIR}/src/userInput
 )
 
-
-target_link_libraries(tetris
+target_link_libraries(application
     arena
     console
     game

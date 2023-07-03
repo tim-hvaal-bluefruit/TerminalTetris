@@ -23,6 +23,7 @@ class Instantiation
 {
 public:
     Instantiation();
+    void Init();
     void Loop();
 
 private:

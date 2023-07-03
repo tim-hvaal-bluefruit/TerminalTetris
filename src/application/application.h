@@ -3,5 +3,6 @@
 class Application
 {
 public:
-    static void Loop();
+    static void Init();
+    static void Run();
 };
