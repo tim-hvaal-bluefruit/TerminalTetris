@@ -30,6 +30,7 @@ int main()
     Game game(piece, userInput, arena, score);
 
     arena.addObserver(&score, Event::linesCompleted);
+    game.addObserver(&score, Event::gameOver);
 
     bool programRunning = true;
     bool gameRunning = false;

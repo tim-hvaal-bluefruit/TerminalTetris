@@ -71,13 +71,17 @@ bool Piece::movePiece(moveDirection direction)
         }
         case (moveDirection::rotate):
         {
+            int r = (int)getCurrentRotation();
+            r = (r + 1) % rotation::rotationCount;
+            setCurrentRotation((rotation)r);
+
             if(checkPieceFits(mArenaX, mArenaY))
             {
-                int r = (int)getCurrentRotation();
-                r = (r + 1) % rotation::rotationCount;
-                setCurrentRotation((rotation)r);
                 return true;
             }
+
+            r = (r + 3) % rotation::rotationCount;
+            setCurrentRotation((rotation)r);
             break;
         }
         default:

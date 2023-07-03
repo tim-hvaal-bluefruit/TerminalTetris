@@ -18,34 +18,44 @@ void Score::drawElementsToBuffer()
 }
 
 
-void Score::updateScore(int increment)
+void Score::updateScore(const int increment)
 {
     mScore += increment;
     size_t bufferLen = sizeof(mScoreBuffer) / sizeof(wchar_t);
-    swprintf(mScoreBuffer, bufferLen, L"%d", mScore); // Note swprintf
+    // note wchar_t library functions
+    wmemset(mScoreBuffer, L' ', bufferLen);
+    swprintf(mScoreBuffer, bufferLen, L"%d", mScore);
 }
 
 
 void Score::onNotify(Event event, int value)
 {
-    if (event != Event::linesCompleted)
+    if (event == Event::eventCount)
         return;
 
-    switch (value)
+    if (event == Event::linesCompleted)
     {
-        case (1):
-            updateScore(oneLinePoints);
-            break;
-        case (2):
-            updateScore(twoLinePoints);
-            break;
-        case (3):
-            updateScore(threeLinePoints);
-            break;
-        case (4):
-            updateScore(fourLinePoints);
-            break;
-        default:
-            break;
+        switch (value)
+        {
+            case (1):
+                updateScore(oneLinePoints);
+                break;
+            case (2):
+                updateScore(twoLinePoints);
+                break;
+            case (3):
+                updateScore(threeLinePoints);
+                break;
+            case (4):
+                updateScore(fourLinePoints);
+                break;
+            default:
+                break;
+        }
+    }
+
+    if (event == Event::gameOver)
+    {
+        setScore(0);
     }
 }

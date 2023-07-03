@@ -93,3 +93,18 @@ TEST_F(GameTests, gameOver_returns_false_when_tickCount_is_equal_to_newGameTicks
     game.setTickCount(defaultNewGameTicks);
     ASSERT_FALSE(game.gameOver());
 }
+
+TEST_F(GameTests, score_string_refreshed_when_game_starts)
+{
+    // Given
+    game.startGame();
+    mockUserInput.getUserInput();
+    ASSERT_EQ(mockScore.callCount, 0);
+
+    // When
+    mockUserInput.mStartGamePressed = true;
+    ASSERT_TRUE(game.startGame());
+
+    // Then
+    ASSERT_EQ(mockScore.callCount, 1);
+}

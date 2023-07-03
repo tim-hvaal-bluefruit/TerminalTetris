@@ -1,4 +1,5 @@
 #pragma once
+#include <string.h>
 #include "scoreInterface.h"
 #include "screenBuffer.h"
 #include "observerInterface.h"
@@ -49,7 +50,7 @@ public:
     // observer interface
     void onNotify(Event event, int value) override;
 
-    void updateScore(const int increment);
+    void updateScore(const int increment = 0) override;
 
     // Getters and Setters
     int getScore() {return mScore;}

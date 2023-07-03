@@ -28,7 +28,10 @@ bool Game::gameTick()
         if (!dropDown())
         {
             if(!mPiece.createNewPiece())
+            {
+                notify(Event::gameOver, 0);
                 return false;
+            }
         }
     }
 
@@ -85,5 +88,6 @@ bool Game::startGame()
     }
 
     mStackBurned = false;
+    mScore.updateScore();
     return true;
 }

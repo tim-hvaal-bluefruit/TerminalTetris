@@ -3,11 +3,13 @@
 #include "userInput.h"
 #include "arena.h"
 #include "score.h"
+#include "observerInterface.h"
 
 using namespace piece;
 using namespace userInput;
 using namespace arena;
 using namespace score;
+using namespace observer;
 
 namespace game
 {
@@ -25,7 +27,7 @@ namespace game
     constexpr int startGameHeight = 2;
     constexpr int startGameWidth = 8;
 
-class Game
+class Game : public Subject
 {
 public:
     Game(PieceInterface& piece, UserInputInterface& userInput, ArenaInterface& arena, ScoreInterface& score) :

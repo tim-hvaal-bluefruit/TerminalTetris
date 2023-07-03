@@ -134,3 +134,18 @@ TEST_F(ScoreTests, onNotify_updates_score_on_event_depending_on_number_of_lines_
     mockSubject.notify(Event::linesCompleted, linesCompleted);
     ASSERT_EQ(score.getScore(), initialScore + oneLinePoints + twoLinePoints + threeLinePoints + fourLinePoints);
 }
+
+
+TEST_F(ScoreTests, onNotify_resets_score_on_game_over_event)
+{
+    // Given
+    Subject mockSubject;
+    mockSubject.addObserver(&score, Event::gameOver);
+
+    score.updateScore(1);
+    int gameOver = 0;
+
+    // When & Then
+    mockSubject.notify(Event::gameOver, gameOver);
+    ASSERT_EQ(score.getScore(), 0);
+}

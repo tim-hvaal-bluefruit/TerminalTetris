@@ -7,4 +7,7 @@ class MockScore : public ScoreInterface
 {
 public:
     void drawElementsToBuffer() override {}
+    void updateScore(const int increment) override {(void)increment; callCount++;}
+
+    int callCount = 0;
 };
