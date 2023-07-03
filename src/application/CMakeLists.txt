@@ -1,0 +1,30 @@
+add_executable(tetris)
+
+target_sources(tetris
+    PRIVATE application.cpp
+    PRIVATE instantiation.cpp
+    PRIVATE main.cpp
+)
+
+target_include_directories(tetris
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/application
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/arena
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/console
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/game
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/observers
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/piece
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/score
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/userInput
+)
+
+
+target_link_libraries(tetris
+    arena
+    console
+    game
+    piece
+    score
+    screenBuffer
+    userInput
+)

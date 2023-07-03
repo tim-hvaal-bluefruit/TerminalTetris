@@ -14,11 +14,13 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
 
-add_subdirectory(src)
-add_subdirectory(tests)
+add_subdirectory(src/application)
+add_subdirectory(src/arena)
+add_subdirectory(src/console)
+add_subdirectory(src/game)
+add_subdirectory(src/piece)
+add_subdirectory(src/score)
+add_subdirectory(src/screenBuffer)
+add_subdirectory(src/userInput)
 
-# TODO every time i change anything in a cmake list it does a rebuild - where is this setting?
-# TODO why do i have to include fetchContent? - is this like a switch?
-# TODO why gtest forced shared crt
-# TODO research fetch content declare, and make available - which adds gtest to _deps?
-# TODO why policy change? - remove the line to see the warning
+add_subdirectory(tests)
