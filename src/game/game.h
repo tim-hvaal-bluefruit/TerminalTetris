@@ -36,7 +36,8 @@ public:
         mArena(arena),
         mScore(score),
         mFallTicks(defaultFallTicks)
-    {}
+    {
+    }
 
     void initialiseGame();
     bool gameTick();
@@ -44,19 +45,24 @@ public:
     bool gameOver();
     bool startGame();
 
-    // Getters and Setters
-    void setTickCount(int ticks) {mTickCount = ticks;}
-    int getTickCount() {return mTickCount;}
-    int getFallTicks() {return mFallTicks;}
-    void setStackBurned(bool stackBurned) {mStackBurned = stackBurned;}
+    enum class GameState
+    {
+        MenuScreen,
+        GameRunning,
+        GameOver
+    };
+
+protected:
+    GameState mGameState = GameState::MenuScreen;
+    int mTickCount = 0;
+    int mFallTicks;
+    bool mStackBurned = false;
 
 private:
     PieceInterface& mPiece;
     UserInputInterface& mUserInput;
     ArenaInterface& mArena;
     ScoreInterface& mScore;
-    int mTickCount = 0;
-    int mFallTicks;
-    bool mStackBurned = false;
 };
+
 } // namespace game
