@@ -2,7 +2,8 @@
 #include <iostream>
 #include "screenBufferInterface.h"
 
-using namespace screen;
+namespace screen
+{
 
 class ScreenBuffer : public ScreenBufferInterface
 {
@@ -34,3 +35,5 @@ private:
     int mBufferSize;
     wchar_t mBuffer[maxScreenBufferSize];
 };
+
+} // namespace screen

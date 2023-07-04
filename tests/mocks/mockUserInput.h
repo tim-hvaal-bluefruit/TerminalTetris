@@ -10,7 +10,7 @@ public:
     void move() override {};
     bool startGame() override;
 
-    bool mStartGamePressed;
+    bool mStartGamePressed = false;
 
 private:
     bool mUserInputPolled = false;

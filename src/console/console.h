@@ -1,5 +1,6 @@
 #pragma once
 #include "consoleInterface.h"
+#include "screenBuffer.h"
 #include "Windows.h"
 
 namespace console
@@ -12,24 +13,14 @@ namespace console
 class Console : public ConsoleInterface
 {
 public:
-    Console()
-    {
-        mHConsole = CreateConsoleScreenBuffer
-                    (
-                        GENERIC_READ | GENERIC_WRITE,
-                        0,
-                        NULL,
-                        CONSOLE_TEXTMODE_BUFFER,
-                        NULL
-                    );
+    Console(screen::ScreenBufferInterface& screenBuffer);
 
-        SetConsoleActiveScreenBuffer(mHConsole);
-    }
-
+    void copyScreenBufferToConsoleBuffer();
     void copyBufferToConsoleBuffer(const wchar_t* buffer, const int bufferSize) override;
     void animateFrame(const int frameLengthsMs, const wchar_t* buffer, const int bufferSize) override;
 
 private:
+    screen::ScreenBufferInterface& mScreenBuffer;
     HANDLE mHConsole;
 };
 

@@ -1,7 +1,5 @@
 #pragma once
-
 #include "windows.h"
-#include <iostream>
 #include "screenBuffer.h"
 #include "console.h"
 #include "arena.h"
@@ -11,27 +9,23 @@
 #include "score.h"
 #include "observerInterface.h"
 
-using namespace console;
-using namespace arena;
-using namespace piece;
-using namespace userInput;
-using namespace game;
-using namespace score;
-using namespace observer;
+#include <iostream>
 
 class Instantiation
 {
 public:
     Instantiation();
     void Init();
-    void Loop();
+
+    game::Game& Game();
+    console::Console& Console();
 
 private:
-    Console mConsole;
-    ScreenBuffer mScreenBuffer;
-    Arena mArena;
-    Piece mPiece;
-    UserInput mUserInput;
-    Score mScore;
-    Game mGame;
+    console::Console mConsole;
+    screen::ScreenBuffer mScreenBuffer;
+    arena::Arena mArena;
+    piece::Piece mPiece;
+    userInput::UserInput mUserInput;
+    score::Score mScore;
+    game::Game mGame;
 };

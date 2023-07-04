@@ -5,6 +5,8 @@
 #include "observerInterface.h"
 
 using namespace observer;
+using namespace screen;
+
 namespace score
 {
     const wchar_t* const box = L"#################"

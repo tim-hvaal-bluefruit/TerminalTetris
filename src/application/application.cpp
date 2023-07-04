@@ -8,7 +8,12 @@ void Application::Init()
     mInstantiation.Init();
 }
 
-void Application::Run()
+void Application::Loop()
 {
-    mInstantiation.Loop();
+    while(true)
+    {
+        Sleep(50);
+        mInstantiation.Game().gameTick();
+        mInstantiation.Console().copyScreenBufferToConsoleBuffer();
+    }
 }

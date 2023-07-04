@@ -6,6 +6,8 @@
 
 using namespace console;
 using namespace observer;
+using namespace screen;
+
 namespace arena
 {
 class Arena : public ArenaInterface,

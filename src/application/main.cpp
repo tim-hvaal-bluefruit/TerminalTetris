@@ -3,6 +3,6 @@
 int main()
 {
     Application::Init();
-    Application::Run();
+    Application::Loop();
     return 0;
 }

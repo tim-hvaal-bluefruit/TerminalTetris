@@ -1,6 +1,7 @@
 #include "instantiation.h"
 
 using namespace console;
+using namespace screen;
 using namespace arena;
 using namespace piece;
 using namespace userInput;
@@ -9,6 +10,7 @@ using namespace score;
 using namespace observer;
 
 Instantiation::Instantiation() :
+    mConsole(mScreenBuffer),
     mArena(mScreenBuffer, mConsole),
     mPiece(mArena, mScreenBuffer),
     mUserInput(mPiece),
@@ -24,45 +26,12 @@ void Instantiation::Init()
     mGame.initialiseGame();
 }
 
-void Instantiation::Loop()
+Game& Instantiation::Game()
 {
+    return mGame;
+}
 
-    bool programRunning = true;
-    bool gameRunning = false;
-    bool gameOver = false;
-
-    while(programRunning)
-    {
-        Sleep(50);
-
-        // start game screen
-        if(!gameRunning)
-        {
-            if(mGame.startGame())
-            {
-                gameRunning = true;
-            }
-        }
-
-        // main game
-        if(!gameOver && gameRunning)
-        {
-            if (!mGame.gameTick())
-            {
-                gameOver = true;
-            }
-        }
-
-        // game over screen
-        if(gameOver)
-        {
-            if(!mGame.gameOver())
-            {
-                gameOver = false;
-                gameRunning = false;
-            }
-        }
-
-        mConsole.copyBufferToConsoleBuffer(mScreenBuffer.buffer(), consoleSize);
-    }
+Console& Instantiation::Console()
+{
+    return mConsole;
 }

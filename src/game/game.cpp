@@ -2,24 +2,64 @@
 
 using namespace game;
 
+
 void Game::initialiseGame()
 {
     mArena.createArena();
     mPiece.createNewPiece();
 }
 
-bool Game::dropDown()
+
+bool Game::gameTick()
 {
-    if(mPiece.movePiece(moveDirection::down))
+    switch (mGameState)
     {
+    case GameState::MenuScreen:
+        if (!menuScreen())
+            mGameState = GameState::GameInProgress;
+        break;
+
+    case GameState::GameInProgress:
+        if (!gameInProgress())
+            mGameState = GameState::GameOver;
+        break;
+
+    case GameState::GameOver:
+        if (!gameOver())
+            mGameState = GameState::MenuScreen;
+        break;
+
+    default:
+        break;
+    }
+
+    return true;
+}
+
+
+bool Game::menuScreen()
+{
+    mUserInput.getUserInput();
+    if(!mUserInput.startGame())
+    {
+        mArena.addToArena(mArena.getArena(), startGameText, startGameHeight, startGameWidth, textArenaPosX, textArenaPosY);
+        mArena.drawArena();
         return true;
     }
-    mPiece.addPieceToArena();
-    mArena.checkAllLines();
+
+    // leave menu screen
+    while(!mStackBurned)
+    {
+        mArena.gameOverFlames();
+        mStackBurned = true;
+    }
+    mStackBurned = false;
+    mScore.updateScore();
     return false;
 }
 
-bool Game::gameTick()
+
+bool Game::gameInProgress()
 {
     mTickCount++;
     if(mTickCount == mFallTicks)
@@ -47,6 +87,19 @@ bool Game::gameTick()
     return true;
 }
 
+
+bool Game::dropDown()
+{
+    if(mPiece.movePiece(moveDirection::down))
+    {
+        return true;
+    }
+    mPiece.addPieceToArena();
+    mArena.checkAllLines();
+    return false;
+}
+
+
 bool Game::gameOver()
 {
     while(!mStackBurned)
@@ -59,7 +112,7 @@ bool Game::gameOver()
     mArena.addToArena(mArena.getArena(), gameOverText, gameOverHeight, gameOverWidth, textArenaPosX, textArenaPosY);
     mArena.drawArena();
 
-    if(mTickCount == defaultNewGameTicks)
+    if(mTickCount == restartGameTicks)
     {
         mArena.createArena();
         mTickCount = 0;
@@ -68,26 +121,5 @@ bool Game::gameOver()
     }
 
     mTickCount++;
-    return true;
-}
-
-bool Game::startGame()
-{
-    mUserInput.getUserInput();
-    if(!mUserInput.startGame())
-    {
-        mArena.addToArena(mArena.getArena(), startGameText, startGameHeight, startGameWidth, textArenaPosX, textArenaPosY);
-        mArena.drawArena();
-        return false;
-    }
-
-    while(!mStackBurned)
-    {
-        mArena.gameOverFlames();
-        mStackBurned = true;
-    }
-
-    mStackBurned = false;
-    mScore.updateScore();
     return true;
 }

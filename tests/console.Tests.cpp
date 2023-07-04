@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include "mockScreenBuffer.h"
 #include "console.h"
 
 using namespace console;
@@ -7,7 +8,8 @@ using namespace console;
 TEST(consoleTests, copyBufferToConsoleBuffer_copies_buffer_to_std_out)
 {
     //Given
-    Console console;
+    MockScreenBuffer mockScreenBuffer;
+    Console console(mockScreenBuffer);
     const wchar_t* buffer = L"12345";
     const int bufferSize = 6;
     testing::internal::CaptureStdout();

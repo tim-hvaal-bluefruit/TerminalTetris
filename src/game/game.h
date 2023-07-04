@@ -14,7 +14,7 @@ using namespace observer;
 namespace game
 {
     constexpr int defaultFallTicks = 30;
-    constexpr int defaultNewGameTicks = 30;
+    constexpr int restartGameTicks = 30;
 
     constexpr int textArenaPosX = 2;
     constexpr int textArenaPosY = 3;
@@ -40,15 +40,18 @@ public:
     }
 
     void initialiseGame();
+
     bool gameTick();
-    bool dropDown();
+    bool menuScreen();
+    bool gameInProgress();
     bool gameOver();
-    bool startGame();
+
+    bool dropDown();
 
     enum class GameState
     {
         MenuScreen,
-        GameRunning,
+        GameInProgress,
         GameOver
     };
 
