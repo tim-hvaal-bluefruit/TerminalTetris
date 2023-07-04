@@ -2,6 +2,26 @@
 
 using namespace screen;
 
+
+ScreenBuffer::ScreenBuffer() :
+    mScreenHeight(defaultScreenHeight),
+    mScreenWidth(defaultScreenWidth)
+{
+    setScreenBufferSize(mScreenHeight, mScreenWidth);
+}
+
+ScreenBuffer::ScreenBuffer(int screenHeight, int screenWidth) :
+    mScreenHeight(screenHeight),
+    mScreenWidth(screenWidth)
+{
+    setScreenBufferSize(mScreenHeight, mScreenWidth);
+}
+
+wchar_t* ScreenBuffer::buffer()
+{
+    return mBuffer;
+}
+
 void ScreenBuffer::setScreenBufferSize(int screenHeight, int screenWidth)
 {
     mScreenHeight = screenHeight;
@@ -44,4 +64,15 @@ void ScreenBuffer::drawVisibleToBuffer(const wchar_t* object, int objectHeight, 
             }
         }
     }
+}
+
+bool ScreenBuffer::registerDrawItem(DrawItemInterface* drawItem)
+{
+    if (mNumDrawItems >= mMaxDrawItems)
+    {
+        return false;
+    }
+
+    mDrawItems[mNumDrawItems++] = drawItem;
+    return true;
 }

@@ -82,7 +82,7 @@ bool Game::gameInProgress()
     mPiece.drawCurrentPiece();
     mPiece.drawPreviewPiece();
 
-    mScore.drawElementsToBuffer();
+    // mScore.drawElementsToBuffer();
 
     return true;
 }

@@ -6,4 +6,5 @@ target_sources(screenBuffer
 
 target_include_directories(screenBuffer
     PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/interfaces
 )

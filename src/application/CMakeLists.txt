@@ -16,6 +16,7 @@ target_include_directories(application
     PRIVATE ${PROJECT_SOURCE_DIR}/src/score
     PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
     PRIVATE ${PROJECT_SOURCE_DIR}/src/userInput
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/interfaces
 )
 
 target_link_libraries(application

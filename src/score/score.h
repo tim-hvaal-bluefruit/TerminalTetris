@@ -4,8 +4,6 @@
 #include "screenBuffer.h"
 #include "observerInterface.h"
 
-using namespace observer;
-using namespace screen;
 
 namespace score
 {
@@ -37,22 +35,25 @@ namespace score
     constexpr int fourLinePoints = 80;
 
 
-class Score : public ScoreInterface,
-              public ObserverInterface
+class Score : public score::ScoreInterface,
+              public observer::ObserverInterface
 {
 public:
-    Score(ScreenBufferInterface& screenBuffer)
+    Score(screen::ScreenBufferInterface& screenBuffer)
         : mScreenBuffer(screenBuffer) {}
 
     // score interface
-    void drawToBuffer(const wchar_t* element, const int height, const int width,
-                      const int posX, const int posY);
-    void drawElementsToBuffer() override;
+    // void drawToBuffer(const wchar_t* element, const int height, const int width,
+    //                   const int posX, const int posY);
+    // void drawElementsToBuffer() override;
+
+    // drawItem Interface
+    void draw() override;
 
     // observer interface
-    void onNotify(Event event, int value) override;
-
+    void onNotify(observer::Event event, int value) override;
     void updateScore(const int increment = 0) override;
+
 
     // Getters and Setters
     int getScore() {return mScore;}
@@ -61,7 +62,7 @@ public:
 
 
 private:
-    ScreenBufferInterface& mScreenBuffer;
+    screen::ScreenBufferInterface& mScreenBuffer;
     int mScore = 0;
     wchar_t mScoreBuffer[scoreWidth + 1] = L"0";
 };

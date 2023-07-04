@@ -24,6 +24,7 @@ target_include_directories(AllTests
     PRIVATE ${PROJECT_SOURCE_DIR}/src/observers
     PRIVATE ${PROJECT_SOURCE_DIR}/tests/mocks
     PRIVATE ${PROJECT_SOURCE_DIR}/src
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/interfaces
 )
 
 target_link_libraries(AllTests

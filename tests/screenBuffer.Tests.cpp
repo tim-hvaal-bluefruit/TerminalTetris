@@ -1,21 +1,42 @@
 #include <gtest/gtest.h>
 #include "screenBuffer.h"
+#include "mockScore.h"
 
 using namespace screen;
 
-
-TEST(ScreenBufferTests, default_constructor_sets_buffer_size_to_default_size)
+class ScreenBufferTestObject : public ScreenBuffer
 {
-    // When
-    ScreenBuffer screenBuffer;
+public:
+    ScreenBufferTestObject() :
+        ScreenBuffer() {}
 
-    // Then
-    std::wstring expectedBuffer(screenBuffer.buffer());
+    int& numDrawItems = mNumDrawItems;
+    static constexpr int maxDrawItems = mMaxDrawItems;
+    std::array<DrawItemInterface*, mMaxDrawItems>& drawItems = mDrawItems;
+};
+
+
+class ScreenBufferTests : public testing::Test
+{
+public:
+    ScreenBufferTests() {};
+
+    MockScore mockScore;
+    ScreenBufferTestObject mScreenBuffer;
+};
+
+
+TEST_F(ScreenBufferTests, default_constructor_sets_buffer_size_to_default_size)
+{
+    // Given
+    std::wstring expectedBuffer(mScreenBuffer.buffer());
+
+    // When Then
     ASSERT_EQ(defaultScreenHeight * defaultScreenWidth, expectedBuffer.size());
 }
 
 
-TEST(ScreenBufferTests, overriden_constructor_sets_buffer_size_to_given_dimensions)
+TEST_F(ScreenBufferTests, overriden_constructor_sets_buffer_size_to_given_dimensions)
 {
     // When
     const int height = 10, width = 20;
@@ -28,42 +49,40 @@ TEST(ScreenBufferTests, overriden_constructor_sets_buffer_size_to_given_dimensio
 }
 
 
-TEST(ScreenBufferTests, fillBuffer_fills_available_buffer)
+TEST_F(ScreenBufferTests, fillBuffer_fills_available_buffer)
 {
     // Given
-    ScreenBuffer screenBuffer;
     wchar_t fillChar = L'Q';
     std::wstring expectedBuffer((defaultScreenHeight * defaultScreenWidth), fillChar);
 
     // When
-    screenBuffer.fillBuffer(fillChar);
+    mScreenBuffer.fillBuffer(fillChar);
 
     // Then
-    std::wstring actualBuffer(screenBuffer.buffer());
+    std::wstring actualBuffer(mScreenBuffer.buffer());
     ASSERT_EQ(actualBuffer, expectedBuffer);
 }
 
 
-TEST(ScreenBufferTests, setScreenBuffer_resets_to_given_dimensions)
+TEST_F(ScreenBufferTests, setScreenBuffer_resets_to_given_dimensions)
 {
     // Given
-    ScreenBuffer screenBuffer;
-    std::wstring startBuffer(screenBuffer.buffer());
+    std::wstring startBuffer(mScreenBuffer.buffer());
     EXPECT_EQ(defaultScreenHeight * defaultScreenWidth, startBuffer.size());
 
     const int height = 10, width = 5;
     const int expectedSize = height * width;
 
     // // When
-    screenBuffer.setScreenBufferSize(height, width);
+    mScreenBuffer.setScreenBufferSize(height, width);
 
     // Then
-    std::wstring actualBuffer = screenBuffer.buffer();
+    std::wstring actualBuffer = mScreenBuffer.buffer();
     ASSERT_EQ(expectedSize, actualBuffer.size());
 }
 
 
-TEST(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer)
+TEST_F(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer)
 {
     // Given
     const int height = 4, width = 4;
@@ -86,7 +105,7 @@ TEST(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer)
 }
 
 
-TEST(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer_at_offset_position)
+TEST_F(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer_at_offset_position)
 {
     // Given
     const int height = 7, width = 9;
@@ -112,7 +131,7 @@ TEST(ScreenBufferTests, drawToBuffer_draws_object_to_screen_buffer_at_offset_pos
 }
 
 
-TEST(ScreenBufferTests, drawing_multiple_objects_to_screen_buffer)
+TEST_F(ScreenBufferTests, drawing_multiple_objects_to_screen_buffer)
 {
     // Given
     const int height = 6, width = 12;
@@ -148,4 +167,17 @@ TEST(ScreenBufferTests, drawing_multiple_objects_to_screen_buffer)
                                       "............"
                                       "............";
     ASSERT_STREQ(expectedBuffer, screenBuffer.buffer());
+}
+
+
+TEST_F(ScreenBufferTests, registerDrawItem_returns_true_if_room_to_register_item)
+{
+    ASSERT_TRUE(mScreenBuffer.registerDrawItem(&mockScore));
+}
+
+
+TEST_F(ScreenBufferTests, registerDrawItem_returns_false_if_no_room_to_register_item)
+{
+    mScreenBuffer.numDrawItems = mScreenBuffer.maxDrawItems;
+    ASSERT_FALSE(mScreenBuffer.registerDrawItem(&mockScore));
 }

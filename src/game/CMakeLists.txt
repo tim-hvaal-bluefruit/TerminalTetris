@@ -12,4 +12,5 @@ target_include_directories(game
     PRIVATE ${PROJECT_SOURCE_DIR}/src/score
     PRIVATE ${PROJECT_SOURCE_DIR}/src/console
     PRIVATE ${PROJECT_SOURCE_DIR}/src/observers
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/interfaces
 )

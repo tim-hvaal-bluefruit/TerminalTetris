@@ -7,4 +7,5 @@ target_sources(score
 target_include_directories(score
     PRIVATE ${PROJECT_SOURCE_DIR}/src/screenBuffer
     PRIVATE ${PROJECT_SOURCE_DIR}/src/observers
+    PRIVATE ${PROJECT_SOURCE_DIR}/src/interfaces
 )
