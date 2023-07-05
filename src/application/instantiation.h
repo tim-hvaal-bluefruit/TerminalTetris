@@ -19,6 +19,7 @@ public:
 
     game::Game& Game();
     console::Console& Console();
+    screen::ScreenBuffer& ScreenBuffer();
 
 private:
     console::Console mConsole;

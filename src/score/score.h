@@ -39,20 +39,16 @@ class Score : public score::ScoreInterface,
               public observer::ObserverInterface
 {
 public:
-    Score(screen::ScreenBufferInterface& screenBuffer)
-        : mScreenBuffer(screenBuffer) {}
+    Score(screen::ScreenBufferInterface& screenBuffer);
 
-    // score interface
-    // void drawToBuffer(const wchar_t* element, const int height, const int width,
-    //                   const int posX, const int posY);
-    // void drawElementsToBuffer() override;
+    // ScoreInterface
+    void updateScore(const int increment = 0) override;
 
-    // drawItem Interface
+    // DrawItemInterface (via ScoreInterface)
     void draw() override;
 
-    // observer interface
+    // ObserverInterface
     void onNotify(observer::Event event, int value) override;
-    void updateScore(const int increment = 0) override;
 
 
     // Getters and Setters

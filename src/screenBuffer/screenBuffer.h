@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include "screenBufferInterface.h"
-#include "drawItemInterface.h"
 #include <array>
 
 namespace screen
@@ -19,7 +18,8 @@ public:
     void drawToBuffer(const wchar_t* object, int objectHeight, int objectWidth, int xOffset, int yOffset) override;
     void drawVisibleToBuffer(const wchar_t* object, int objectHeight, int objectWidth, int xOffset, int yOffset);
 
-    bool registerDrawItem(DrawItemInterface* drawItem);
+    bool registerDrawItem(DrawItemInterface* drawItem) override;
+    void drawAllItems();
 
 protected:
     int mNumDrawItems = 0;

@@ -40,3 +40,11 @@ void MockScreenBuffer::fillBuffer(const wchar_t c)
 {
     std::cout << "fillBuffer() called with :" << c;
 }
+
+
+bool MockScreenBuffer::registerDrawItem(DrawItemInterface* drawItem)
+{
+    (void)drawItem;
+    mNumRegisteredDrawItems++;
+    return true;
+};

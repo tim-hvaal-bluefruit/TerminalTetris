@@ -3,19 +3,20 @@
 using namespace score;
 using namespace observer;
 
+
+Score::Score(screen::ScreenBufferInterface& screenBuffer)
+        : mScreenBuffer(screenBuffer)
+{
+    mScreenBuffer.registerDrawItem(this);
+}
+
+
 void Score::draw()
 {
     mScreenBuffer.drawToBuffer(box, boxHeight, boxWidth, boxPosX, boxPosY);
     mScreenBuffer.drawToBuffer(title, titleHeight, titleWidth, titlePosX, titlePosY);
     mScreenBuffer.drawToBuffer(mScoreBuffer, scoreHeight, scoreWidth, scorePosX, scorePosY);
 }
-
-// void Score::drawToBuffer(const wchar_t* element, const int height, const int width,
-//                          const int posX, const int posY)
-// {
-//     mScreenBuffer.drawToBuffer(element, height, width, posX, posY);
-// }
-
 
 
 void Score::updateScore(const int increment)

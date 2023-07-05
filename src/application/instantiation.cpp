@@ -35,3 +35,8 @@ Console& Instantiation::Console()
 {
     return mConsole;
 }
+
+ScreenBuffer& Instantiation::ScreenBuffer()
+{
+    return mScreenBuffer;
+}

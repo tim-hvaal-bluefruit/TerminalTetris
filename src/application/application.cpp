@@ -14,6 +14,7 @@ void Application::Loop()
     {
         Sleep(50);
         mInstantiation.Game().gameTick();
+        mInstantiation.ScreenBuffer().drawAllItems();
         mInstantiation.Console().copyScreenBufferToConsoleBuffer();
     }
 }

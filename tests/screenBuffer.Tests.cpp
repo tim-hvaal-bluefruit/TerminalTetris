@@ -181,3 +181,17 @@ TEST_F(ScreenBufferTests, registerDrawItem_returns_false_if_no_room_to_register_
     mScreenBuffer.numDrawItems = mScreenBuffer.maxDrawItems;
     ASSERT_FALSE(mScreenBuffer.registerDrawItem(&mockScore));
 }
+
+
+TEST_F(ScreenBufferTests, drawItems_calls_draw_methods_from_list_of_drawables)
+{
+    // Given
+    mScreenBuffer.registerDrawItem(&mockScore);
+    ASSERT_EQ(mockScore.mDrawCallCount, 0);
+
+    // When
+    mScreenBuffer.drawAllItems();
+
+    // Then
+    ASSERT_EQ(mockScore.mDrawCallCount, 1);
+}

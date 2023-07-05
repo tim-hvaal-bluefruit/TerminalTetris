@@ -76,3 +76,12 @@ bool ScreenBuffer::registerDrawItem(DrawItemInterface* drawItem)
     mDrawItems[mNumDrawItems++] = drawItem;
     return true;
 }
+
+
+void ScreenBuffer::drawAllItems()
+{
+    for(int i = 0; i < mNumDrawItems; i++)
+    {
+        mDrawItems[i]->draw();
+    }
+}
