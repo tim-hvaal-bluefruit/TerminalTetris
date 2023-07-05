@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <time.h>
+#include "drawItemInterface.h"
 
 namespace piece
 {
@@ -12,7 +13,7 @@ namespace piece
     enum moveDirection { left = 0, right, down, rotate, directionCount };
     enum rotation { r0 = 0, r90, r180, r270, rotationCount };
 
-class PieceInterface
+class PieceInterface : public screen::DrawItemInterface
 {
 public:
     virtual void drawCurrentPiece() = 0;

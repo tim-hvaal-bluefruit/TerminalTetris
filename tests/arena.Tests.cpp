@@ -391,3 +391,20 @@ TEST_F(ArenaTests, checkAllLines_notifies_on_complete_lines)
     ASSERT_EQ(mockObserver.mCallCount, 1);
     ASSERT_EQ(mockObserver.mValue, 2);
 }
+
+
+TEST_F(ArenaTests, on_construction_arena_registers_as_draw_item_with_screen_buffer)
+{
+    ASSERT_EQ(mockScreenBuffer.mNumRegisteredDrawItems, 1);
+}
+
+
+TEST_F(ArenaTests, arena_draw_method_draws_arena_to_screenBuffer)
+{
+    // Given
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 0);
+
+    // When Then
+    arena.draw();
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 1);
+}

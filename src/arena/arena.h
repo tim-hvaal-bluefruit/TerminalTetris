@@ -14,14 +14,10 @@ class Arena : public ArenaInterface,
               public Subject
 {
 public:
-    Arena(ScreenBufferInterface& screenBuffer, ConsoleInterface& console) :
-        mScreenBuffer(screenBuffer),
-        mConsole(console),
-        mArenaHeight(defaultArenaHeight),
-        mArenaWidth(defaultArenaWidth),
-        mScreenOffsetX(defaultScreenOffsetX),
-        mScreenOffsetY(defaultScreenOffsetY)
-    {}
+    Arena(ScreenBufferInterface& screenBuffer, ConsoleInterface& console );
+
+    // DrawItemInterface
+    void draw() override;
 
     void drawArena();
     void drawCurrentPiece(const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;

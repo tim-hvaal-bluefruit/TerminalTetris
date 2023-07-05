@@ -43,7 +43,7 @@ bool Game::menuScreen()
     if(!mUserInput.startGame())
     {
         mArena.addToArena(mArena.getArena(), startGameText, startGameHeight, startGameWidth, textArenaPosX, textArenaPosY);
-        mArena.drawArena();
+        // mArena.drawArena();
         return true;
     }
 
@@ -78,12 +78,6 @@ bool Game::gameInProgress()
     mUserInput.getUserInput();
     mUserInput.move();
 
-    mArena.drawArena();
-    mPiece.drawCurrentPiece();
-    mPiece.drawPreviewPiece();
-
-    // mScore.drawElementsToBuffer();
-
     return true;
 }
 
@@ -110,7 +104,7 @@ bool Game::gameOver()
     }
 
     mArena.addToArena(mArena.getArena(), gameOverText, gameOverHeight, gameOverWidth, textArenaPosX, textArenaPosY);
-    mArena.drawArena();
+    // mArena.drawArena();
 
     if(mTickCount == restartGameTicks)
     {

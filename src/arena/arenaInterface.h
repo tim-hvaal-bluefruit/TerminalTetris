@@ -1,4 +1,5 @@
 #pragma once
+#include "drawItemInterface.h"
 
 namespace arena
 {
@@ -19,7 +20,7 @@ namespace arena
     constexpr int stackFallAnimationDelayMs = 130;
     constexpr int flameAnimationSpeedMs = 13;
 
-class ArenaInterface
+class ArenaInterface : public screen::DrawItemInterface
 {
 public:
     virtual void drawCurrentPiece(const wchar_t* piece, int height, int width, int arenaX, int arenaY) = 0;
@@ -30,5 +31,6 @@ public:
     virtual void drawArena() = 0;
     virtual int checkAllLines() = 0;
     virtual void gameOverFlames() = 0;
+    virtual void draw() = 0;
 };
-} // namespace arenaÓ
+} // namespace arena

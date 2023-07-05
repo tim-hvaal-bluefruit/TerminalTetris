@@ -3,6 +3,17 @@
 
 using namespace arena;
 
+Arena::Arena(ScreenBufferInterface& screenBuffer, ConsoleInterface& console) :
+    mScreenBuffer(screenBuffer),
+    mConsole(console),
+    mArenaHeight(defaultArenaHeight),
+    mArenaWidth(defaultArenaWidth),
+    mScreenOffsetX(defaultScreenOffsetX),
+    mScreenOffsetY(defaultScreenOffsetY)
+{
+    mScreenBuffer.registerDrawItem(this);
+}
+
 
 void Arena::drawArena()
 {
@@ -176,5 +187,10 @@ void Arena::gameOverFlames()
         }
         animate(flameAnimationSpeedMs - i);
     }
+}
+
+void Arena::draw()
+{
+    drawArena();
 }
 

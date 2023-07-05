@@ -2,6 +2,30 @@
 
 using namespace piece;
 
+
+Piece::Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screenBuffer) :
+    mArena(arena),
+    mScreenBuffer(screenBuffer)
+{
+    mPieces[p1].append(L"  X   X   X   X ");
+    mPieces[p2].append(L"  X  XX   X     ");
+    mPieces[p3].append(L"     XX  XX     ");
+    mPieces[p4].append(L"  X  XX  X      ");
+    mPieces[p5].append(L" X   XX   X     ");
+    mPieces[p6].append(L" X   X   XX     ");
+    mPieces[p7].append(L"  X   X  XX     ");
+
+    srand(time(NULL));
+    mCurrentPiece = static_cast<pieceIndex>(rand() % 7);
+    mArenaX = arena::defaultStartPositionX;
+    mArenaY = arena::defaultStartPositionY;
+
+    mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
+
+    mScreenBuffer.registerDrawItem(this);
+}
+
+
 void Piece::drawCurrentPiece()
 {
     int height = defaultPieceHeight;
@@ -149,4 +173,10 @@ int Piece::rotateIndex(int x, int y, int width, int height, rotation rotation)
         default:
             return rotatedIndex = (y * width) + x;
     }
+}
+
+
+void Piece::draw()
+{
+    drawPreviewPiece();
 }

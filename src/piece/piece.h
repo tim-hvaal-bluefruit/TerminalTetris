@@ -10,25 +10,10 @@ class Piece : public PieceInterface
 {
 
 public:
-    Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screenBuffer) :
-        mArena(arena),
-        mScreenBuffer(screenBuffer)
-    {
-        mPieces[p1].append(L"  X   X   X   X ");
-	    mPieces[p2].append(L"  X  XX   X     ");
-	    mPieces[p3].append(L"     XX  XX     ");
-	    mPieces[p4].append(L"  X  XX  X      ");
-	    mPieces[p5].append(L" X   XX   X     ");
-	    mPieces[p6].append(L" X   X   XX     ");
-	    mPieces[p7].append(L"  X   X  XX     ");
+    Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screenBuffer);
 
-        srand(time(NULL));
-        mCurrentPiece = static_cast<pieceIndex>(rand() % 7);
-        mArenaX = arena::defaultStartPositionX;
-        mArenaY = arena::defaultStartPositionY;
-
-        mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
-    }
+    // DrawItemInterface
+    void draw() override;
 
     void drawCurrentPiece() override;
     void drawPreviewPiece() override;

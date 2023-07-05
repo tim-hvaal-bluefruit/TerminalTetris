@@ -6,6 +6,9 @@ using namespace piece;
 class MockPiece : public PieceInterface
 {
 public:
+
+    void draw() override {};
+
     void drawCurrentPiece() override;
     void drawPreviewPiece() override;
     bool movePiece(moveDirection direction) override;

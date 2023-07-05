@@ -515,3 +515,20 @@ TEST_F(PieceTests, checkPieceFits_passes_current_piece_at_current_rotation_for_a
     piece.checkPieceFits(arenaX, arenaY);
     ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
 }
+
+
+TEST_F(PieceTests, on_construction_piece_registers_as_draw_item_with_screen_buffer)
+{
+    ASSERT_EQ(mockScreenBuffer.mNumRegisteredDrawItems, 1);
+}
+
+
+TEST_F(PieceTests, piece_draw_method_draws_preview_piece_to_screenBuffer)
+{
+    // Given
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 0);
+
+    // When Then
+    piece.draw();
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 1);
+}

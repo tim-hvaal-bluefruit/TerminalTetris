@@ -6,6 +6,10 @@ using namespace arena;
 class MockArena : public ArenaInterface
 {
 public:
+
+    // DrawItemInterface
+    void draw() override {};
+
     void drawCurrentPiece(const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;
     bool checkObjectFits(const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;
     void addToArena(wchar_t* arena, const wchar_t* piece, int height, int width, int arenaX, int arenaY) override;
