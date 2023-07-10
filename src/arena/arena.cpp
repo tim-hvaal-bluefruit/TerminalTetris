@@ -3,7 +3,8 @@
 
 using namespace arena;
 
-Arena::Arena(ScreenBufferInterface& screenBuffer, ConsoleInterface& console) :
+
+Arena::Arena(screen::ScreenBufferInterface& screenBuffer, console::ConsoleInterface& console) :
     mScreenBuffer(screenBuffer),
     mConsole(console),
     mArenaHeight(defaultArenaHeight),
@@ -14,19 +15,16 @@ Arena::Arena(ScreenBufferInterface& screenBuffer, ConsoleInterface& console) :
     mScreenBuffer.registerDrawItem(this);
 }
 
-
 // DrawItemInterface
 void Arena::draw()
 {
     drawArena();
 }
 
-
 void Arena::drawArena()
 {
     mScreenBuffer.drawToBuffer(mArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
 }
-
 
 void Arena::drawCurrentPiece(const wchar_t* piece, const int height, const int width, const int arenaX, const int arenaY)
 {
@@ -35,14 +33,12 @@ void Arena::drawCurrentPiece(const wchar_t* piece, const int height, const int w
     mScreenBuffer.drawVisibleToBuffer(mActiveArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
 }
 
-
 wchar_t* Arena::createArena()
 {
     refreshArena(mArena);
     refreshArena(mActiveArena);
     return mArena;
 }
-
 
 wchar_t* Arena::createArena(int arenaHeight, int arenaWidth)
 {
@@ -53,12 +49,10 @@ wchar_t* Arena::createArena(int arenaHeight, int arenaWidth)
     return mArena;
 }
 
-
 wchar_t* Arena::getArena()
 {
     return mArena;
 }
-
 
 void Arena::refreshArena(wchar_t* arena)
 {
@@ -68,7 +62,6 @@ void Arena::refreshArena(wchar_t* arena)
 
     arena[mArenaHeight * mArenaWidth] = '\0';
 }
-
 
 void Arena::addToArena(wchar_t* arena, const wchar_t* obj, int height, int width, int arenaX, int arenaY)
 {
@@ -84,10 +77,8 @@ void Arena::addToArena(wchar_t* arena, const wchar_t* obj, int height, int width
     }
 }
 
-
 bool Arena::checkObjectFits(const wchar_t* obj, int height, int width, int arenaX, int arenaY)
 {
-    // check arenaX and arenaY are less than mArena height and width
     for (int y = 0; y < height; y++)
     {
         for (int x = 0; x < width; x++)
@@ -101,7 +92,6 @@ bool Arena::checkObjectFits(const wchar_t* obj, int height, int width, int arena
     }
     return true;
 }
-
 
 int Arena::checkAllLines()
 {
@@ -118,12 +108,11 @@ int Arena::checkAllLines()
 
     if(numLines > 0)
     {
-        notify(Event::linesCompleted, numLines);
+        notify(observer::Event::linesCompleted, numLines);
     }
 
     return numLines;
 }
-
 
 bool Arena::checkLineComplete(int arenaY)
 {
@@ -135,7 +124,6 @@ bool Arena::checkLineComplete(int arenaY)
     }
     return true;
 }
-
 
 void Arena::destroyLine(int yPos)
 {
@@ -152,13 +140,11 @@ void Arena::destroyLine(int yPos)
     }
 }
 
-
 void Arena::animate(int frameLengthMs)
 {
     drawArena();
-    mConsole.animateFrame(frameLengthMs, mScreenBuffer.buffer(), consoleSize);
+    mConsole.animateFrame(frameLengthMs, mScreenBuffer.buffer(), console::consoleSize);
 }
-
 
 void Arena::moveStackDown(int rowPosY)
 {
@@ -173,7 +159,6 @@ void Arena::moveStackDown(int rowPosY)
 
     animate(stackFallAnimationDelayMs);
 }
-
 
 void Arena::gameOverFlames()
 {

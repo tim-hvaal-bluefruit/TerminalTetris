@@ -4,17 +4,14 @@
 #include "console.h"
 #include "observerInterface.h"
 
-using namespace console;
-using namespace observer;
-using namespace screen;
 
 namespace arena
 {
 class Arena : public ArenaInterface,
-              public Subject
+              public observer::Subject
 {
 public:
-    Arena(ScreenBufferInterface& screenBuffer, ConsoleInterface& console );
+    Arena(screen::ScreenBufferInterface& screenBuffer, console::ConsoleInterface& console);
 
     // DrawItemInterface
     void draw() override;
@@ -43,8 +40,8 @@ protected:
     wchar_t mActiveArena[maxArenaSize];
 
 private:
-    ScreenBufferInterface& mScreenBuffer;
-    ConsoleInterface& mConsole;
+    screen::ScreenBufferInterface& mScreenBuffer;
+    console::ConsoleInterface& mConsole;
     int mScreenOffsetX;
     int mScreenOffsetY;
 };
