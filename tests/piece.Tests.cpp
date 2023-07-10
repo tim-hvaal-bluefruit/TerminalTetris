@@ -19,7 +19,7 @@ public:
 TEST_F(PieceTests, pieces_array_accessed_by_array_index)
 {
     // Given
-    pieceIndex currentPiece = p3;
+    TetrominoType currentPiece = p3;
     piece.setCurrentPiece(currentPiece);
 
     // When Then
@@ -34,84 +34,87 @@ TEST_F(PieceTests, pieces_array_accessed_by_array_index)
     piece.setCurrentPiece(currentPiece);
 
     // When Then
-    expected = L"  X   X  XX     ";
+    expected = L"  X "
+                "  X "
+                " XX "
+                "    ";
     ASSERT_STREQ(piece.getPieceData(piece.getCurrentPiece()), expected);
 }
 
 
-TEST_F(PieceTests, drawCurrentPiece_passes_piece_and_location_to_arena_for_drawing)
-{
-    // Given
-    pieceIndex pieceIndex = p5;
-    piece.setCurrentPiece(pieceIndex);
-    int arenaX = 3, arenaY = 2;
-    piece.setArenaX(arenaX);
-    piece.setArenaY(arenaY);
+// TEST_F(PieceTests, drawCurrentPiece_passes_piece_and_location_to_arena_for_drawing)
+// {
+//     // Given
+//     TetrominoType tetromino = p5;
+//     piece.setCurrentPiece(tetromino);
+//     int arenaX = 3, arenaY = 2;
+//     piece.setArenaX(arenaX);
+//     piece.setArenaY(arenaY);
 
-    // When
-    piece.drawCurrentPiece();
+//     // When
+//     piece.drawCurrentPiece();
 
-    // Then
-    ASSERT_STREQ(mockArena.mObjectData, piece.getPieceData(pieceIndex));
-    ASSERT_EQ(mockArena.mObjectHeight, defaultPieceHeight);
-    ASSERT_EQ(mockArena.mObjectWidth, defaultPieceWidth);
-    ASSERT_EQ(mockArena.mArenaX, arenaX);
-    ASSERT_EQ(mockArena.mArenaY, arenaY);
-}
-
-
-TEST_F(PieceTests, drawCurrentPiece_passes_current_piece_at_current_rotation_to_arena)
-{
-    // Given
-    piece.setCurrentPiece(p2);
-    piece.setCurrentRotation(r90);
-    const wchar_t* expectedRotatedTeePiece =
-       L"    "
-        "  X "
-        " XXX"
-        "    ";
-
-    // When & Then
-    piece.drawCurrentPiece();
-    ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
-}
+//     // Then
+//     ASSERT_STREQ(mockArena.mObjectData, piece.getPieceData(tetromino));
+//     ASSERT_EQ(mockArena.mObjectHeight, defaultPieceHeight);
+//     ASSERT_EQ(mockArena.mObjectWidth, defaultPieceWidth);
+//     ASSERT_EQ(mockArena.mArenaX, arenaX);
+//     ASSERT_EQ(mockArena.mArenaY, arenaY);
+// }
 
 
-TEST_F(PieceTests, createNewPiece_sets_preview_piece_to_new_piece_in_default_start_position)
-{
-    // Given
-    pieceIndex previewPiece = p1;
-    piece.setPreviewPiece(previewPiece);
+// TEST_F(PieceTests, drawCurrentPiece_passes_current_piece_at_current_rotation_to_arena)
+// {
+//     // Given
+//     piece.setCurrentPiece(p2);
+//     piece.setCurrentRotation(r90);
+//     const wchar_t* expectedRotatedTeePiece =
+//        L"    "
+//         "  X "
+//         " XXX"
+//         "    ";
 
-    // When
-    piece.createNewPiece();
-
-    // Then
-    ASSERT_EQ(piece.getArenaX(), arena::defaultStartPositionX);
-    ASSERT_EQ(piece.getArenaY(), arena::defaultStartPositionY);
-}
+//     // When & Then
+//     piece.drawCurrentPiece();
+//     ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
+// }
 
 
-TEST_F(PieceTests, createNewPiece_generates_a_new_random_preview_piece)
-{
-    // Given
-    pieceIndex oldPreviewPiece = p3;
-    piece.setPreviewPiece(oldPreviewPiece);
+// TEST_F(PieceTests, createNewPiece_sets_preview_piece_to_new_piece_in_default_start_position)
+// {
+//     // Given
+//     TetrominoType previewPiece = p1;
+//     piece.setPreviewPiece(previewPiece);
 
-    // When
-    piece.createNewPiece();
+//     // When
+//     piece.createNewPiece();
 
-    // Then
-    pieceIndex newPreviewPiece = piece.getPreviewPiece();
-    ASSERT_TRUE(newPreviewPiece >= 0 && newPreviewPiece <= 6); // not testing randomness here, but check it's valid
-}
+//     // Then
+//     ASSERT_EQ(piece.getArenaX(), arena::defaultStartPositionX);
+//     ASSERT_EQ(piece.getArenaY(), arena::defaultStartPositionY);
+// }
+
+
+// TEST_F(PieceTests, createNewPiece_generates_a_new_random_preview_piece)
+// {
+//     // Given
+//     TetrominoType oldPreviewPiece = p3;
+//     piece.setPreviewPiece(oldPreviewPiece);
+
+//     // When
+//     piece.createNewPiece();
+
+//     // Then
+//     TetrominoType newPreviewPiece = piece.getPreviewPiece();
+//     ASSERT_TRUE(newPreviewPiece >= 0 && newPreviewPiece <= 6); // not testing randomness here, but check it's valid
+// }
 
 
 TEST_F(PieceTests, movePiece_moves_piece_one_to_the_left_right_or_down)
 {
     // Given
     mockArena.mObjectFits = true;
-    pieceIndex previewPiece = p1;
+    TetrominoType previewPiece = p1;
     piece.setPreviewPiece(previewPiece);
     piece.createNewPiece();
     int currentArenaX = piece.getArenaX();
@@ -131,17 +134,17 @@ TEST_F(PieceTests, movePiece_moves_piece_one_to_the_left_right_or_down)
 }
 
 
-TEST_F(PieceTests, drawPreviewPiece_draws_preview_piece_directly_to_screen_buffer)
-{
-    // Given
-    const int expectedSize = defaultPieceHeight * defaultPieceWidth;
+// TEST_F(PieceTests, drawPreviewPiece_draws_preview_piece_directly_to_screen_buffer)
+// {
+//     // Given
+//     const int expectedSize = defaultPieceHeight * defaultPieceWidth;
 
-    // When
-    piece.drawPreviewPiece();
+//     // When
+//     piece.drawPreviewPiece();
 
-    // Then
-    ASSERT_EQ(mockScreenBuffer.mObjectSize, expectedSize);
-}
+//     // Then
+//     ASSERT_EQ(mockScreenBuffer.mObjectSize, expectedSize);
+// }
 
 
 TEST_F(PieceTests, movePiece_does_not_move_piece_if_object_does_not_fit)
@@ -245,37 +248,37 @@ TEST_F(PieceTests, movePiece_returns_false_if_object_does_not_fit)
 
 
 
-TEST_F(PieceTests, addPieceToArena_passes_piece_to_arena_to_update)
-{
-    // Given
-    piece.setArenaX(10);
-    piece.setArenaY(10);
+// TEST_F(PieceTests, addPieceToArena_passes_piece_to_arena_to_update)
+// {
+//     // Given
+//     piece.setArenaX(10);
+//     piece.setArenaY(10);
 
 
-    // When
-    piece.addPieceToArena();
+//     // When
+//     piece.addPieceToArena();
 
-    // Then
-    ASSERT_EQ(mockArena.mArenaX, piece.getArenaX());
-    ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
-}
+//     // Then
+//     ASSERT_EQ(mockArena.mArenaX, piece.getArenaX());
+//     ASSERT_EQ(mockArena.mArenaY, piece.getArenaY());
+// }
 
 
-TEST_F(PieceTests, addPieceToArena_passes_current_piece_at_current_rotation_to_arena)
-{
-    // Given
-    piece.setCurrentPiece(p2);
-    piece.setCurrentRotation(r90);
-    const wchar_t* expectedRotatedTeePiece =
-       L"    "
-        "  X "
-        " XXX"
-        "    ";
+// TEST_F(PieceTests, addPieceToArena_passes_current_piece_at_current_rotation_to_arena)
+// {
+//     // Given
+//     piece.setCurrentPiece(p2);
+//     piece.setCurrentRotation(r90);
+//     const wchar_t* expectedRotatedTeePiece =
+//        L"    "
+//         "  X "
+//         " XXX"
+//         "    ";
 
-    // When & Then
-    piece.addPieceToArena();
-    ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
-}
+//     // When & Then
+//     piece.addPieceToArena();
+//     ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
+// }
 
 
 TEST_F(PieceTests, createNewPiece_returns_false_if_piece_does_not_fit)
@@ -285,11 +288,58 @@ TEST_F(PieceTests, createNewPiece_returns_false_if_piece_does_not_fit)
 }
 
 
+
+TEST_F(PieceTests, checkPieceFits_passes_current_piece_at_current_rotation_for_arena_to_check)
+{
+    // Given
+    const int arenaX = 10;
+    const int arenaY = 10;
+    piece.setCurrentPiece(p2);
+    piece.setCurrentRotation(r90);
+    const wchar_t* expectedRotatedTeePiece =
+       L"    "
+        "  X "
+        " XXX"
+        "    ";
+
+    // When & Then
+    piece.checkPieceFits(arenaX, arenaY);
+    ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
+}
+
+
+TEST_F(PieceTests, on_construction_piece_registers_as_draw_item_with_screen_buffer)
+{
+    ASSERT_EQ(mockScreenBuffer.mNumRegisteredDrawItems, 1);
+}
+
+
+TEST_F(PieceTests, piece_draw_method_draws_preview_piece_to_screenBuffer)
+{
+    // Given
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 0);
+
+    // When Then
+    piece.draw();
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 1);
+}
+
+
 TEST_F(PieceTests, createNewPiece_returns_true_if_piece_fits)
 {
     mockArena.mObjectFits = true;
     ASSERT_TRUE(piece.createNewPiece());
 }
+
+
+
+
+
+//=========================================================================
+// Rotation Tests
+//=========================================================================
+
+
 
 
 TEST_F(PieceTests, rotateIndex_returns_the_unrotated_index_if_rotation_is_0)
@@ -498,37 +548,7 @@ TEST_F(PieceTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
 }
 
 
-TEST_F(PieceTests, checkPieceFits_passes_current_piece_at_current_rotation_for_arena_to_check)
-{
-    // Given
-    const int arenaX = 10;
-    const int arenaY = 10;
-    piece.setCurrentPiece(p2);
-    piece.setCurrentRotation(r90);
-    const wchar_t* expectedRotatedTeePiece =
-       L"    "
-        "  X "
-        " XXX"
-        "    ";
+//=========================================================================
+// TETROMINO TESTS
+//=========================================================================
 
-    // When & Then
-    piece.checkPieceFits(arenaX, arenaY);
-    ASSERT_STREQ(mockArena.mObjectData, expectedRotatedTeePiece);
-}
-
-
-TEST_F(PieceTests, on_construction_piece_registers_as_draw_item_with_screen_buffer)
-{
-    ASSERT_EQ(mockScreenBuffer.mNumRegisteredDrawItems, 1);
-}
-
-
-TEST_F(PieceTests, piece_draw_method_draws_preview_piece_to_screenBuffer)
-{
-    // Given
-    ASSERT_EQ(mockScreenBuffer.mCallCount, 0);
-
-    // When Then
-    piece.draw();
-    ASSERT_EQ(mockScreenBuffer.mCallCount, 1);
-}

@@ -30,6 +30,7 @@ public:
     ArenaTests() :  mArena(mockScreenBuffer, mockConsole) {}
 };
 
+
 TEST_F(ArenaTests, createArena_can_create_different_sized_arenas)
 {
     // Given
@@ -136,7 +137,7 @@ TEST_F(ArenaTests, addToArena_adds_blocks_to_the_fixed_arena)
 }
 
 
-TEST_F(ArenaTests, drawCurrentPiece_adds_only_the_current_piece_to_the_screen)
+TEST_F(ArenaTests, drawCurrentPiece_adds_just_the_current_piece_to_the_active_arena)
 {
     // Given
     const int h = 6, w = 8;

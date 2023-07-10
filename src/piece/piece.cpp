@@ -16,11 +16,11 @@ Piece::Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screen
     mPieces[p7].append(L"  X   X  XX     ");
 
     srand(time(NULL));
-    mCurrentPiece = static_cast<pieceIndex>(rand() % 7);
+    mCurrentPiece = static_cast<TetrominoType>(rand() % 7);
     mArenaX = arena::defaultStartPositionX;
     mArenaY = arena::defaultStartPositionY;
 
-    mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
+    mPreviewPiece = static_cast<TetrominoType>(rand() % 7);
 
     mScreenBuffer.registerDrawItem(this);
 }
@@ -57,7 +57,7 @@ bool Piece::createNewPiece()
 
     mArenaX = arena::defaultStartPositionX;
     mArenaY = arena::defaultStartPositionY;
-    mPreviewPiece = static_cast<pieceIndex>(rand() % 7);
+    mPreviewPiece = static_cast<TetrominoType>(rand() % 7);
     return true;
 }
 
@@ -127,7 +127,7 @@ bool Piece::checkPieceFits(int arenaX, int arenaY)
 }
 
 
-void Piece::rotatePiece(wchar_t* pieceData, pieceIndex piece, rotation rotation, int height, int width)
+void Piece::rotatePiece(wchar_t* pieceData, TetrominoType piece, rotation rotation, int height, int width)
 {
     for (int x = 0; x < width; x++)
     {

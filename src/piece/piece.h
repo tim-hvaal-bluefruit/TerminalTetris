@@ -17,20 +17,20 @@ public:
 
     void drawCurrentPiece() override;
     void drawPreviewPiece() override;
-    const wchar_t* getPieceData(pieceIndex pieceIdx) {return mPieces[pieceIdx].c_str();}
+    const wchar_t* getPieceData(TetrominoType pieceIdx) {return mPieces[pieceIdx].c_str();}
     bool createNewPiece() override;
     bool movePiece(moveDirection direction) override;
     void addPieceToArena() override;
     int rotateIndex(int x, int y, int width, int height, rotation rotation);
     bool checkPieceFits(int arenaX, int arenaY);
-    void rotatePiece(wchar_t* pieceData, pieceIndex piece, rotation rotation, int height, int width);
+    void rotatePiece(wchar_t* pieceData, TetrominoType piece, rotation rotation, int height, int width);
 
     // Getters and Setters
-    void setCurrentPiece(pieceIndex piece) {mCurrentPiece = piece;}
-    pieceIndex getCurrentPiece() {return mCurrentPiece;}
+    void setCurrentPiece(TetrominoType piece) {mCurrentPiece = piece;}
+    TetrominoType getCurrentPiece() {return mCurrentPiece;}
 
-    void setPreviewPiece(pieceIndex piece) {mPreviewPiece = piece;}
-    pieceIndex getPreviewPiece() {return mPreviewPiece;}
+    void setPreviewPiece(TetrominoType piece) {mPreviewPiece = piece;}
+    TetrominoType getPreviewPiece() {return mPreviewPiece;}
 
     void setArenaX(int arenaX) {mArenaX = arenaX;}
     int getArenaX() {return mArenaX;}
@@ -46,11 +46,32 @@ private:
     arena::ArenaInterface& mArena;
     screen::ScreenBufferInterface& mScreenBuffer;
     std::wstring mPieces[pieceCount];
-    pieceIndex mCurrentPiece;
+    TetrominoType mCurrentPiece;
     rotation mCurrentRotation = r0;
     int mArenaX = 0;
     int mArenaY = 0;
 
-    pieceIndex mPreviewPiece;
+    TetrominoType mPreviewPiece;
 };
+
+
+// class Tetromino
+// {
+// public:
+//     Tetromino(int )
+
+// private:
+//     static constexpr int tetrominoHeight = 4;
+//     int mArenaX;
+//     int mArenaY;
+//     TetrominoType mType;
+//     rotation mRotation;
+// };
+
+
 } // namespace piece
+
+
+// next - rename pieceIndex to pieceType
+// make tetromino class (to replace piece)
+// 

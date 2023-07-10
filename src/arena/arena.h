@@ -1,9 +1,9 @@
 #pragma once
 #include "arenaInterface.h"
-#include "screenBuffer.h"
+#include "piece.h"
 #include "console.h"
 #include "observerInterface.h"
-
+#include "screenBuffer.h"
 
 namespace arena
 {
