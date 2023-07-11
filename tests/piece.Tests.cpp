@@ -5,6 +5,20 @@
 
 using namespace piece;
 
+class TetrominoTestObject : public Tetromino
+{
+public:
+    TetrominoTestObject(TetrominoType type, int posX, int posY) :
+        Tetromino(type, posX, posY)
+    {}
+
+    int& posX = mPosX;
+    int& posY = mPosY;
+    TetrominoType& type = mType;
+    Rotation& rotation = mRotation;
+};
+
+
 class PieceTests : public ::testing::Test
 {
 public:
@@ -551,4 +565,34 @@ TEST_F(PieceTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
 //=========================================================================
 // TETROMINO TESTS
 //=========================================================================
+
+
+TEST_F(PieceTests, construct_tetromino_with_params)
+{
+    // Given
+    const TetrominoType expectedType = p4;
+    const int expectedX = 5, expectedY = 6;
+
+    // When
+    TetrominoTestObject tetromino = TetrominoTestObject(expectedType, expectedX, expectedY);
+
+    // Then
+    ASSERT_EQ(tetromino.type, expectedType);
+    ASSERT_EQ(tetromino.posX, expectedX);
+    ASSERT_EQ(tetromino.posY, expectedY);
+}
+
+
+TEST_F(PieceTests, new_tetromino_is_not_rotated)
+{
+    // Given
+    const TetrominoType type = p4;
+    const int posX = 5, posY = 6;
+
+    // When
+    TetrominoTestObject tetromino = TetrominoTestObject(type, posX, posY);
+
+    // Then
+    ASSERT_EQ(tetromino.rotation, Tetromino::StartRotation);
+}
 

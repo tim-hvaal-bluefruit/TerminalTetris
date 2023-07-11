@@ -54,23 +54,22 @@ private:
 };
 
 
-// class Tetromino
-// {
-// public:
-//     Tetromino(int )
+class Tetromino
+{
+public:
+    Tetromino(TetrominoType type, int posX, int posY);
 
-// private:
-//     static constexpr int tetrominoHeight = 4;
-//     int mArenaX;
-//     int mArenaY;
-//     TetrominoType mType;
-//     rotation mRotation;
-// };
+    // TODO - move these into namespace possibly
+    static constexpr int TetrominoHeight = 4;
+    static constexpr int TetrominoWidth = 4;
+    static constexpr Rotation StartRotation = r0;
+
+protected:
+    int mPosX;
+    int mPosY;
+    TetrominoType mType;
+    Rotation mRotation = StartRotation;
+};
 
 
 } // namespace piece
-
-
-// next - rename pieceIndex to pieceType
-// make tetromino class (to replace piece)
-// 

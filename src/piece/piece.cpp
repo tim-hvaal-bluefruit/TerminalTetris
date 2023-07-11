@@ -180,3 +180,17 @@ void Piece::draw()
 {
     drawPreviewPiece();
 }
+
+
+
+//==============================================================================
+// Tetromino
+//==============================================================================
+
+
+Tetromino::Tetromino(TetrominoType type, int posX, int posY) :
+    mType(type),
+    mPosX(posX),
+    mPosY(posY)
+{
+}
