@@ -21,9 +21,9 @@ public:
     bool createNewPiece() override;
     bool movePiece(moveDirection direction) override;
     void addPieceToArena() override;
-    int rotateIndex(int x, int y, int width, int height, rotation rotation);
+    int rotateIndex(int x, int y, int width, int height, Rotation rotation);
     bool checkPieceFits(int arenaX, int arenaY);
-    void rotatePiece(wchar_t* pieceData, TetrominoType piece, rotation rotation, int height, int width);
+    void rotatePiece(wchar_t* pieceData, TetrominoType piece, Rotation rotation, int height, int width);
 
     // Getters and Setters
     void setCurrentPiece(TetrominoType piece) {mCurrentPiece = piece;}
@@ -38,16 +38,15 @@ public:
     void setArenaY(int arenaY) {mArenaY = arenaY;}
     int getArenaY() {return mArenaY;}
 
-    void setCurrentRotation(rotation rotation) override {mCurrentRotation = rotation;}
-    rotation getCurrentRotation() override {return mCurrentRotation;}
+    void setCurrentRotation(Rotation rotation) override {mCurrentRotation = rotation;}
+    Rotation getCurrentRotation() override {return mCurrentRotation;}
 
 private:
-
     arena::ArenaInterface& mArena;
     screen::ScreenBufferInterface& mScreenBuffer;
     std::wstring mPieces[pieceCount];
     TetrominoType mCurrentPiece;
-    rotation mCurrentRotation = r0;
+    Rotation mCurrentRotation = r0;
     int mArenaX = 0;
     int mArenaY = 0;
 

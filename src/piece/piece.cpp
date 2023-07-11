@@ -96,16 +96,16 @@ bool Piece::movePiece(moveDirection direction)
         case (moveDirection::rotate):
         {
             int r = (int)getCurrentRotation();
-            r = (r + 1) % rotation::rotationCount;
-            setCurrentRotation((rotation)r);
+            r = (r + 1) % Rotation::rotationCount;
+            setCurrentRotation((Rotation)r);
 
             if(checkPieceFits(mArenaX, mArenaY))
             {
                 return true;
             }
 
-            r = (r + 3) % rotation::rotationCount;
-            setCurrentRotation((rotation)r);
+            r = (r + 3) % Rotation::rotationCount;
+            setCurrentRotation((Rotation)r);
             break;
         }
         default:
@@ -127,7 +127,7 @@ bool Piece::checkPieceFits(int arenaX, int arenaY)
 }
 
 
-void Piece::rotatePiece(wchar_t* pieceData, TetrominoType piece, rotation rotation, int height, int width)
+void Piece::rotatePiece(wchar_t* pieceData, TetrominoType piece, Rotation rotation, int height, int width)
 {
     for (int x = 0; x < width; x++)
     {
@@ -153,21 +153,21 @@ void Piece::addPieceToArena()
 }
 
 
-int Piece::rotateIndex(int x, int y, int width, int height, rotation rotation)
+int Piece::rotateIndex(int x, int y, int width, int height, Rotation rotation)
 {
     int rotatedIndex = 0;
     switch (rotation)
     {
-        case (rotation::r0):
+        case (Rotation::r0):
             return rotatedIndex = (y * width) + x;
 
-        case (rotation::r90):
+        case (Rotation::r90):
             return rotatedIndex = ((height - 1) * width) + y - (x * width);
 
-        case (rotation::r180):
+        case (Rotation::r180):
             return rotatedIndex = ( ( height * width ) - 1 ) - ( y * width ) - x;
 
-        case (rotation::r270):
+        case (Rotation::r270):
             return rotatedIndex = (width - 1) - y + (x * height);
 
         default:

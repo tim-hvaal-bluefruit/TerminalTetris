@@ -213,11 +213,11 @@ TEST_F(PieceTests, movePiece_does_not_rotate_piece_if_piece_wont_fit)
 {
     // Given
     mockArena.mObjectFits = false;
-    piece.setCurrentRotation(rotation::r0);
+    piece.setCurrentRotation(Rotation::r0);
 
     // When
     piece.movePiece(moveDirection::rotate);
-    ASSERT_EQ(piece.getCurrentRotation(), rotation::r0);
+    ASSERT_EQ(piece.getCurrentRotation(), Rotation::r0);
 }
 
 
@@ -225,11 +225,11 @@ TEST_F(PieceTests, movePiece_rotates_90_degrees_if_piece_fits)
 {
     // Given
     mockArena.mObjectFits = true;
-    piece.setCurrentRotation(rotation::r0);
+    piece.setCurrentRotation(Rotation::r0);
 
     // When
     piece.movePiece(moveDirection::rotate);
-    ASSERT_EQ(piece.getCurrentRotation(), rotation::r90);
+    ASSERT_EQ(piece.getCurrentRotation(), Rotation::r90);
 }
 
 
@@ -353,7 +353,7 @@ TEST_F(PieceTests, rotateIndex_returns_the_unrotated_index_if_rotation_is_0)
 
     // Given
     const int width = 4, height = 4;
-    const rotation rotation = r0;
+    const Rotation rotation = r0;
     int x = 0, y = 0, expectedIndex = 0; // 0*4 + 0
 
     // When & Then
@@ -389,7 +389,7 @@ TEST_F(PieceTests, rotateIndex_returns_the_90_rotated_index_if_rotation_set_to_9
 
     // Given
     const int width = 4, height = 4;
-    const rotation rotation = r90;
+    const Rotation rotation = r90;
     int x = 0, y = 0, expectedIndex = 12; // (4-1)*4 + 0 - (0 * 4)
 
     // When & Then
@@ -425,7 +425,7 @@ TEST_F(PieceTests, rotateIndex_returns_the_180_rotated_index_if_rotation_set_to_
 
     // Given
     const int width = 4, height = 4;
-    const rotation rotation = r180;
+    const Rotation rotation = r180;
     int x = 0, y = 0, expectedIndex = 15; // (4*4 - 1) - ( 0 * 4) - 0
 
     // When & Then
@@ -461,7 +461,7 @@ TEST_F(PieceTests, rotateIndex_returns_the_270_rotated_index_if_rotation_set_to_
 
     // Given
     const int width = 4, height = 4;
-    const rotation rotation = r270;
+    const Rotation rotation = r270;
     int x = 0, y = 0, expectedIndex = 3; // (4-1) - 0 + (0 * 4)
 
     // When & Then
@@ -490,7 +490,7 @@ TEST_F(PieceTests, rotateIndex_returns_unrotated_index_in_the_default_case)
 {
     // Given
     const int width = 4, height = 4;
-    const rotation rotation = rotationCount;
+    const Rotation rotation = rotationCount;
     int x = 1, y = 0, expectedIndex = 1; // unrotated
 
     // When & Then
@@ -515,7 +515,7 @@ TEST_F(PieceTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
     // "  X "
     // "    "
 
-    piece.setCurrentRotation(rotation::r90);
+    piece.setCurrentRotation(Rotation::r90);
     const wchar_t* expectedRotatedTeePiece =
        L"    "
         "  X "
@@ -535,7 +535,7 @@ TEST_F(PieceTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
     // "  X "
     // "  X ";
 
-    piece.setCurrentRotation(rotation::r270);
+    piece.setCurrentRotation(Rotation::r270);
     const wchar_t* expectedRotatedLongPiece =
        L"    "
         "XXXX"

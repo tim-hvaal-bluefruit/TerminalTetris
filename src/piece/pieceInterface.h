@@ -11,7 +11,7 @@ namespace piece
 
     enum TetrominoType { p1 = 0, p2, p3, p4, p5, p6, p7, pieceCount };
     enum moveDirection { left = 0, right, down, rotate, directionCount };
-    enum rotation { r0 = 0, r90, r180, r270, rotationCount };
+    enum Rotation { r0 = 0, r90, r180, r270, rotationCount };
 
 class PieceInterface : public screen::DrawItemInterface
 {
@@ -23,8 +23,8 @@ public:
     virtual bool createNewPiece() = 0;
 
 // TEMP IN INTERFACE
-    virtual void setCurrentRotation(rotation rotation) = 0;
-    virtual rotation getCurrentRotation() = 0;
+    virtual void setCurrentRotation(Rotation rotation) = 0;
+    virtual Rotation getCurrentRotation() = 0;
 };
 
 } // namespace piece
