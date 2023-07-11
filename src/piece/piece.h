@@ -108,17 +108,30 @@ class Tetromino
 {
 public:
     Tetromino(TetrominoData& data, piece::TetrominoType type, int posX, int posY);
+    int rotateIndex(int x, int y, int width, int height, piece::Rotation rotation);
+    void rotatePiece(wchar_t* data, piece::TetrominoType type, piece::Rotation rotation, int height, int width);
+
+    // Get
     const wchar_t* Data(piece::TetrominoType type);
+    piece::TetrominoType Type();
+    piece::Rotation Rotation();
+    int PosX();
+    int PosY();
+
+    // Set
+    void SetType(piece::TetrominoType type);
+    void SetRotation(piece::Rotation rotation);
+    void SetPosX(int arenaX);
+    void SetPosY(int arenaY);
 
 protected:
     piece::TetrominoType mType;
+    piece::Rotation mRotation = StartRotation;
     int mPosX;
     int mPosY;
-    piece::Rotation mRotation = StartRotation;
 
 private:
     TetrominoData& mData;
 };
-
 
 } // namespace tetromino

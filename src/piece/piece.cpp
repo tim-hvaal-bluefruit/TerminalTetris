@@ -201,3 +201,78 @@ const wchar_t* Tetromino::Data(piece::TetrominoType type)
 {
     return mData.mTetrominoData[type].c_str();
 }
+
+piece::TetrominoType Tetromino::Type()
+{
+    return mType;
+}
+
+piece::Rotation Tetromino::Rotation()
+{
+    return mRotation;
+}
+
+int Tetromino::PosX()
+{
+    return mPosX;
+}
+
+int Tetromino::PosY()
+{
+    return mPosY;
+}
+
+void Tetromino::SetType(piece::TetrominoType type)
+{
+    mType = type;
+}
+
+void Tetromino::SetRotation(piece::Rotation rotation)
+{
+    mRotation = rotation;
+}
+
+void Tetromino::SetPosX(int arenaX)
+{
+    mPosX = arenaX;
+}
+
+void Tetromino::SetPosY(int arenaY)
+{
+    mPosY = arenaY;
+}
+
+int Tetromino::rotateIndex(int x, int y, int width, int height, piece::Rotation rotation)
+{
+    int rotatedIndex = 0;
+    switch (rotation)
+    {
+        case (Rotation::r0):
+            return rotatedIndex = (y * width) + x;
+
+        case (Rotation::r90):
+            return rotatedIndex = ((height - 1) * width) + y - (x * width);
+
+        case (Rotation::r180):
+            return rotatedIndex = ( ( height * width ) - 1 ) - ( y * width ) - x;
+
+        case (Rotation::r270):
+            return rotatedIndex = (width - 1) - y + (x * height);
+
+        default:
+            return rotatedIndex = (y * width) + x;
+    }
+}
+
+void Tetromino::rotatePiece(wchar_t* data, piece::TetrominoType type, piece::Rotation rotation, int height, int width)
+{
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
+            int currentIndex = (y * width) + x;
+            int rotatedIndex = rotateIndex(x, y, width, height, rotation);
+            data[currentIndex] = Data(type)[rotatedIndex];
+        }
+    }
+}
