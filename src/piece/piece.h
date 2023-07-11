@@ -52,24 +52,73 @@ private:
 
     TetrominoType mPreviewPiece;
 };
+} // namespace piece
+
+namespace tetromino
+{
+    static constexpr int TetrominoHeight = 4;
+    static constexpr int TetrominoWidth = 4;
+    static constexpr int TetrominoSize = TetrominoHeight * TetrominoWidth;
+    static constexpr piece::Rotation StartRotation = piece::Rotation::r0;
+
+struct TetrominoData
+{
+    std::wstring mTetrominoData[piece::TetrominoType::pieceCount];
+    TetrominoData()
+    {
+        mTetrominoData[piece::TetrominoType::t1].append(L"  X "
+                                                         "  X "
+                                                         "  X "
+                                                         "  X ");
+
+        mTetrominoData[piece::TetrominoType::t2].append(L"  X "
+                                                         " XX "
+                                                         "  X "
+                                                         "    ");
+
+        mTetrominoData[piece::TetrominoType::t3].append(L"    "
+                                                         " XX "
+                                                         " XX "
+                                                         "    ");
+
+        mTetrominoData[piece::TetrominoType::t4].append(L"  X "
+                                                         " XX "
+                                                         " X  "
+                                                         "    ");
+
+        mTetrominoData[piece::TetrominoType::t5].append(L" X  "
+                                                         " XX "
+                                                         "  X "
+                                                         "    ");
+
+        mTetrominoData[piece::TetrominoType::t6].append(L" X  "
+                                                         " X  "
+                                                         " XX "
+                                                         "    ");
+
+        mTetrominoData[piece::TetrominoType::t7].append(L"  X "
+                                                         "  X "
+                                                         " XX "
+                                                         "    ");
+    }
+};
 
 
 class Tetromino
 {
 public:
-    Tetromino(TetrominoType type, int posX, int posY);
-
-    // TODO - move these into namespace possibly
-    static constexpr int TetrominoHeight = 4;
-    static constexpr int TetrominoWidth = 4;
-    static constexpr Rotation StartRotation = r0;
+    Tetromino(TetrominoData& data, piece::TetrominoType type, int posX, int posY);
+    const wchar_t* Data(piece::TetrominoType type);
 
 protected:
+    piece::TetrominoType mType;
     int mPosX;
     int mPosY;
-    TetrominoType mType;
-    Rotation mRotation = StartRotation;
+    piece::Rotation mRotation = StartRotation;
+
+private:
+    TetrominoData& mData;
 };
 
 
-} // namespace piece
+} // namespace tetromino

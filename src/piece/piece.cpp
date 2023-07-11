@@ -1,19 +1,20 @@
 #include "piece.h"
 
 using namespace piece;
+using namespace tetromino;
 
 
 Piece::Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screenBuffer) :
     mArena(arena),
     mScreenBuffer(screenBuffer)
 {
-    mPieces[p1].append(L"  X   X   X   X ");
-    mPieces[p2].append(L"  X  XX   X     ");
-    mPieces[p3].append(L"     XX  XX     ");
-    mPieces[p4].append(L"  X  XX  X      ");
-    mPieces[p5].append(L" X   XX   X     ");
-    mPieces[p6].append(L" X   X   XX     ");
-    mPieces[p7].append(L"  X   X  XX     ");
+    mPieces[t1].append(L"  X   X   X   X ");
+    mPieces[t2].append(L"  X  XX   X     ");
+    mPieces[t3].append(L"     XX  XX     ");
+    mPieces[t4].append(L"  X  XX  X      ");
+    mPieces[t5].append(L" X   XX   X     ");
+    mPieces[t6].append(L" X   X   XX     ");
+    mPieces[t7].append(L"  X   X  XX     ");
 
     srand(time(NULL));
     mCurrentPiece = static_cast<TetrominoType>(rand() % 7);
@@ -188,9 +189,15 @@ void Piece::draw()
 //==============================================================================
 
 
-Tetromino::Tetromino(TetrominoType type, int posX, int posY) :
+Tetromino::Tetromino(TetrominoData& data, piece::TetrominoType type, int posX, int posY) :
+    mData(data),
     mType(type),
     mPosX(posX),
     mPosY(posY)
 {
+}
+
+const wchar_t* Tetromino::Data(piece::TetrominoType type)
+{
+    return mData.mTetrominoData[type].c_str();
 }

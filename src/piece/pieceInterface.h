@@ -9,7 +9,7 @@ namespace piece
     constexpr int defaultPieceHeight = 4;
     constexpr int defaultPieceWidth = 4;
 
-    enum TetrominoType { p1 = 0, p2, p3, p4, p5, p6, p7, pieceCount };
+    enum TetrominoType { t1 = 0, t2, t3, t4, t5, t6, t7, pieceCount };
     enum moveDirection { left = 0, right, down, rotate, directionCount };
     enum Rotation { r0 = 0, r90, r180, r270, rotationCount };
 
