@@ -14,6 +14,7 @@ public:
         Arena(mockScreenBuffer, mockConsole)
     {}
 
+    tetromino::Tetromino& currentPiece = mCurrentPiece;
     int& arenaHeight = mArenaHeight;
     int& arenaWidth = mArenaWidth;
     wchar_t* arena = mArena;
@@ -29,6 +30,26 @@ public:
     ArenaTestObject mArena;
     ArenaTests() :  mArena(mockScreenBuffer, mockConsole) {}
 };
+
+
+TEST_F(ArenaTests, on_construction_arena_registers_as_draw_item_and_initialises_members)
+{
+    // Then
+    ASSERT_EQ(mockScreenBuffer.mNumRegisteredDrawItems, 1);
+
+    // And
+    ASSERT_EQ(mArena.arenaHeight, arena::DefaultArenaHeight);
+    ASSERT_EQ(mArena.arenaWidth, arena::DefaultArenaWidth);
+}
+
+
+TEST_F(ArenaTests, on_construction_arena_intialises_a_tetromino_in_the_start_position)
+{
+    // Then
+    ASSERT_EQ(mArena.currentPiece.Type(), arena::DefaultTetromino);
+    ASSERT_EQ(mArena.currentPiece.PosX(), arena::TetrominoStartPositionX);
+    ASSERT_EQ(mArena.currentPiece.PosY(), arena::TetrominoStartPositionY);
+}
 
 
 TEST_F(ArenaTests, createArena_can_create_different_sized_arenas)
@@ -56,6 +77,17 @@ TEST_F(ArenaTests, createArena_can_create_different_sized_arenas)
 }
 
 
+TEST_F(ArenaTests, draw_method_draws_arena_to_screenBuffer)
+{
+    // Given
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 0);
+
+    // When Then
+    mArena.draw();
+    ASSERT_EQ(mockScreenBuffer.mCallCount, 1);
+}
+
+
 TEST_F(ArenaTests, drawArena_passes_default_arena_to_screen_buffer)
 {
     // Given
@@ -65,13 +97,15 @@ TEST_F(ArenaTests, drawArena_passes_default_arena_to_screen_buffer)
     mArena.drawArena();
 
     // Then
-    ASSERT_EQ(mockScreenBuffer.mObjectSize, defaultArenaHeight * defaultArenaWidth);
-    ASSERT_EQ(mockScreenBuffer.mObjectHeight, defaultArenaHeight);
-    ASSERT_EQ(mockScreenBuffer.mObjectWidth, defaultArenaWidth);
-    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, defaultScreenOffsetX);
-    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, defaultScreenOffsetY);
+    ASSERT_EQ(mockScreenBuffer.mObjectSize, arena::DefaultArenaHeight * arena::DefaultArenaWidth);
+    ASSERT_EQ(mockScreenBuffer.mObjectHeight, arena::DefaultArenaHeight);
+    ASSERT_EQ(mockScreenBuffer.mObjectWidth, arena::DefaultArenaWidth);
+    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, arena::ArenaDisplayOffsetX);
+    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, arena::ArenaDisplayOffsetY);
 }
 
+
+// Testing Only
 TEST_F(ArenaTests, drawArena_can_pass_specific_arena_size_to_screen_buffer)
 {
     // Given
@@ -85,8 +119,8 @@ TEST_F(ArenaTests, drawArena_can_pass_specific_arena_size_to_screen_buffer)
     ASSERT_EQ(mockScreenBuffer.mObjectSize, h * w);
     ASSERT_EQ(mockScreenBuffer.mObjectHeight, h);
     ASSERT_EQ(mockScreenBuffer.mObjectWidth, w);
-    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, defaultScreenOffsetX);
-    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, defaultScreenOffsetY);
+    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, arena::ArenaDisplayOffsetX);
+    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, arena::ArenaDisplayOffsetY);
 }
 
 TEST_F(ArenaTests, addToArena_adds_blocks_to_the_fixed_arena)
@@ -182,8 +216,8 @@ TEST_F(ArenaTests, drawCurrentPiece_adds_just_the_current_piece_to_the_active_ar
     ASSERT_EQ(mockScreenBuffer.mObjectSize, h * w);
     ASSERT_EQ(mockScreenBuffer.mObjectHeight, h);
     ASSERT_EQ(mockScreenBuffer.mObjectWidth, w);
-    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, defaultScreenOffsetX);
-    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, defaultScreenOffsetY);
+    ASSERT_EQ(mockScreenBuffer.mObjectXOffset, arena::ArenaDisplayOffsetX);
+    ASSERT_EQ(mockScreenBuffer.mObjectYOffset, arena::ArenaDisplayOffsetY);
 }
 
 TEST_F(ArenaTests, checkObjectFits_returns_false_if_object_overlaps_any_part_of_arena)
@@ -403,19 +437,3 @@ TEST_F(ArenaTests, checkAllLines_notifies_on_complete_lines)
     ASSERT_EQ(mockObserver.mValue, 2);
 }
 
-
-TEST_F(ArenaTests, on_construction_arena_registers_as_draw_item_with_screen_buffer)
-{
-    ASSERT_EQ(mockScreenBuffer.mNumRegisteredDrawItems, 1);
-}
-
-
-TEST_F(ArenaTests, arena_draw_method_draws_arena_to_screenBuffer)
-{
-    // Given
-    ASSERT_EQ(mockScreenBuffer.mCallCount, 0);
-
-    // When Then
-    mArena.draw();
-    ASSERT_EQ(mockScreenBuffer.mCallCount, 1);
-}

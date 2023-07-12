@@ -1,41 +1,40 @@
 #include <gtest/gtest.h>
 #include <array>
-#include "piece.h"
+// #include "piece.h"
+#include "tetromino.h"
 #include "mockArena.h"
 #include "mockScreenBuffer.h"
 
-using namespace piece;
+// using namespace piece;
 using namespace tetromino;
 
 class TetrominoTestObject : public Tetromino
 {
 public:
-    TetrominoTestObject(piece::TetrominoType type, int posX, int posY) :
-        Tetromino(data, type, posX, posY)
+    TetrominoTestObject(TetrominoType type, int posX, int posY) :
+        Tetromino(type, posX, posY)
     {}
-
-    TetrominoData data;
 
     int& posX = mPosX;
     int& posY = mPosY;
     TetrominoType& type = mType;
-    piece::Rotation& rotation = mRotation;
+    Rotation& rotation = mRotation;
 };
 
 
-class PieceTests : public ::testing::Test
+class TetrominoTests : public ::testing::Test
 {
 public:
-    MockArena mockArena;
-    MockScreenBuffer mockScreenBuffer;
-    Piece piece;
+    // MockArena mockArena;
+    // MockScreenBuffer mockScreenBuffer;
+    // Piece piece;
 
     const int posX = 4, posY = 0;
     TetrominoType expectedType = t1;
     TetrominoTestObject mTetromino;
 
-    PieceTests() :
-        piece(mockArena, mockScreenBuffer),
+    TetrominoTests() :
+        // piece(mockArena, mockScreenBuffer),
         mTetromino(expectedType, posX, posY)
      {}
 };
@@ -81,8 +80,8 @@ public:
 //
 //     // Then
 //     ASSERT_STREQ(mockArena.mObjectData, piece.getPieceData(tetromino));
-//     ASSERT_EQ(mockArena.mObjectHeight, defaultPieceHeight);
-//     ASSERT_EQ(mockArena.mObjectWidth, defaultPieceWidth);
+//     ASSERT_EQ(mockArena.mObjectHeight, TetrominoHeight);
+//     ASSERT_EQ(mockArena.mObjectWidth, TetrominoWidth);
 //     ASSERT_EQ(mockArena.mArenaX, arenaX);
 //     ASSERT_EQ(mockArena.mArenaY, arenaY);
 // }
@@ -115,8 +114,8 @@ public:
 //     piece.createNewPiece();
 //
 //     // Then
-//     ASSERT_EQ(piece.getArenaX(), arena::defaultStartPositionX);
-//     ASSERT_EQ(piece.getArenaY(), arena::defaultStartPositionY);
+//     ASSERT_EQ(piece.getArenaX(), arena::TetrominoStartPositionX);
+//     ASSERT_EQ(piece.getArenaY(), arena::TetrominoStartPositionY);
 // }
 
 
@@ -162,7 +161,7 @@ public:
 // TEST_F(PieceTests, drawPreviewPiece_draws_preview_piece_directly_to_screen_buffer)
 // {
 //     // Given
-//     const int expectedSize = defaultPieceHeight * defaultPieceWidth;
+//     const int expectedSize = TetrominoHeight * TetrominoWidth;
 //
 //     // When
 //     piece.drawPreviewPiece();
@@ -356,13 +355,7 @@ public:
 
 
 
-
-//=========================================================================
-// TETROMINO TESTS
-//=========================================================================
-
-
-TEST_F(PieceTests, construct_tetromino_with_params)
+TEST_F(TetrominoTests, construct_tetromino_with_params)
 {
     // Given
     const TetrominoType expectedType = t4;
@@ -378,7 +371,7 @@ TEST_F(PieceTests, construct_tetromino_with_params)
 }
 
 
-TEST_F(PieceTests, new_tetromino_is_not_rotated)
+TEST_F(TetrominoTests, new_tetromino_is_not_rotated)
 {
     // Given
     const TetrominoType type = t4;
@@ -392,7 +385,7 @@ TEST_F(PieceTests, new_tetromino_is_not_rotated)
 }
 
 
-TEST_F(PieceTests, tetromino_can_access_its_shape_data)
+TEST_F(TetrominoTests, tetromino_can_access_its_shape_data)
 {
     // Given
     const int posX = 3, posY = 2;
@@ -420,7 +413,7 @@ TEST_F(PieceTests, tetromino_can_access_its_shape_data)
 }
 
 
-TEST_F(PieceTests, rotateIndex_returns_the_unrotated_index_if_rotation_is_0)
+TEST_F(TetrominoTests, rotateIndex_returns_the_unrotated_index_if_rotation_is_0)
 {
     // no rotation so expected = (y * width) + x
 
@@ -456,7 +449,7 @@ TEST_F(PieceTests, rotateIndex_returns_the_unrotated_index_if_rotation_is_0)
 }
 
 
-TEST_F(PieceTests, rotateIndex_returns_the_90_rotated_index_if_rotation_set_to_90)
+TEST_F(TetrominoTests, rotateIndex_returns_the_90_rotated_index_if_rotation_set_to_90)
 {
     // 90 deg rotation so expected = ( (height - 1) * width ) + y - (x * width)
 
@@ -492,7 +485,7 @@ TEST_F(PieceTests, rotateIndex_returns_the_90_rotated_index_if_rotation_set_to_9
 }
 
 
-TEST_F(PieceTests, rotateIndex_returns_the_180_rotated_index_if_rotation_set_to_180)
+TEST_F(TetrominoTests, rotateIndex_returns_the_180_rotated_index_if_rotation_set_to_180)
 {
     // 180 deg rotation so expected = ( height * width - 1 ) - ( y * 4 ) - x
 
@@ -528,7 +521,7 @@ TEST_F(PieceTests, rotateIndex_returns_the_180_rotated_index_if_rotation_set_to_
 }
 
 
-TEST_F(PieceTests, rotateIndex_returns_the_270_rotated_index_if_rotation_set_to_270)
+TEST_F(TetrominoTests, rotateIndex_returns_the_270_rotated_index_if_rotation_set_to_270)
 {
     // 270 deg rotation so expected = (width - 1) - y + ( x * height )
 
@@ -564,7 +557,7 @@ TEST_F(PieceTests, rotateIndex_returns_the_270_rotated_index_if_rotation_set_to_
 }
 
 
-TEST_F(PieceTests, rotateIndex_returns_unrotated_index_in_the_default_case)
+TEST_F(TetrominoTests, rotateIndex_returns_unrotated_index_in_the_default_case)
 {
     // Given
     const int width = 4, height = 4;
@@ -577,11 +570,11 @@ TEST_F(PieceTests, rotateIndex_returns_unrotated_index_in_the_default_case)
 }
 
 
-TEST_F(PieceTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
+TEST_F(TetrominoTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
 {
     // Given - rotate tee piece 90 degrees
-    int height = defaultPieceHeight;
-    int width = defaultPieceHeight;
+    int height = TetrominoHeight;
+    int width = TetrominoHeight;
 
     wchar_t pieceBuffer[height * width];
     pieceBuffer[width * height] = '\0';
@@ -601,7 +594,7 @@ TEST_F(PieceTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
         "    ";
 
     // When & Then
-    mTetromino.rotatePiece(pieceBuffer, mTetromino.Type(), mTetromino.Rotation(), height, width);
+    mTetromino.rotatePiece(pieceBuffer, mTetromino.Type(), mTetromino.GetRotation(), height, width);
     ASSERT_STREQ(pieceBuffer, expectedRotatedTeePiece);
 
 
@@ -621,6 +614,6 @@ TEST_F(PieceTests, rotatePiece_rotates_current_piece_and_copies_to_buffer)
         "    ";
 
     // When & Then
-    mTetromino.rotatePiece(pieceBuffer, mTetromino.Type(), mTetromino.Rotation(), height, width);
+    mTetromino.rotatePiece(pieceBuffer, mTetromino.Type(), mTetromino.GetRotation(), height, width);
     ASSERT_STREQ(pieceBuffer, expectedRotatedLongPiece);
 }

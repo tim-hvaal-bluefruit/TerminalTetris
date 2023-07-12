@@ -2,6 +2,7 @@ add_library(piece)
 
 target_sources(piece
     PRIVATE piece.cpp
+    PRIVATE tetromino.cpp
 )
 
 target_include_directories(piece

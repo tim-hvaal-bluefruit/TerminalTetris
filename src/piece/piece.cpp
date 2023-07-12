@@ -1,7 +1,6 @@
 #include "piece.h"
 
 using namespace piece;
-using namespace tetromino;
 
 
 Piece::Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screenBuffer) :
@@ -18,8 +17,8 @@ Piece::Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screen
 
     srand(time(NULL));
     mCurrentPiece = static_cast<TetrominoType>(rand() % 7);
-    mArenaX = arena::defaultStartPositionX;
-    mArenaY = arena::defaultStartPositionY;
+    mArenaX = arena::TetrominoStartPositionX;
+    mArenaY = arena::TetrominoStartPositionY;
 
     mPreviewPiece = static_cast<TetrominoType>(rand() % 7);
 
@@ -29,8 +28,8 @@ Piece::Piece(arena::ArenaInterface& arena, screen::ScreenBufferInterface& screen
 
 void Piece::drawCurrentPiece()
 {
-    int height = defaultPieceHeight;
-    int width = defaultPieceWidth;
+    int height = TetrominoHeight;
+    int width = TetrominoWidth;
     wchar_t pieceBuffer[height * width];
 
     rotatePiece(pieceBuffer, mCurrentPiece, mCurrentRotation, height, width);
@@ -42,22 +41,22 @@ void Piece::drawCurrentPiece()
 void Piece::drawPreviewPiece()
 {
     const wchar_t* pieceData = getPieceData(mPreviewPiece);
-    mScreenBuffer.drawToBuffer(pieceData, defaultPieceHeight, defaultPieceWidth, 20, 6);
+    mScreenBuffer.drawToBuffer(pieceData, TetrominoHeight, TetrominoWidth, 20, 6);
 }
 
 
 bool Piece::createNewPiece()
 {
     mCurrentPiece = mPreviewPiece;
-    if(!checkPieceFits(arena::defaultStartPositionX, arena::defaultStartPositionY))
+    if(!checkPieceFits(arena::TetrominoStartPositionX, arena::TetrominoStartPositionY))
     {
-        mArenaX = arena::defaultStartPositionX;
-        mArenaY = arena::defaultStartPositionY;
+        mArenaX = arena::TetrominoStartPositionX;
+        mArenaY = arena::TetrominoStartPositionY;
         return false;
     }
 
-    mArenaX = arena::defaultStartPositionX;
-    mArenaY = arena::defaultStartPositionY;
+    mArenaX = arena::TetrominoStartPositionX;
+    mArenaY = arena::TetrominoStartPositionY;
     mPreviewPiece = static_cast<TetrominoType>(rand() % 7);
     return true;
 }
@@ -118,8 +117,8 @@ bool Piece::movePiece(moveDirection direction)
 
 bool Piece::checkPieceFits(int arenaX, int arenaY)
 {
-    int height = defaultPieceHeight;
-    int width = defaultPieceWidth;
+    int height = TetrominoHeight;
+    int width = TetrominoWidth;
 
     wchar_t pieceBuffer[height * width];
     rotatePiece(pieceBuffer, mCurrentPiece, mCurrentRotation, height, width);
@@ -144,8 +143,8 @@ void Piece::rotatePiece(wchar_t* pieceData, TetrominoType piece, Rotation rotati
 
 void Piece::addPieceToArena()
 {
-    int height = defaultPieceHeight;
-    int width = defaultPieceWidth;
+    int height = TetrominoHeight;
+    int width = TetrominoWidth;
 
     wchar_t pieceBuffer[height * width];
     rotatePiece(pieceBuffer, mCurrentPiece, mCurrentRotation, height, width);
@@ -180,99 +179,4 @@ int Piece::rotateIndex(int x, int y, int width, int height, Rotation rotation)
 void Piece::draw()
 {
     drawPreviewPiece();
-}
-
-
-
-//==============================================================================
-// Tetromino
-//==============================================================================
-
-
-Tetromino::Tetromino(TetrominoData& data, piece::TetrominoType type, int posX, int posY) :
-    mData(data),
-    mType(type),
-    mPosX(posX),
-    mPosY(posY)
-{
-}
-
-const wchar_t* Tetromino::Data(piece::TetrominoType type)
-{
-    return mData.mTetrominoData[type].c_str();
-}
-
-piece::TetrominoType Tetromino::Type()
-{
-    return mType;
-}
-
-piece::Rotation Tetromino::Rotation()
-{
-    return mRotation;
-}
-
-int Tetromino::PosX()
-{
-    return mPosX;
-}
-
-int Tetromino::PosY()
-{
-    return mPosY;
-}
-
-void Tetromino::SetType(piece::TetrominoType type)
-{
-    mType = type;
-}
-
-void Tetromino::SetRotation(piece::Rotation rotation)
-{
-    mRotation = rotation;
-}
-
-void Tetromino::SetPosX(int arenaX)
-{
-    mPosX = arenaX;
-}
-
-void Tetromino::SetPosY(int arenaY)
-{
-    mPosY = arenaY;
-}
-
-int Tetromino::rotateIndex(int x, int y, int width, int height, piece::Rotation rotation)
-{
-    int rotatedIndex = 0;
-    switch (rotation)
-    {
-        case (Rotation::r0):
-            return rotatedIndex = (y * width) + x;
-
-        case (Rotation::r90):
-            return rotatedIndex = ((height - 1) * width) + y - (x * width);
-
-        case (Rotation::r180):
-            return rotatedIndex = ( ( height * width ) - 1 ) - ( y * width ) - x;
-
-        case (Rotation::r270):
-            return rotatedIndex = (width - 1) - y + (x * height);
-
-        default:
-            return rotatedIndex = (y * width) + x;
-    }
-}
-
-void Tetromino::rotatePiece(wchar_t* data, piece::TetrominoType type, piece::Rotation rotation, int height, int width)
-{
-    for (int x = 0; x < width; x++)
-    {
-        for (int y = 0; y < height; y++)
-        {
-            int currentIndex = (y * width) + x;
-            int rotatedIndex = rotateIndex(x, y, width, height, rotation);
-            data[currentIndex] = Data(type)[rotatedIndex];
-        }
-    }
 }
