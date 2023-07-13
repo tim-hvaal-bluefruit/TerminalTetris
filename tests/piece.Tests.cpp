@@ -11,6 +11,14 @@ using namespace tetromino;
 class TetrominoTestObject : public Tetromino
 {
 public:
+    // hacky experiment - test protected method
+    friend class TetrominoTests;
+    FRIEND_TEST(TetrominoTests, rotateIndex_returns_the_unrotated_index_if_rotation_is_0);
+    FRIEND_TEST(TetrominoTests, rotateIndex_returns_the_90_rotated_index_if_rotation_set_to_90);
+    FRIEND_TEST(TetrominoTests, rotateIndex_returns_the_180_rotated_index_if_rotation_set_to_180);
+    FRIEND_TEST(TetrominoTests, rotateIndex_returns_the_270_rotated_index_if_rotation_set_to_270);
+    FRIEND_TEST(TetrominoTests, rotateIndex_returns_unrotated_index_in_the_default_case);
+
     TetrominoTestObject(TetrominoType type, int posX, int posY) :
         Tetromino(type, posX, posY)
     {}
@@ -19,6 +27,7 @@ public:
     int& posY = mPosY;
     TetrominoType& type = mType;
     Rotation& rotation = mRotation;
+
 };
 
 
@@ -32,6 +41,7 @@ public:
     const int posX = 4, posY = 0;
     TetrominoType expectedType = t1;
     TetrominoTestObject mTetromino;
+
 
     TetrominoTests() :
         // piece(mockArena, mockScreenBuffer),

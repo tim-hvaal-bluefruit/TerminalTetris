@@ -61,7 +61,6 @@ class Tetromino
 {
 public:
     Tetromino(TetrominoType type, int posX, int posY);
-    int rotateIndex(int x, int y, int width, int height, Rotation rotation);
     void rotatePiece(wchar_t* data, TetrominoType type, Rotation rotation, int height, int width);
 
     // Get
@@ -78,6 +77,7 @@ public:
     void SetPosY(int arenaY);
 
 protected:
+    int rotateIndex(int x, int y, int width, int height, Rotation rotation);
     TetrominoType mType;
     Rotation mRotation = StartRotation;
     int mPosX;
