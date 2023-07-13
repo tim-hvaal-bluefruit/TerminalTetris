@@ -14,8 +14,8 @@ public:
     bool movePiece(moveDirection direction) override;
     void addPieceToArena() override;
     bool createNewPiece() override;
-    void setCurrentRotation(rotation rotation) override;
-    rotation getCurrentRotation() override;
+    void setCurrentRotation(Rotation rotation) override;
+    Rotation getCurrentRotation() override;
 
     bool mMoveLeftCalled = false;
     bool mMoveRightCalled = false;

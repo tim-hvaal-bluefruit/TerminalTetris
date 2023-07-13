@@ -1,6 +1,6 @@
 #pragma once
+// #include "piece.h"
 #include "arenaInterface.h"
-#include "piece.h"
 #include "console.h"
 #include "observerInterface.h"
 #include "screenBuffer.h"
@@ -34,15 +34,14 @@ public:
     void gameOverFlames();
 
 protected:
+    tetromino::Tetromino mCurrentPiece;
     int mArenaHeight;
     int mArenaWidth;
-    wchar_t mArena[maxArenaSize];
-    wchar_t mActiveArena[maxArenaSize];
+    wchar_t mArena[MaxArenaSize];
+    wchar_t mActiveArena[MaxArenaSize];
 
 private:
     screen::ScreenBufferInterface& mScreenBuffer;
     console::ConsoleInterface& mConsole;
-    int mScreenOffsetX;
-    int mScreenOffsetY;
 };
 } // namespace arena

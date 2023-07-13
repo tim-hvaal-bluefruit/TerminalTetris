@@ -1,24 +1,26 @@
 #pragma once
 #include "drawItemInterface.h"
+#include "tetromino.h"
 
 namespace arena
 {
-    constexpr int defaultArenaHeight = 19;
-    constexpr int defaultArenaWidth = 12;
+    static constexpr int ArenaDisplayOffsetX = 5;
+    static constexpr int ArenaDisplayOffsetY = 2;
+    static constexpr int DefaultArenaHeight = 19;
+    static constexpr int DefaultArenaWidth = 12;
+    static constexpr int MaxArenaSize = 25 * 25; //arena given some free memory (embedded approach)
 
-    constexpr int defaultStartPositionX = 4;
-    constexpr int defaultStartPositionY = 0;
+    static constexpr int TetrominoStartPositionX = 4;
+    static constexpr int TetrominoStartPositionY = 0;
+    static constexpr int MaxObjectSize = 17;
+    static constexpr tetromino::TetrominoType DefaultTetromino = tetromino::TetrominoType::t1;
 
-    constexpr int defaultScreenOffsetX = 5;
-    constexpr int defaultScreenOffsetY = 2;
+    static constexpr char BlankChar = ' ';
 
-    constexpr int maxArenaSize = 25 * 25; //arena given some free memory (embedded approach)
-    constexpr int maxObjectSize = 100; // safe amount
-    constexpr char blankChar = ' ';
+    static constexpr int DestroyLineAnimationSpeedMs = 15;
+    static constexpr int StackFallAnimationDelayMs = 130;
+    static constexpr int FlameAnimationSpeedMs = 13;
 
-    constexpr int destroyLineAnimationSpeedMs = 15;
-    constexpr int stackFallAnimationDelayMs = 130;
-    constexpr int flameAnimationSpeedMs = 13;
 
 class ArenaInterface : public screen::DrawItemInterface
 {

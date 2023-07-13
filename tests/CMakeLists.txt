@@ -6,11 +6,11 @@ target_sources(AllTests
     PRIVATE console.Tests.cpp
     PRIVATE screenBuffer.Tests.cpp
     PRIVATE arena.Tests.cpp
-    PRIVATE piece.Tests.cpp
     PRIVATE userInput.Tests.cpp
     PRIVATE game.Tests.cpp
     PRIVATE score.Tests.cpp
     PRIVATE observer.Tests.cpp
+    PRIVATE tetromino.Tests.cpp
 )
 
 target_include_directories(AllTests

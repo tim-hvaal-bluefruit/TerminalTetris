@@ -21,7 +21,7 @@ public:
     void gameOverFlames() override {};
 
     wchar_t* mMockArena;
-    wchar_t mObjectData[maxObjectSize];
+    wchar_t mObjectData[MaxObjectSize];
     int mObjectHeight= 0;
     int mObjectWidth = 0;
     int mArenaX = 0;

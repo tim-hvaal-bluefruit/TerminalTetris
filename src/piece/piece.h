@@ -21,9 +21,9 @@ public:
     bool createNewPiece() override;
     bool movePiece(moveDirection direction) override;
     void addPieceToArena() override;
-    int rotateIndex(int x, int y, int width, int height, rotation rotation);
+    int rotateIndex(int x, int y, int width, int height, Rotation rotation);
     bool checkPieceFits(int arenaX, int arenaY);
-    void rotatePiece(wchar_t* pieceData, TetrominoType piece, rotation rotation, int height, int width);
+    void rotatePiece(wchar_t* pieceData, TetrominoType piece, Rotation rotation, int height, int width);
 
     // Getters and Setters
     void setCurrentPiece(TetrominoType piece) {mCurrentPiece = piece;}
@@ -38,40 +38,18 @@ public:
     void setArenaY(int arenaY) {mArenaY = arenaY;}
     int getArenaY() {return mArenaY;}
 
-    void setCurrentRotation(rotation rotation) override {mCurrentRotation = rotation;}
-    rotation getCurrentRotation() override {return mCurrentRotation;}
+    void setCurrentRotation(Rotation rotation) override {mCurrentRotation = rotation;}
+    Rotation getCurrentRotation() override {return mCurrentRotation;}
 
 private:
-
     arena::ArenaInterface& mArena;
     screen::ScreenBufferInterface& mScreenBuffer;
-    std::wstring mPieces[pieceCount];
+    std::wstring mPieces[typeCount];
     TetrominoType mCurrentPiece;
-    rotation mCurrentRotation = r0;
+    Rotation mCurrentRotation = r0;
     int mArenaX = 0;
     int mArenaY = 0;
 
     TetrominoType mPreviewPiece;
 };
-
-
-// class Tetromino
-// {
-// public:
-//     Tetromino(int )
-
-// private:
-//     static constexpr int tetrominoHeight = 4;
-//     int mArenaX;
-//     int mArenaY;
-//     TetrominoType mType;
-//     rotation mRotation;
-// };
-
-
 } // namespace piece
-
-
-// next - rename pieceIndex to pieceType
-// make tetromino class (to replace piece)
-// 

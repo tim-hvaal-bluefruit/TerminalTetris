@@ -46,12 +46,12 @@ bool MockPiece::createNewPiece()
     return mSpaceForNewPiece;
 }
 
-void MockPiece::setCurrentRotation(rotation rotation)
+void MockPiece::setCurrentRotation(Rotation rotation)
 {
     std::cout << "setCurrentRotation called" << std::endl;
 }
 
-rotation MockPiece::getCurrentRotation()
+Rotation MockPiece::getCurrentRotation()
 {
-    return rotation::r0;
+    return Rotation::r0;
 }

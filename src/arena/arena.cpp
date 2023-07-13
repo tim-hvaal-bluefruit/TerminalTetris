@@ -3,19 +3,16 @@
 
 using namespace arena;
 
-
 Arena::Arena(screen::ScreenBufferInterface& screenBuffer, console::ConsoleInterface& console) :
     mScreenBuffer(screenBuffer),
     mConsole(console),
-    mArenaHeight(defaultArenaHeight),
-    mArenaWidth(defaultArenaWidth),
-    mScreenOffsetX(defaultScreenOffsetX),
-    mScreenOffsetY(defaultScreenOffsetY)
+    mArenaHeight(DefaultArenaHeight),
+    mArenaWidth(DefaultArenaWidth),
+    mCurrentPiece(DefaultTetromino, TetrominoStartPositionX, TetrominoStartPositionY)
 {
     mScreenBuffer.registerDrawItem(this);
 }
 
-// DrawItemInterface
 void Arena::draw()
 {
     drawArena();
@@ -23,14 +20,14 @@ void Arena::draw()
 
 void Arena::drawArena()
 {
-    mScreenBuffer.drawToBuffer(mArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
+    mScreenBuffer.drawToBuffer(mArena, mArenaHeight, mArenaWidth, arena::ArenaDisplayOffsetX, arena::ArenaDisplayOffsetY);
 }
 
 void Arena::drawCurrentPiece(const wchar_t* piece, const int height, const int width, const int arenaX, const int arenaY)
 {
     refreshArena(mActiveArena);
     addToArena(mActiveArena, piece, height, width, arenaX, arenaY);
-    mScreenBuffer.drawVisibleToBuffer(mActiveArena, mArenaHeight, mArenaWidth, mScreenOffsetX, mScreenOffsetY);
+    mScreenBuffer.drawVisibleToBuffer(mActiveArena, mArenaHeight, mArenaWidth, arena::ArenaDisplayOffsetX, arena::ArenaDisplayOffsetY);
 }
 
 wchar_t* Arena::createArena()
@@ -58,7 +55,7 @@ void Arena::refreshArena(wchar_t* arena)
 {
     for(int x = 0; x < mArenaWidth; x++)
     for (int y = 0; y < mArenaHeight; y++)
-        arena[y * mArenaWidth + x] = (x == 0 || x == mArenaWidth - 1 || y == mArenaHeight - 1) ? '#' : blankChar;
+        arena[y * mArenaWidth + x] = (x == 0 || x == mArenaWidth - 1 || y == mArenaHeight - 1) ? '#' : BlankChar;
 
     arena[mArenaHeight * mArenaWidth] = '\0';
 }
@@ -71,7 +68,7 @@ void Arena::addToArena(wchar_t* arena, const wchar_t* obj, int height, int width
         for(ix = 0; ix < width; ix++)
         {
             char c = obj[iy * width + ix];
-            if (c != blankChar)
+            if (c != BlankChar)
                 arena[ ((arenaY + iy) * mArenaWidth) + (arenaX + ix) ] = c;
         }
     }
@@ -84,9 +81,9 @@ bool Arena::checkObjectFits(const wchar_t* obj, int height, int width, int arena
         for (int x = 0; x < width; x++)
         {
             char c = obj[y * width + x];
-            if (c == blankChar)
+            if (c == BlankChar)
                 continue;
-            if (mArena[((arenaY + y) * mArenaWidth) + (arenaX + x)] != blankChar)
+            if (mArena[((arenaY + y) * mArenaWidth) + (arenaX + x)] != BlankChar)
                 return false;
         }
     }
@@ -119,7 +116,7 @@ bool Arena::checkLineComplete(int arenaY)
     for (int x = 0; x < mArenaWidth; x++)
     {
         const int index = (arenaY * mArenaWidth) + x;
-        if (mArena[index] == blankChar)
+        if (mArena[index] == BlankChar)
             return false;
     }
     return true;
@@ -130,13 +127,13 @@ void Arena::destroyLine(int yPos)
     for (int x = 1; x < mArenaWidth - 1; x++) // don't check sides
     {
         mArena[ (yPos * mArenaWidth) + x] = '=';
-        animate(destroyLineAnimationSpeedMs + x); // speeds up
+        animate(DestroyLineAnimationSpeedMs + x); // speeds up
     }
 
     for (int x = 1; x < mArenaWidth - 1; x++)
     {
         mArena[ (yPos * mArenaWidth) + x] = ' ';
-        animate(destroyLineAnimationSpeedMs + x);
+        animate(DestroyLineAnimationSpeedMs + x);
     }
 }
 
@@ -155,9 +152,9 @@ void Arena::moveStackDown(int rowPosY)
 
     // blank top row and avoid sides
     for (int x = mArenaWidth - 2; x > 0; x--)
-        mArena[x] = blankChar;
+        mArena[x] = BlankChar;
 
-    animate(stackFallAnimationDelayMs);
+    animate(StackFallAnimationDelayMs);
 }
 
 void Arena::gameOverFlames()
@@ -172,7 +169,7 @@ void Arena::gameOverFlames()
                 int index = (y * mArenaWidth) + x;
                 mArena[index] = L"Vv"[rand() % 2];
             }
-            animate(flameAnimationSpeedMs);
+            animate(FlameAnimationSpeedMs);
         }
     }
 
@@ -181,8 +178,8 @@ void Arena::gameOverFlames()
         for(int x = 1; x < mArenaWidth - 1; x++)
         {
             int index = (y * mArenaWidth) + x;
-            mArena[index] = blankChar;
+            mArena[index] = BlankChar;
         }
-        animate(flameAnimationSpeedMs - i);
+        animate(FlameAnimationSpeedMs - i);
     }
 }
